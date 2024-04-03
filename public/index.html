@@ -4,8 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Day Chunks - home page </title>
-
-		<!-- update the version number as needed -->
+		<link rel="stylesheet" href="colors.css">
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="main-styling.css">
 		<script defer src="/__/firebase/10.10.0/firebase-app-compat.js"></script>
 		<!-- include only the Firebase features as you need -->
 		<script defer src="/__/firebase/10.10.0/firebase-auth-compat.js"></script>
@@ -22,44 +23,49 @@
 			to avoid connecting the SDK to running emulators.
 		-->
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-		<link rel="stylesheet" href="style.css">
- 
 	</head>
-	<body>
-		<div class="flex-container">
-			<header class="section">
-				<h1>Day Chunks</h1>
-			</header>
-			<main class="section">
-				
-			</main>
-			<footer class="section">
-				<p>
-					<span>Day Chunks is a time management app that aims to section your day into managable chunks.</span><br/>
-					<span>Owner: Mustafa El-rashied</span><br/>
-					<span>Contact: karkarcomp@gmail.com</span><br/>
-					<span>made using firebase, html, css, and javascript</span><br/>
-				</p>
-			</footer>
-		</div>
+	<body class="flex-container">
+		<header class="section" >
+			<div class="menu-container">
+				<h1 style="display: inline;" id="label">Day Chunks</h1>
+				<div id="filler"></div>
+				<button hidden="true" class="sign-button" id="sign-out-button"><b>Sign Out</b></button>
+			</div>
+		</header>
+		<nav hidden="true">
+			<div class="menu-container">
+				<button class="highlighted" >Excute</button>
+				<button >Plan</button>
+				<button >Watch</button>
+			</div>
+		</nav>
+		<main hidden="true" class="section" id="main-signed-in">
+		</main>
+		<main hidden="true" class="section" id="main-signed-out">
+			<div>
+				<h2>are you singed out?</h2>
+				<span>try singing in to start your use of this useful app!</span>
+				<button hidden="true" class="sign-button" id="sign-in-button"><b>Sign In With Google</b></button>
+			</div>
 
+		</main>
+		<footer class="section">
+			<p>
+				<span>Day Chunks is a time management app that aims to section your day into managable chunks.</span><br/>
+				<span>Owner: Mustafa El-rashied</span><br/>
+				<span>Contact: karkarcomp@gmail.com</span><br/>
+				<span>made using firebase, html, css, and javascript</span><br/>
+			</p>
+		</footer>
 		<script>
+			
 			document.addEventListener('DOMContentLoaded', function() {
-				const loadEl = document.querySelector('#load');
-				// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-				// // The Firebase SDK is initialized and available here!
-				//
-				// firebase.auth().onAuthStateChanged(user => { });
-				// firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-				// firebase.firestore().doc('/foo/bar').get().then(() => { });
-				// firebase.functions().httpsCallable('yourFunction')().then(() => { });
-				// firebase.messaging().requestPermission().then(() => { });
-				// firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-				// firebase.analytics(); // call to activate
-				// firebase.analytics().logEvent('tutorial_completed');
-				// firebase.performance(); // call to activate
-				//
-				// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+				
+				function TurnHiddenPropery(elements,value) {
+					elements.forEach(element => {
+						element.hidden = value;
+					});
+				}
 
 				try {
 					let app = firebase.app();
@@ -74,11 +80,36 @@
 						'remoteConfig',
 						'performance',
 					].filter(feature => typeof app[feature] === 'function');
-					loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+
+					const Auth = firebase.auth();
+
+					const SignInButton       = document.getElementById("sign-in-button");
+					const SignOutButton      = document.getElementById("sign-out-button");
+					const nav                = document.getElementsByTagName("nav")[0];
+					const MainSectionSignIn  = document.getElementById("main-signed-in");
+					const MainSectionSignOut = document.getElementById("main-signed-out");
+
+					const Provider = new firebase.auth.GoogleAuthProvider();
+					SignInButton.onclick = () => Auth.signInWithPopup(Provider);
+					SignOutButton.onclick = () => Auth.signOut();
+					
+					const sign_in_releated_elements = [SignOutButton,nav,MainSectionSignIn];
+					const sign_out_releated_elements = [SignInButton,MainSectionSignOut];
+
+					Auth.onAuthStateChanged(user => {
+						if (user) {
+							TurnHiddenPropery(sign_out_releated_elements,true)
+							TurnHiddenPropery(sign_in_releated_elements,false);
+						} else {
+							TurnHiddenPropery(sign_out_releated_elements,false)
+							TurnHiddenPropery(sign_in_releated_elements,true);
+						}
+					});
 				} catch (e) {
 					console.error(e);
 					loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
 				}
+
 			});
 		</script>
 	</body>
