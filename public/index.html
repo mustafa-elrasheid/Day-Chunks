@@ -91,79 +91,99 @@
 			</p>
 		</footer>
 		<script>
-			
 			let unsubscribe;
 
-			document.addEventListener('DOMContentLoaded', function() {
-				
-				function TurnHiddenPropery(elements,value) {
-					elements.forEach(element => {
-						element.hidden = value;
-					});
-				}
+			function NearestWeekEndDay(weekday){
+				const today = new Date();
+				const day_of_week = today.getDay();
+				const daysToAdd = day_of_week === 0 ? 0 : weekday - day_of_week;
+				const nearest_week_end_day = new Date(today);
+				nearest_week_end_day.setDate(today.getDate() + daysToAdd);
+				nearest_week_end_day.setHours(0,0,0,0);
+				return nearest_week_end_day;
+			}
+			function TurnHiddenPropery(elements,value) {
+				elements.forEach(element => {
+					element.hidden = value;
+				});
+			}
 
-				try {
-					// IDK
-					let app = firebase.app();
-					
-					// fetch auth S.Developement Kit from firebase
-					let Auth = firebase.auth();
+			document.addEventListener('DOMContentLoaded',
+				function() {
+					try {
+						// firebase SDK
+						let app = firebase.app();
+						let Auth = firebase.auth();
+						let DataBase = firebase.firestore();
+						let Provider = new firebase.auth.GoogleAuthProvider();
 
-					// grabing elements to add functality to theme
-					let SignInButton       = document.getElementById("sign-in-button");
-					let SignOutButton      = document.getElementById("sign-out-button");
-					let nav                = document.getElementsByTagName("nav")[0];
-					let MainSectionSignIn  = document.getElementById("main-signed-in");
-					let MainSectionSignOut = document.getElementById("main-signed-out");
+						let WeekEndDay = 6;
 
-					// fetch a provider and add functionality to the buttons
-					let Provider = new firebase.auth.GoogleAuthProvider();
-					SignInButton.onclick = () => Auth.signInWithPopup(Provider);
-					SignOutButton.onclick = () => Auth.signOut();
-					
-					// grouping elements which will show what depending on sign out or loged in
-					let sign_in_releated_elements = [SignOutButton,nav,MainSectionSignIn];
-					let sign_out_releated_elements = [SignInButton,MainSectionSignOut];
-					
-					Auth.onAuthStateChanged(user => {
-						if (user) {
-							// handing UI accourding to user sign in
-							TurnHiddenPropery(sign_out_releated_elements,true)
-							TurnHiddenPropery(sign_in_releated_elements,false);
+						// grabing elements to add functality to theme
+						let SignInButton       = document.getElementById("sign-in-button");
+							SignInButton.onclick = () => Auth.signInWithPopup(Provider);
+						let SignOutButton      = document.getElementById("sign-out-button");
+							SignOutButton.onclick = () => Auth.signOut();
+						let nav                = document.getElementsByTagName("nav")[0];
+						let MainSectionSignIn  = document.getElementById("main-signed-in");
+						let MainSectionSignOut = document.getElementById("main-signed-out");
 
-							let DataBase = firebase.firestore();
-							let UsersCollection = DataBase.collection("users");
-							let UserDocument = UsersCollection.doc(user.uid);
-
-							// fetch user's data, if found nothing, it will create a template
-							UserDocument.get().then(
-								(Document)=>{
-									if(!(Document.data())){
-										UsersCollection.doc(user.uid).set({activities:[{title:"Getting Started"}]}).then(()=>{console.log("everything went fine")});
+						let sign_in_releated_elements = [SignOutButton,nav,MainSectionSignIn];
+						let sign_out_releated_elements = [SignInButton,MainSectionSignOut];
+						
+						Auth.onAuthStateChanged(
+							user => {
+								if (!user) {
+									TurnHiddenPropery(sign_out_releated_elements,false)
+									TurnHiddenPropery(sign_in_releated_elements,true);
+									if(unsubscribe){
+										console.log("user unsubsribed");
+										unsubscribe();
 									}
+									return;
 								}
-							);
+								TurnHiddenPropery(sign_out_releated_elements,true)
+								TurnHiddenPropery(sign_in_releated_elements,false);
+								
+								let UserDocumentRefrence = DataBase.collection("users").doc(user.uid);
 
-							unsubscribe = UserDocument.onSnapshot((spanshot) => {
-								// This function will be called whenever the document changes
-								console.log("Document data:", spanshot.data());
-							});
+								// fetch user's data, if found nothing, it will create a template
+								unsubscribe = UserDocumentRefrence.onSnapshot(
+									(_DocumentMetaData)=>{
+										function FetchData (DocumentMetaData) {
+											return new Promise(
+												(resolve)=>{
+													if(DocumentMetaData.exists)
+														return resolve(DocumentMetaData.data());
+													UserDocumentRefrence.set(
+														{
+															week_end_day:NearestWeekEndDay(WeekEndDay),
+															days:{sunday:{}, monday:{}, tuesday:{}, qednesday:{}, thursday:{}, friday:{}, saturday:{}}
+														})
+														.then(()=>{});
+													return resolve(DocumentMetaData.data());
+												}
+											);
+										};
 
-						} else {
-							TurnHiddenPropery(sign_out_releated_elements,false)
-							TurnHiddenPropery(sign_in_releated_elements,true);
-							if(unsubscribe){
-								console.log("user unsubsribed");
-								unsubscribe();
+										FetchData(_DocumentMetaData).then(
+											(Data)=>{
+												if(new Date().setHours(0,0,0,0) > new Date(Data.week_end_day.seconds * 1000).setHours(0,0,0,0)){
+													UserDocumentRefrence.update({week_end_day:NearestWeekEndDay(WeekEndDay)}).then(()=>{});
+													UserDocumentRefrence.update({days:{sunday:{}, monday:{}, tuesday:{}, qednesday:{}, thursday:{}, friday:{}, saturday:{}}}).then(()=>{});
+												}
+											}
+										);
+									}
+								);
 							}
-						}
-					});
-				} catch (e) {
-					console.error(e);
-					loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+						);
+					} catch (e) {
+						console.error(e);
+						loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+					}
 				}
-
-			});
+			);
 		</script>
 	</body>
 </html>
