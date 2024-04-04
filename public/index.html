@@ -4,20 +4,13 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Day Chunks - home page </title>
-		<link rel="stylesheet" href="colors.css">
 		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="main-styling.css">
 		<script defer src="/__/firebase/10.10.0/firebase-app-compat.js"></script>
 		<!-- include only the Firebase features as you need -->
 		<script defer src="/__/firebase/10.10.0/firebase-auth-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-database-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-firestore-compat.js"></script>
-		<script defer src="/__/firebase/10.10.0/firebase-functions-compat.js"></script>
-		<script defer src="/__/firebase/10.10.0/firebase-messaging-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-storage-compat.js"></script>
-		<script defer src="/__/firebase/10.10.0/firebase-analytics-compat.js"></script>
-		<script defer src="/__/firebase/10.10.0/firebase-remote-config-compat.js"></script>
-		<script defer src="/__/firebase/10.10.0/firebase-performance-compat.js"></script>
 		<!-- 
 			initialize the SDK after all desired features are loaded, set useEmulator to false
 			to avoid connecting the SDK to running emulators.
@@ -33,20 +26,60 @@
 			</div>
 		</header>
 		<nav hidden="true">
+			<script>
+				function TurnTabOnOrOff(button_id,tab_id,button_styling_choice_class,is_on){
+					const button = document.getElementById(button_id);
+					const tab = document.getElementById(tab_id);
+					if(is_on){
+						tab.hidden = false;
+						button.setAttribute("class",button_styling_choice_class);
+					}else{
+						tab.hidden = true;
+						button.removeAttribute("class");
+					}
+				}
+				const Tabs = [
+					{button_id:'tab-button-excute',tab_id:'main-excute-section',button_styling_choice_class:'highlighted'},
+					{button_id:'tab-button-plan',tab_id:'main-plan-section',button_styling_choice_class:'highlighted'},
+					{button_id:'tab-button-watch',tab_id:'main-watch-section',button_styling_choice_class:'highlighted'}
+				]
+				function TurnTabsOnOrOff(tabs,are_on,tab_number){
+					for(var x = 0;x < tab_number;x++){
+						const element = tabs[x];
+						TurnTabOnOrOff(element.button_id,element.tab_id,element.button_styling_choice_class,are_on[x])
+					}
+				}
+			</script>
 			<div class="menu-container">
-				<button class="highlighted" >Excute</button>
-				<button >Plan</button>
-				<button >Watch</button>
+				<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,[true,false,false],3);" class="highlighted">
+					Excute
+				</button>
+				<button id="tab-button-plan" onclick="TurnTabsOnOrOff(Tabs,[false,true,false],3);" >
+					Plan
+				</button>
+				<button id="tab-button-watch" onclick="TurnTabsOnOrOff(Tabs,[false,false,true],3);" >
+					Watch
+				</button>
 			</div>
 		</nav>
 		<main hidden="true" class="section" id="main-signed-in">
+			<div id="main-excute-section" >excute</div>
+			<div id="main-plan-section" hidden="true">plan</div>
+			<div id="main-watch-section" hidden="true">watch</div>
 		</main>
 		<main hidden="true" class="section" id="main-signed-out">
-			<div>
-				<h2>are you singed out?</h2>
-				<span>try singing in to start your use of this useful app!</span>
-				<button hidden="true" class="sign-button" id="sign-in-button"><b>Sign In With Google</b></button>
+			<div class="centering-parent">
+				<div id="sing-in-popup">
+					<h2>are you singed out?</h2>
+					<br/>
+					<span>try singing in to start your use of this useful app!</span>
+					<br/>
+					<br/>
+					<button hidden="true" class="sign-button" id="sign-in-button"><b>Sign In With Google</b></button>
+				</div>
+			
 			</div>
+
 
 		</main>
 		<footer class="section">
@@ -59,6 +92,8 @@
 		</footer>
 		<script>
 			
+			let unsubscribe;
+
 			document.addEventListener('DOMContentLoaded', function() {
 				
 				function TurnHiddenPropery(elements,value) {
@@ -68,41 +103,59 @@
 				}
 
 				try {
+					// IDK
 					let app = firebase.app();
-					let features = [
-						'auth', 
-						'database', 
-						'firestore',
-						'functions',
-						'messaging', 
-						'storage', 
-						'analytics', 
-						'remoteConfig',
-						'performance',
-					].filter(feature => typeof app[feature] === 'function');
+					
+					// fetch auth S.Developement Kit from firebase
+					let Auth = firebase.auth();
 
-					const Auth = firebase.auth();
+					// grabing elements to add functality to theme
+					let SignInButton       = document.getElementById("sign-in-button");
+					let SignOutButton      = document.getElementById("sign-out-button");
+					let nav                = document.getElementsByTagName("nav")[0];
+					let MainSectionSignIn  = document.getElementById("main-signed-in");
+					let MainSectionSignOut = document.getElementById("main-signed-out");
 
-					const SignInButton       = document.getElementById("sign-in-button");
-					const SignOutButton      = document.getElementById("sign-out-button");
-					const nav                = document.getElementsByTagName("nav")[0];
-					const MainSectionSignIn  = document.getElementById("main-signed-in");
-					const MainSectionSignOut = document.getElementById("main-signed-out");
-
-					const Provider = new firebase.auth.GoogleAuthProvider();
+					// fetch a provider and add functionality to the buttons
+					let Provider = new firebase.auth.GoogleAuthProvider();
 					SignInButton.onclick = () => Auth.signInWithPopup(Provider);
 					SignOutButton.onclick = () => Auth.signOut();
 					
-					const sign_in_releated_elements = [SignOutButton,nav,MainSectionSignIn];
-					const sign_out_releated_elements = [SignInButton,MainSectionSignOut];
-
+					// grouping elements which will show what depending on sign out or loged in
+					let sign_in_releated_elements = [SignOutButton,nav,MainSectionSignIn];
+					let sign_out_releated_elements = [SignInButton,MainSectionSignOut];
+					
 					Auth.onAuthStateChanged(user => {
 						if (user) {
+							// handing UI accourding to user sign in
 							TurnHiddenPropery(sign_out_releated_elements,true)
 							TurnHiddenPropery(sign_in_releated_elements,false);
+
+							let DataBase = firebase.firestore();
+							let UsersCollection = DataBase.collection("users");
+							let UserDocument = UsersCollection.doc(user.uid);
+
+							// fetch user's data, if found nothing, it will create a template
+							UserDocument.get().then(
+								(Document)=>{
+									if(!(Document.data())){
+										UsersCollection.doc(user.uid).set({activities:[{title:"Getting Started"}]}).then(()=>{console.log("everything went fine")});
+									}
+								}
+							);
+
+							unsubscribe = UserDocument.onSnapshot((spanshot) => {
+								// This function will be called whenever the document changes
+								console.log("Document data:", spanshot.data());
+							});
+
 						} else {
 							TurnHiddenPropery(sign_out_releated_elements,false)
 							TurnHiddenPropery(sign_in_releated_elements,true);
+							if(unsubscribe){
+								console.log("user unsubsribed");
+								unsubscribe();
+							}
 						}
 					});
 				} catch (e) {
