@@ -6,23 +6,17 @@
 		<title> Day Chunks - home page </title>
 		<link rel="stylesheet" href="style.css">
 		<script defer src="/__/firebase/10.10.0/firebase-app-compat.js"></script>
-		<!-- include only the Firebase features as you need -->
 		<script defer src="/__/firebase/10.10.0/firebase-auth-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-database-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-firestore-compat.js"></script>
-		<script defer src="/__/firebase/10.10.0/firebase-storage-compat.js"></script>
-		<!-- 
-			initialize the SDK after all desired features are loaded, set useEmulator to false
-			to avoid connecting the SDK to running emulators.
-		-->
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
 	</head>
 	<body class="flex-container">
 		<header class="section" >
 			<div class="menu-container">
 				<h1 style="display: inline;" id="label">Day Chunks</h1>
-				<div id="filler"></div>
-				<button hidden="true" class="sign-button" id="sign-out-button"><b>Sign Out</b></button>
+				<div class="filler"></div>
+				<button style="flex: 0 0 auto;" hidden="true" class="sign-button" id="sign-out-button"><b>Sign Out</b></button>
 			</div>
 		</header>
 		<nav hidden="true">
@@ -32,7 +26,10 @@
 					const tab = document.getElementById(tab_id);
 					if(is_on){
 						tab.hidden = false;
-						button.setAttribute("class",button_styling_choice_class);
+						button.setAttribute(
+							"class",
+							button_styling_choice_class
+						);
 					}else{
 						tab.hidden = true;
 						button.removeAttribute("class");
@@ -42,28 +39,116 @@
 					{button_id:'tab-button-excute',tab_id:'main-excute-section',button_styling_choice_class:'highlighted'},
 					{button_id:'tab-button-plan',tab_id:'main-plan-section',button_styling_choice_class:'highlighted'},
 					{button_id:'tab-button-watch',tab_id:'main-watch-section',button_styling_choice_class:'highlighted'}
-				]
-				function TurnTabsOnOrOff(tabs,are_on,tab_number){
-					for(var x = 0;x < tab_number;x++){
+				];
+				function TurnTabsOnOrOff(tabs,tab_number){
+					for(var x = 0;x < tabs.length;x++){
 						const element = tabs[x];
-						TurnTabOnOrOff(element.button_id,element.tab_id,element.button_styling_choice_class,are_on[x])
+						TurnTabOnOrOff(element.button_id,element.tab_id,element.button_styling_choice_class,x == tab_number);
 					}
 				}
 			</script>
 			<div class="menu-container">
-				<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,[true,false,false],3);" class="highlighted">
+				<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);" class="highlighted">
 					Excute
 				</button>
-				<button id="tab-button-plan" onclick="TurnTabsOnOrOff(Tabs,[false,true,false],3);" >
+				<button id="tab-button-plan" onclick="TurnTabsOnOrOff(Tabs,1);" >
 					Plan
 				</button>
-				<button id="tab-button-watch" onclick="TurnTabsOnOrOff(Tabs,[false,false,true],3);" >
+				<button id="tab-button-watch" onclick="TurnTabsOnOrOff(Tabs,2);" >
 					Watch
 				</button>
 			</div>
 		</nav>
 		<main hidden="true" class="section" id="main-signed-in">
-			<div id="main-excute-section" >excute</div>
+			<script>
+				let DaysTabs = [
+					{button_id:'sun-tab-button',tab_id:'sun-tab',button_styling_choice_class:'highlighted'},
+					{button_id:'mon-tab-button',tab_id:'mon-tab',button_styling_choice_class:'highlighted'},
+					{button_id:'tue-tab-button',tab_id:'tue-tab',button_styling_choice_class:'highlighted'},
+					{button_id:'wed-tab-button',tab_id:'wed-tab',button_styling_choice_class:'highlighted'},
+					{button_id:'thu-tab-button',tab_id:'thu-tab',button_styling_choice_class:'highlighted'},
+					{button_id:'fri-tab-button',tab_id:'fri-tab',button_styling_choice_class:'highlighted'},
+					{button_id:'sat-tab-button',tab_id:'sat-tab',button_styling_choice_class:'highlighted'}
+				];
+			</script>
+			<div id="main-excute-section">
+				<div class="flex-container">
+					<div class="menu-container week-days-menu">
+						<button id="sun-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,0);" >sun</button>
+						<button id="mon-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,1);" >mon</button>
+						<button id="tue-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,2);" >tue</button>
+						<button id="wed-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,3);" >wed</button>
+						<button id="thu-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,4);" >thu</button>
+						<button id="fri-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,5);" >fri</button>
+						<button id="sat-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,6);" >sat</button>
+					</div>
+					<div>
+						<style>
+						</style>
+						<div class="range-input" style="width: 100%; "> 
+							<input 
+								style="width: 100%; "
+								type="range" 
+								id="min-range" 
+								min="0" 
+								max="100" 
+								value="00" 
+								step="1"> 
+							<input 
+								style="width: 100%; "
+								type="range" 
+								id="max-range" 
+								min="0" 
+								max="100" 
+								value="100" 
+								step="1"> 
+						</div> 
+					</div>
+					<div id="day-tabs-container-parent" class="menu-container" style="height: 100%;  overflow:auto;     scrollbar-gutter: stable; ">
+						<div class="filler" id="day-tabs-container" style="height: 100%;">
+							<div id="sun-tab" class="day-tab"></div>
+							<div id="mon-tab" class="day-tab"></div>
+							<div id="tue-tab" class="day-tab"></div>
+							<div id="wed-tab" class="day-tab"></div>
+							<div id="thu-tab" class="day-tab"></div>
+							<div id="fri-tab" class="day-tab"></div>
+							<div id="sat-tab" class="day-tab"></div>
+						</div>
+						<div id="day-tabs-hours-indecator">
+							<div  class="flex-container" style=" font-size: 0.8em;">
+								<div class="filler">12:00AM</div>
+								<div class="filler">01:00AM</div>
+								<div class="filler">02:00AM</div>
+								<div class="filler">03:00AM</div>
+								<div class="filler">04:00AM</div>
+								<div class="filler">05:00AM</div>
+								<div class="filler">06:00AM</div>
+								<div class="filler">07:00AM</div>
+								<div class="filler">08:00AM</div>
+								<div class="filler">09:00AM</div>
+								<div class="filler">10:00AM</div>
+								<div class="filler">11:00AM</div>
+								<div class="filler">12:00PM</div>
+								<div class="filler">01:00PM</div>
+								<div class="filler">02:00PM</div>
+								<div class="filler">03:00PM</div>
+								<div class="filler">04:00PM</div>
+								<div class="filler">05:00PM</div>
+								<div class="filler">06:00PM</div>
+								<div class="filler">07:00PM</div>
+								<div class="filler">08:00PM</div>
+								<div class="filler">09:00PM</div>
+								<div class="filler">10:00PM</div>
+								<div class="filler">11:00PM</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<script>
+					TurnTabsOnOrOff(DaysTabs,(new Date()).getDay());
+				</script>
+			</div>
 			<div id="main-plan-section" hidden="true">plan</div>
 			<div id="main-watch-section" hidden="true">watch</div>
 		</main>
@@ -90,100 +175,6 @@
 				<span>made using firebase, html, css, and javascript</span><br/>
 			</p>
 		</footer>
-		<script>
-			let unsubscribe;
-
-			function NearestWeekEndDay(weekday){
-				const today = new Date();
-				const day_of_week = today.getDay();
-				const daysToAdd = day_of_week === 0 ? 0 : weekday - day_of_week;
-				const nearest_week_end_day = new Date(today);
-				nearest_week_end_day.setDate(today.getDate() + daysToAdd);
-				nearest_week_end_day.setHours(0,0,0,0);
-				return nearest_week_end_day;
-			}
-			function TurnHiddenPropery(elements,value) {
-				elements.forEach(element => {
-					element.hidden = value;
-				});
-			}
-
-			document.addEventListener('DOMContentLoaded',
-				function() {
-					try {
-						// firebase SDK
-						let app = firebase.app();
-						let Auth = firebase.auth();
-						let DataBase = firebase.firestore();
-						let Provider = new firebase.auth.GoogleAuthProvider();
-
-						let WeekEndDay = 6;
-
-						// grabing elements to add functality to theme
-						let SignInButton       = document.getElementById("sign-in-button");
-							SignInButton.onclick = () => Auth.signInWithPopup(Provider);
-						let SignOutButton      = document.getElementById("sign-out-button");
-							SignOutButton.onclick = () => Auth.signOut();
-						let nav                = document.getElementsByTagName("nav")[0];
-						let MainSectionSignIn  = document.getElementById("main-signed-in");
-						let MainSectionSignOut = document.getElementById("main-signed-out");
-
-						let sign_in_releated_elements = [SignOutButton,nav,MainSectionSignIn];
-						let sign_out_releated_elements = [SignInButton,MainSectionSignOut];
-						
-						Auth.onAuthStateChanged(
-							user => {
-								if (!user) {
-									TurnHiddenPropery(sign_out_releated_elements,false)
-									TurnHiddenPropery(sign_in_releated_elements,true);
-									if(unsubscribe){
-										console.log("user unsubsribed");
-										unsubscribe();
-									}
-									return;
-								}
-								TurnHiddenPropery(sign_out_releated_elements,true)
-								TurnHiddenPropery(sign_in_releated_elements,false);
-								
-								let UserDocumentRefrence = DataBase.collection("users").doc(user.uid);
-
-								// fetch user's data, if found nothing, it will create a template
-								unsubscribe = UserDocumentRefrence.onSnapshot(
-									(_DocumentMetaData)=>{
-										function FetchData (DocumentMetaData) {
-											return new Promise(
-												(resolve)=>{
-													if(DocumentMetaData.exists)
-														return resolve(DocumentMetaData.data());
-													UserDocumentRefrence.set(
-														{
-															week_end_day:NearestWeekEndDay(WeekEndDay),
-															days:{sunday:{}, monday:{}, tuesday:{}, qednesday:{}, thursday:{}, friday:{}, saturday:{}}
-														})
-														.then(()=>{});
-													return resolve(DocumentMetaData.data());
-												}
-											);
-										};
-
-										FetchData(_DocumentMetaData).then(
-											(Data)=>{
-												if(new Date().setHours(0,0,0,0) > new Date(Data.week_end_day.seconds * 1000).setHours(0,0,0,0)){
-													UserDocumentRefrence.update({week_end_day:NearestWeekEndDay(WeekEndDay)}).then(()=>{});
-													UserDocumentRefrence.update({days:{sunday:{}, monday:{}, tuesday:{}, qednesday:{}, thursday:{}, friday:{}, saturday:{}}}).then(()=>{});
-												}
-											}
-										);
-									}
-								);
-							}
-						);
-					} catch (e) {
-						console.error(e);
-						loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-					}
-				}
-			);
-		</script>
+		<script src="app.js"  defer></script>
 	</body>
 </html>
