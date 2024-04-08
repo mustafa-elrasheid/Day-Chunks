@@ -1,36 +1,12 @@
 
-
 let unsubscribe;
 
 console.log("app.js was loaded succesfully");
 
-function NearestWeekEndDay(date,weekend_day){
-	for(;date.getDay() != weekend_day;date.setDate(date.getDate()+1)){
 
-	}
-	return date;
-}
 
-function TurnHiddenPropery(elements,value) {
-	elements.forEach(element => {
-		element.hidden = value;
-	});
-}
 
-let DefualtActivities = {
-	sun:{activities:{}},
-	mon:{activities:{}},
-	tue:{activities:{}},
-	wed:{activities:{}},
-	thu:{activities:{}},
-	fri:{activities:{}},
-	sat:{activities:{}}
-};
 
-function formatTime(hours_and_minutes) {
-	const [hours, minutes] = hours_and_minutes.split(':').map(Number);
-	return (hours * 60) + minutes;
-}
 
 function Initialize(){
 
@@ -57,34 +33,62 @@ function Initialize(){
 		SignInButton.onclick  = () => Auth.signInWithRedirect(Provider);
 	let SignOutButton         = document.getElementById("sign-out-button");
 		SignOutButton.onclick = () => Auth.signOut();
-	let nav                   = document.getElementsByTagName("nav")[0];
+	let nav                   = document.getElementById("main-nav-bar");
 	let MainSectionSignIn     = document.getElementById("main-signed-in");
 	let MainSectionSignOut    = document.getElementById("main-signed-out");
+	let MainLoading           = document.getElementById("main-loading");
 
 	let sign_in_releated_elements = [SignOutButton,nav,MainSectionSignIn];
-	let sign_out_releated_elements = [SignInButton,MainSectionSignOut];
+	let sign_out_releated_elements = [MainSectionSignOut];
+	let loading_related_elements = [MainLoading];
 
 	window.addEventListener('beforeunload', () => {if(unsubscribe) unsubscribe();});
 	Auth.onAuthStateChanged(
 		user => {
+
+			function TurnHiddenPropery(elements,value) {
+				elements.forEach(element => {
+					element.hidden = value;
+				});
+			}
+
 			if (!user) {
-				TurnHiddenPropery(sign_out_releated_elements,false)
+				TurnHiddenPropery(sign_out_releated_elements,false);
 				TurnHiddenPropery(sign_in_releated_elements,true);
+				TurnHiddenPropery(loading_related_elements,true);
 				if (unsubscribe) unsubscribe();
 				return;
 			}
+
+			function NearestWeekEndDay(date,weekend_day){
+				for(;date.getDay() != weekend_day;date.setDate(date.getDate()+1));
+				return date;
+			}
 		
-			TurnHiddenPropery(sign_out_releated_elements,true)
+			TurnHiddenPropery(sign_out_releated_elements,true);
 			TurnHiddenPropery(sign_in_releated_elements,false);
+			TurnHiddenPropery(loading_related_elements,true);
 
 			let UserDocumentRefrence = DataBase.collection("users").doc(user.uid);
 
 			// fetch user's data, if found nothing, it will create a template
 			unsubscribe = UserDocumentRefrence.onSnapshot(
 				(_DocumentMetaData)=>{
+
+					let DefualtActivities = {
+						sun:{activities:{}},
+						mon:{activities:{}},
+						tue:{activities:{}},
+						wed:{activities:{}},
+						thu:{activities:{}},
+						fri:{activities:{}},
+						sat:{activities:{}}
+					};
+
 					function FetchData (DocumentMetaData) {
 						return new Promise(
 							(resolve)=>{
+								
 								/*{
 									"group": "Work",
 									"done": true,
@@ -120,8 +124,31 @@ function Initialize(){
 									}
 								}
 								});//*/
+								/*
+								UserDocumentRefrence.update({routine_activities:{
+									id_R0:{
+										days:{sun:true,mon:true,tue:true,wed:true,thu:true,fri:true,sat:true},
+										activity:{
+											group: "Sleep",
+											done: false,
+											description: "Take Rest",
+											name: "Sleep morning",
+											time: "00:00",
+											duration_minutes: 60*5,
+											background_color: "#ffcc00",
+											priority: "low"
+										}
+									}
+								}});//*/
+
 								if(DocumentMetaData.exists) return resolve(DocumentMetaData.data());
-								UserDocumentRefrence.set({week_end_day:NearestWeekEndDay(new Date(),WeekEndDay),days:DefualtActivities});
+								UserDocumentRefrence.set(
+									{
+										week_end_day:NearestWeekEndDay(new Date(),WeekEndDay),
+										days:DefualtActivities,
+										routine_activities:{}
+									}
+								);
 
 								return resolve(DocumentMetaData.data());
 							}
@@ -141,13 +168,17 @@ function Initialize(){
 									document.getElementById(`${day_key}-tab`).innerHTML = "";
 									Object.keys(DayData.activities).forEach(
 										(activity_key) => {
+											function FormatTimeToMinutes(hours_and_minutes) {
+												const [hours, minutes] = hours_and_minutes.split(':').map(Number);
+												return (hours * 60) + minutes;
+											}
 											let DayTab = document.getElementById(`${day_key}-tab`);
 											let activity = DayData.activities[activity_key];
 											{
 												let ActivityElement = document.createElement("div");
 												ActivityElement.setAttribute("class","activity");
 												ActivityElement.setAttribute("id",`days-${day_key}-activities-${activity_key}`);
-												ActivityElement.style.top = (formatTime(activity.time)/1440)*100+"%";
+												ActivityElement.style.top = (FormatTimeToMinutes(activity.time)/1440)*100+"%";
 												ActivityElement.style.height = (activity.duration_minutes/1440)*100+"%";
 												if(activity.done){
 													ActivityElement.style.color = "var(--dark-sliver-color)"
@@ -155,7 +186,7 @@ function Initialize(){
 												}
 												{
 													let ActivityElementTitleMenu = document.createElement("div");
-													ActivityElementTitleMenu.setAttribute("class","menu-container");
+													ActivityElementTitleMenu.setAttribute("class","horizontal-flex-container");
 
 													{
 														let InfoSpan = document.createElement("span");
@@ -210,6 +241,42 @@ function Initialize(){
 									);
 								}
 							);
+							Object.keys(Data.routine_activities).forEach(
+								(routine_activity_key/* also the id */) => {
+									let routine_activity = Data.routine_activities[routine_activity_key];
+									Object.keys(Data.days).forEach(
+										(day_key) => {
+											let DayData = Data.days[day_key]; /* list of activities */
+											if(routine_activity.days[day_key] === true){
+												let IsFound = false;
+												Object.keys(DayData.activities).forEach(
+													(checked_activity_key) => {
+														if(DayData.activities[checked_activity_key]){
+															IsFound = true;
+														}
+													}
+												);
+												if(!IsFound){
+													let property = `days.${day_key}.activities.${routine_activity_key}`;
+													let UpdatedData = {};
+													UpdatedData[property] = routine_activity.activity;
+													UserDocumentRefrence.update(UpdatedData);
+												}
+											}
+										}
+									);
+									let RoutineActivitiesEditor = document.getElementById("routine-activities-editor");
+									RoutineActivitiesEditor.innerHTML = "";
+
+									let RoutineActivityEditor = document.createElement("div");
+									RoutineActivityEditor.setAttribute("class","routine-activity-editor");
+									RoutineActivityEditor.innerHTML = `
+										${routine_activity}
+									`;
+									RoutineActivitiesEditor.appendChild(RoutineActivityEditor);
+									console.log("hi");
+								}
+							)
 						}
 					);
 				}
@@ -235,19 +302,22 @@ function Initialize(){
 		"input",
 		HandleRangeScroll
 	);
-
-
+	
 	MaxRangeElement.addEventListener(
 		"input",
 		HandleRangeScroll
 	);
 
-
-	let DayTabContainer = document.getElementById("day-tabs-container");
+	let DayTabContainer = document.getElementById("day-tabs-container-parent");
 	DayTabContainer.addEventListener(
 		"scroll",
-		()=>{
-			alert(1);
+		() => {
+			let DayTabsParent = document.getElementById("day-tabs-container-parent");
+			let DayTabs = document.getElementById("day-tabs-container");
+			let RangeDifference =  MinRangeElement.value ;
+			MinRangeElement.value = (DayTabsParent.scrollTop / DayTabs.clientHeight) * 100;
+			RangeDifference -= MinRangeElement.value;
+			MaxRangeElement.value -= RangeDifference;
 		}
 	);
 

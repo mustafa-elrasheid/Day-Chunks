@@ -1,0 +1,241 @@
+
+:root {
+    --light-gray-color: #303030;
+    --dark-gray-color: #1d1d1d;
+    --dark-sliver-color: #7d7d7d;
+    --dark-sky-color:#0074e0;
+    --light-sky-color:#2595ff;
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    color: white;
+}
+
+
+
+html, body{
+
+    height: 100%;
+    background-color: var(--light-gray-color);
+	color:white;
+
+    .vertical-flex-container{
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+    }
+
+	.horizontal-flex-container{
+        display: flex;
+        flex-wrap: wrap;
+        flex-flow: row;
+
+		button{
+			flex: 1 1 auto;
+			text-align: center;
+			padding: 0.5em;
+		}
+    }
+    
+	.filler{
+        display: inline;
+        flex: 1 1 auto;
+    }
+
+	.blue-button{
+        background-color: #303030;
+        color: var(--dark-sky-color);
+        border:var(--dark-sky-color) solid 0.2em;
+        border-radius: 3em;
+        padding: 1em;
+    }
+    
+    .blue-button:hover{
+        background-color: var(--light-sky-color);
+        color: var(--dark-gray-color);
+        border-color: var(--light-sky-color);
+    } 
+    
+    .centering-parent{
+        display: flex;
+		justify-content: center;
+		align-items: center;
+    }
+
+    header{
+
+		padding:1em;
+        flex: 0 1 auto;
+        background-color: var(--light-gray-color);
+
+		h1{
+			display: inline;
+			flex: 0 1 auto;
+		}
+    }
+    
+	nav{
+        flex: 0 1 auto;
+        background-color: var(--light-gray-color);
+
+		.highlighted{
+			background-color: var(--dark-gray-color);
+			border-top: var(--dark-sliver-color) 0.2em solid;
+		}
+    }
+
+    main{
+		padding:1em;
+        flex: 1 1 auto;
+        background-color: var(--dark-gray-color);
+        overflow: auto;
+		scrollbar-gutter: stable;
+		#main-excute-section{
+			height: 100%;
+
+			.week-days-menu{
+
+				button{
+					margin: 0.2em;
+					border-radius: 0.5em;
+					background-color: var(--light-gray-color);
+					overflow: hidden;
+					text-overflow:clip;
+					white-space: nowrap;
+				}
+
+				.highlighted{
+					background-color: var(--dark-sliver-color);
+				}
+			}
+
+			.activity{
+				border: 0.2em white solid;
+				margin: 0.2em;
+				border-radius: 0.5em;
+				position: absolute;
+				left: 0%;
+				right: 0%;
+				overflow: hidden;
+		
+				*{
+					margin: 0.2em;
+				}
+		
+				button{
+					flex: 0 1 auto;
+					padding: 0em;
+					padding-left: 1em;
+					padding-right: 1em;
+					border-radius: 0.5em;
+					background-color: var(--light-gray-color);
+				}
+			}
+		
+			.day-tab{
+				position: relative;
+				width:100%;
+				height: 100%;
+			}
+
+			#day-tabs-container-parent{
+				height: 100%;
+				overflow: auto;
+				scrollbar-gutter: stable; 
+			}
+		}
+
+		#main-plan-section{
+			#planning-options-menu{
+				button{
+					margin: 0.2em;
+					border-radius: 0.5em;
+					background-color: var(--light-gray-color);
+					overflow: hidden;
+					text-overflow:clip;
+					white-space: nowrap;
+				}
+
+				.highlighted{
+					background-color: var(--dark-sliver-color);
+				}
+			}
+			#routine-activities-tab{
+				overflow: auto;
+				scrollbar-gutter: stable;
+
+				.routine-activity-editor{
+
+					background-color: var(--light-gray-color);
+					border-radius: 0.5em;
+					margin: 0.2em;
+					padding: 1em;
+
+					.feild{
+
+						padding: 0.2em;
+						min-height: 2em;
+
+						button{
+							margin: 0.2em;
+							border-radius: 0.5em;
+							background-color: var(--light-gray-color);
+							overflow: hidden;
+							text-overflow:clip;
+							white-space: nowrap;
+						}
+	
+						input[type="text"], select,input[type="number"]{
+							margin: 0.2em;
+							border-radius: 0.5em;
+							padding: 0.5em;
+							color:inherit;
+							appearance: none;
+							border: var(--dark-sliver-color) 0.2em solid;
+							background-color: var(--light-gray-color);
+							overflow: hidden;
+							text-overflow:clip;
+							white-space: nowrap;
+						}
+						input[type="checkbox"]{
+							margin-left: 0.25em;
+							margin-right: 0.25em;
+						}
+						label{
+							text-align: center;
+						}
+					}
+
+				}
+			}
+		}
+
+		#sing-in-popup{
+			background-color: var(--light-gray-color);
+			padding: 1em;
+			border-radius: 1em;
+		}
+    }
+    
+    footer{
+		padding:1em;
+        font-size: 0.8em;
+        flex: 0 1 auto;
+        background-color:var(--light-gray-color);
+        text-align: center;
+        color: var(--dark-sliver-color);
+    }
+
+}

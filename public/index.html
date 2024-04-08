@@ -10,44 +10,29 @@
 		<script defer src="/__/firebase/10.10.0/firebase-database-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-firestore-compat.js"></script>
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+		<script src="app.js" defer></script>
+		<script src="tabs.js"></script>
 	</head>
-	<body class="flex-container">
-		<header class="section" >
-			<div class="menu-container">
-				<h1 style="display: inline;" id="label">Day Chunks</h1>
+	<body class="vertical-flex-container">
+		<header>
+			<div class="horizontal-flex-container">
+				<h1>Day Chunks</h1>
 				<div class="filler"></div>
-				<button style="flex: 0 0 auto;" hidden="true" class="sign-button" id="sign-out-button"><b>Sign Out</b></button>
+				<button hidden="true" class="blue-button" id="sign-out-button">
+					<b>Sign Out</b>
+				</button>
 			</div>
 		</header>
-		<nav hidden="true">
+		<nav  id="main-nav-bar" hidden="true">
 			<script>
-				function TurnTabOnOrOff(button_id,tab_id,button_styling_choice_class,is_on){
-					const button = document.getElementById(button_id);
-					const tab = document.getElementById(tab_id);
-					if(is_on){
-						tab.hidden = false;
-						button.setAttribute(
-							"class",
-							button_styling_choice_class
-						);
-					}else{
-						tab.hidden = true;
-						button.removeAttribute("class");
-					}
-				}
 				const Tabs = [
 					{button_id:'tab-button-excute',tab_id:'main-excute-section',button_styling_choice_class:'highlighted'},
 					{button_id:'tab-button-plan',tab_id:'main-plan-section',button_styling_choice_class:'highlighted'},
 					{button_id:'tab-button-watch',tab_id:'main-watch-section',button_styling_choice_class:'highlighted'}
 				];
-				function TurnTabsOnOrOff(tabs,tab_number){
-					for(var x = 0;x < tabs.length;x++){
-						const element = tabs[x];
-						TurnTabOnOrOff(element.button_id,element.tab_id,element.button_styling_choice_class,x == tab_number);
-					}
-				}
 			</script>
-			<div class="menu-container">
+			<div class="horizontal-flex-container">
 				<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);" class="highlighted">
 					Excute
 				</button>
@@ -59,21 +44,21 @@
 				</button>
 			</div>
 		</nav>
-		<main hidden="true" class="section" id="main-signed-in">
-			<script>
-				let DaysTabs = [
-					{button_id:'sun-tab-button',tab_id:'sun-tab',button_styling_choice_class:'highlighted'},
-					{button_id:'mon-tab-button',tab_id:'mon-tab',button_styling_choice_class:'highlighted'},
-					{button_id:'tue-tab-button',tab_id:'tue-tab',button_styling_choice_class:'highlighted'},
-					{button_id:'wed-tab-button',tab_id:'wed-tab',button_styling_choice_class:'highlighted'},
-					{button_id:'thu-tab-button',tab_id:'thu-tab',button_styling_choice_class:'highlighted'},
-					{button_id:'fri-tab-button',tab_id:'fri-tab',button_styling_choice_class:'highlighted'},
-					{button_id:'sat-tab-button',tab_id:'sat-tab',button_styling_choice_class:'highlighted'}
-				];
-			</script>
+		<main id="main-signed-in" hidden="true" >
 			<div id="main-excute-section">
-				<div class="flex-container">
-					<div class="menu-container week-days-menu">
+				<script>
+					let DaysTabs = [
+						{button_id:'sun-tab-button',tab_id:'sun-tab',button_styling_choice_class:'highlighted'},
+						{button_id:'mon-tab-button',tab_id:'mon-tab',button_styling_choice_class:'highlighted'},
+						{button_id:'tue-tab-button',tab_id:'tue-tab',button_styling_choice_class:'highlighted'},
+						{button_id:'wed-tab-button',tab_id:'wed-tab',button_styling_choice_class:'highlighted'},
+						{button_id:'thu-tab-button',tab_id:'thu-tab',button_styling_choice_class:'highlighted'},
+						{button_id:'fri-tab-button',tab_id:'fri-tab',button_styling_choice_class:'highlighted'},
+						{button_id:'sat-tab-button',tab_id:'sat-tab',button_styling_choice_class:'highlighted'}
+					];
+				</script>
+				<div class="vertical-flex-container">
+					<div class="horizontal-flex-container week-days-menu">
 						<button id="sun-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,0);" >sun</button>
 						<button id="mon-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,1);" >mon</button>
 						<button id="tue-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,2);" >tue</button>
@@ -82,29 +67,23 @@
 						<button id="fri-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,5);" >fri</button>
 						<button id="sat-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,6);" >sat</button>
 					</div>
-					<div>
-						<style>
-						</style>
-						<div class="range-input" style="width: 100%; "> 
-							<input 
-								style="width: 100%; "
-								type="range" 
-								id="min-range" 
-								min="0" 
-								max="100" 
-								value="00" 
-								step="1"> 
-							<input 
-								style="width: 100%; "
-								type="range" 
-								id="max-range" 
-								min="0" 
-								max="100" 
-								value="100" 
-								step="1"> 
-						</div> 
-					</div>
-					<div id="day-tabs-container-parent" class="menu-container" style="height: 100%;  overflow:auto;     scrollbar-gutter: stable; ">
+					<input 
+						style="width: 100%; "
+						type="range" 
+						id="min-range" 
+						min="0" 
+						max="100" 
+						value="00" 
+						step="4.166666666"> 
+					<input 
+						style="width: 100%; "
+						type="range" 
+						id="max-range" 
+						min="0" 
+						max="100" 
+						value="100" 
+						step="4.166666666">
+					<div id="day-tabs-container-parent" class="horizontal-flex-container">
 						<div class="filler" id="day-tabs-container" style="height: 100%;">
 							<div id="sun-tab" class="day-tab"></div>
 							<div id="mon-tab" class="day-tab"></div>
@@ -115,7 +94,7 @@
 							<div id="sat-tab" class="day-tab"></div>
 						</div>
 						<div id="day-tabs-hours-indecator">
-							<div  class="flex-container" style=" font-size: 0.8em;">
+							<div  class="vertical-flex-container" style=" font-size: 0.8em;">
 								<div class="filler">12:00AM</div>
 								<div class="filler">01:00AM</div>
 								<div class="filler">02:00AM</div>
@@ -142,17 +121,110 @@
 								<div class="filler">11:00PM</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 				<script>
 					TurnTabsOnOrOff(DaysTabs,(new Date()).getDay());
 				</script>
 			</div>
-			<div id="main-plan-section" hidden="true">plan</div>
-			<div id="main-watch-section" hidden="true">watch</div>
+			<div id="main-plan-section" hidden="true">
+				<script>
+					let PlanningOptionsTabs = [
+						{button_id:'routine-activities-tab-button',tab_id:'routine-activities-tab',button_styling_choice_class:'highlighted'},
+						{button_id:'event-activities-tab-button',tab_id:'event-activities-tab',button_styling_choice_class:'highlighted'},
+					];
+				</script>
+				<div class="horizontal-flex-container" id="planning-options-menu">
+					<button id="routine-activities-tab-button" onclick="TurnTabsOnOrOff(PlanningOptionsTabs,0);" >
+						routine activities
+					</button>
+					<button id="event-activities-tab-button" onclick="TurnTabsOnOrOff(PlanningOptionsTabs,1);" >
+						events activities
+					</button>
+				</div>
+				<div>
+					<div id="routine-activities-tab">
+						<div id="routine-activities-editor"></div>
+						<div id="add-routine-activity" class="routine-activity-editor">
+							
+							<div class="feild">
+								<h2>Add Routine:</h2>
+								<span>here you can add new routine activites and they will be added to your tasks automaticly!</span>
+
+							</div>
+							<div class="feild">
+								<label for="sun">Sun</label>
+								<input type="checkbox" name="days[sun]" id="sun" checked>
+								<label for="mon">Mon</label>
+								<input type="checkbox" name="days[mon]" id="mon" checked>
+								<label for="tue">Tue</label>
+								<input type="checkbox" name="days[tue]" id="tue" checked>
+								<label for="wed">Wed</label>
+								<input type="checkbox" name="days[wed]" id="wed" checked>
+								<label for="thu">Thu</label>
+								<input type="checkbox" name="days[thu]" id="thu" checked>
+								<label for="fri">Fri</label>
+								<input type="checkbox" name="days[fri]" id="fri" checked>
+								<label for="sat">Sat</label>
+								<input type="checkbox" name="days[sat]" id="sat" checked>
+							</div>
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-group">Group</label>
+								<input class="filler" type="text" name="activity[group]" id="add-routine-activity-group" value="Sleep">
+							</div>
+							
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-done">Done</label>
+								<input type="checkbox" name="activity[done]" id="add-routine-activity-done" value="true">
+								<div class="filler" ></div>
+							</div>
+							
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-description">Description</label>
+								<input class="filler" type="text" name="activity[description]" id="add-routine-activity-description" value="Take Rest">
+							</div>
+							
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-name">Name</label>
+								<input class="filler" type="text" name="activity[name]" id="add-routine-activity-name" value="Sleep morning">
+							</div>
+							
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-time">Time</label>
+								<input class="filler" type="text" name="activity[time]" id="add-routine-activity-time" value="00:00">
+							</div>
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-duration">Duration (minutes)</label>
+								<input class="filler" type="number" name="activity[duration_minutes]" id="add-routine-activity-duration" value="300">
+							</div>
+							
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-background-color">Background Color</label>
+								<input class="filler" type="color" name="activity[background_color]" id="add-routine-activity-background-color" value="#ffcc00">
+							</div>
+
+							<div class="feild horizontal-flex-container">
+								<label class="centering-parent" for="activity-priority">Priority</label>
+								<select name="activity[priority]" id="activity-priority">
+									<option value="low" selected>Low</option>
+									<option value="medium">Medium</option>
+									<option value="high">High</option>
+								</select>
+							</div>
+
+						</div>
+					</div>
+					<div id="event-activities-tab" >
+
+					</div>
+				</div>
+				<script>TurnTabsOnOrOff(PlanningOptionsTabs,0);</script>
+			</div>
+			<div id="main-watch-section" hidden="true">
+				watch
+			</div>
 		</main>
-		<main hidden="true" class="section" id="main-signed-out">
+		<main id="main-signed-out" hidden="true" >
 			<div class="centering-parent">
 				<div id="sing-in-popup">
 					<h2>are you singed out?</h2>
@@ -160,14 +232,16 @@
 					<span>try singing in to start your use of this useful app!</span>
 					<br/>
 					<br/>
-					<button hidden="true" class="sign-button" id="sign-in-button"><b>Sign In With Google</b></button>
+					<button class="blue-button" id="sign-in-button">
+						<b>Sign In With Google</b>
+					</button>
 				</div>
-			
 			</div>
-
-
 		</main>
-		<footer class="section">
+		<main id="main-loading">
+			please wait for your app to load.
+		</main>
+		<footer>
 			<p>
 				<span>Day Chunks is a time management app that aims to section your day into managable chunks.</span><br/>
 				<span>Owner: Mustafa El-rashied</span><br/>
@@ -175,6 +249,5 @@
 				<span>made using firebase, html, css, and javascript</span><br/>
 			</p>
 		</footer>
-		<script src="app.js"  defer></script>
 	</body>
 </html>

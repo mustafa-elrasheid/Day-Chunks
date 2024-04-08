@@ -1,171 +1,200 @@
-
 :root {
-    --light-gray-color: #303030;
-    --dark-gray-color: #1d1d1d;
-    --dark-sliver-color: #7d7d7d;
-    --dark-sky-color:#0074e0;
-    --light-sky-color:#2595ff;
+  --light-gray-color: #303030;
+  --dark-gray-color: #1d1d1d;
+  --dark-sliver-color: #7d7d7d;
+  --dark-sky-color:#0074e0;
+  --light-sky-color:#2595ff;
 }
 
-*{
-    padding: 0px;
-    margin: 0px;
-    font-family: Arial, Helvetica, sans-serif;
+* {
+  padding: 0px;
+  margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    cursor: pointer;
-    color: white;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  color: white;
 }
 
-
-
-html, body{
-    height: 100%;
-    background-color: var(--light-gray-color);
+html, body {
+  height: 100%;
+  background-color: var(--light-gray-color);
+  color: white;
+}
+html .vertical-flex-container, body .vertical-flex-container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+html .horizontal-flex-container, body .horizontal-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+}
+html .horizontal-flex-container button, body .horizontal-flex-container button {
+  flex: 1 1 auto;
+  text-align: center;
+  padding: 0.5em;
+}
+html .filler, body .filler {
+  display: inline;
+  flex: 1 1 auto;
+}
+html .blue-button, body .blue-button {
+  background-color: #303030;
+  color: var(--dark-sky-color);
+  border: var(--dark-sky-color) solid 0.2em;
+  border-radius: 3em;
+  padding: 1em;
+}
+html .blue-button:hover, body .blue-button:hover {
+  background-color: var(--light-sky-color);
+  color: var(--dark-gray-color);
+  border-color: var(--light-sky-color);
+}
+html .centering-parent, body .centering-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+html header, body header {
+  padding: 1em;
+  flex: 0 1 auto;
+  background-color: var(--light-gray-color);
+}
+html header h1, body header h1 {
+  display: inline;
+  flex: 0 1 auto;
+}
+html nav, body nav {
+  flex: 0 1 auto;
+  background-color: var(--light-gray-color);
+}
+html nav .highlighted, body nav .highlighted {
+  background-color: var(--dark-gray-color);
+  border-top: var(--dark-sliver-color) 0.2em solid;
+}
+html main, body main {
+  padding: 1em;
+  flex: 1 1 auto;
+  background-color: var(--dark-gray-color);
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+html main #main-excute-section, body main #main-excute-section {
+  height: 100%;
+}
+html main #main-excute-section .week-days-menu button, body main #main-excute-section .week-days-menu button {
+  margin: 0.2em;
+  border-radius: 0.5em;
+  background-color: var(--light-gray-color);
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+html main #main-excute-section .week-days-menu .highlighted, body main #main-excute-section .week-days-menu .highlighted {
+  background-color: var(--dark-sliver-color);
+}
+html main #main-excute-section .activity, body main #main-excute-section .activity {
+  border: 0.2em white solid;
+  margin: 0.2em;
+  border-radius: 0.5em;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  overflow: hidden;
+}
+html main #main-excute-section .activity *, body main #main-excute-section .activity * {
+  margin: 0.2em;
+}
+html main #main-excute-section .activity button, body main #main-excute-section .activity button {
+  flex: 0 1 auto;
+  padding: 0em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 0.5em;
+  background-color: var(--light-gray-color);
+}
+html main #main-excute-section .day-tab, body main #main-excute-section .day-tab {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+html main #main-excute-section #day-tabs-container-parent, body main #main-excute-section #day-tabs-container-parent {
+  height: 100%;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+html main #main-plan-section #planning-options-menu button, body main #main-plan-section #planning-options-menu button {
+  margin: 0.2em;
+  border-radius: 0.5em;
+  background-color: var(--light-gray-color);
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+html main #main-plan-section #planning-options-menu .highlighted, body main #main-plan-section #planning-options-menu .highlighted {
+  background-color: var(--dark-sliver-color);
+}
+html main #main-plan-section #routine-activities-tab, body main #main-plan-section #routine-activities-tab {
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor, body main #main-plan-section #routine-activities-tab .routine-activity-editor {
+  background-color: var(--light-gray-color);
+  border-radius: 0.5em;
+  margin: 0.2em;
+  padding: 1em;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild {
+  padding: 0.2em;
+  min-height: 2em;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild button, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild button {
+  margin: 0.2em;
+  border-radius: 0.5em;
+  background-color: var(--light-gray-color);
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number] {
+  margin: 0.2em;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  color: inherit;
+  appearance: none;
+  border: var(--dark-sliver-color) 0.2em solid;
+  background-color: var(--light-gray-color);
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=checkbox], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=checkbox] {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild label, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild label {
+  text-align: center;
+}
+html main #sing-in-popup, body main #sing-in-popup {
+  background-color: var(--light-gray-color);
+  padding: 1em;
+  border-radius: 1em;
+}
+html footer, body footer {
+  padding: 1em;
+  font-size: 0.8em;
+  flex: 0 1 auto;
+  background-color: var(--light-gray-color);
+  text-align: center;
+  color: var(--dark-sliver-color);
 }
 
-/* main Dividing */
-
-.section{
-    padding:1em;
-}
-
-.flex-container{
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-}
-
-
-header{
-    color:white;
-    flex: 0 1 auto;
-    background-color: var(--light-gray-color);
-}
-
-main{
-    color:white;
-    flex: 1 1 auto;
-    background-color: var(--dark-gray-color);
-    overflow: hidden;
-}
-
-footer{
-    font-size: 0.8em;
-    flex: 0 1 auto;
-    background-color:var(--light-gray-color);
-    text-align: center;
-    color: var(--dark-sliver-color);
-}
-
-nav{
-    color:white;
-    flex: 0 1 auto;
-    background-color: var(--light-gray-color);
-}
-
-
-.menu-container{
-    display: flex;
-    flex-wrap: wrap;
-    flex-flow: row;
-}
-
-#label{
-    display: inline;
-    flex: 0 1 auto;
-}
-
-.filler{
-    display: inline;
-    flex: 1 1 auto;
-}
-
-.sign-button{
-    background-color: #303030;
-    color: var(--dark-sky-color);
-    border:var(--dark-sky-color) solid 0.2em;
-    border-radius: 3em;
-    padding: 1em;
-    
-    
-}
-
-.sign-button:hover{
-    background-color: var(--light-sky-color);
-    color: var(--dark-gray-color);
-    border-color: var(--light-sky-color);
-}
-
-.menu-container button{
-    flex: 1 1 auto;
-    text-align: center;
-    padding: 0.5em;
-}
-
-
-nav .highlighted{
-    background-color: var(--dark-gray-color);
-    border-top: var(--dark-sliver-color) 0.2em solid;
-}
-
-.centering-parent{
-    display: flex;justify-content: center; align-items: center;
-}
-
-#sing-in-popup{
-    background-color: var(--light-gray-color);
-    padding: 1em;
-    border-radius: 1em;
-}
-
-.week-days-menu button{
-    margin: 0.2em;
-    border-radius: 0.5em;
-    background-color: var(--light-gray-color);
-}
-
-.week-days-menu .highlighted{
-    background-color: var(--dark-sliver-color);
-}
-
-
-.activity{
-    border: 0.2em white solid;
-    margin: 0.2em;
-    border-radius: 0.5em;
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    overflow: hidden;
-}
-
-.day-tab{
-    position: relative;
-    width:100%;
-    height: 100%;
-
-}
-
-#main-excute-section{
-    height: 100%;
-}
-
-.activity button{
-    flex: 0 1 auto;
-    padding: 0em;
-    padding-left: 1em;
-    padding-right: 1em;
-    border-radius: 0.5em;
-    background-color: var(--light-gray-color);
-}
-
-.activity *{
-    margin: 0.2em;
-}
+/*# sourceMappingURL=style.css.map */
