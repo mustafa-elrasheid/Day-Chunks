@@ -22,6 +22,27 @@ button {
   color: white;
 }
 
+input[type=range] {
+  appearance: none;
+  background-color: var(--light-gray-color);
+  height: 0.4em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 0.7em;
+  height: 1.5em;
+  background-color: var(--dark-sliver-color);
+  border-radius: 25%;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
 html, body {
   height: 100%;
   background-color: var(--light-gray-color);
@@ -37,7 +58,7 @@ html .horizontal-flex-container, body .horizontal-flex-container {
   flex-wrap: wrap;
   flex-flow: row;
 }
-html .horizontal-flex-container button, body .horizontal-flex-container button {
+html nav button, body nav button {
   flex: 1 1 auto;
   text-align: center;
   padding: 0.5em;
@@ -48,15 +69,15 @@ html .filler, body .filler {
 }
 html .blue-button, body .blue-button {
   background-color: #303030;
-  color: var(--dark-sky-color);
-  border: var(--dark-sky-color) solid 0.2em;
+  border: white solid 0.2em;
   border-radius: 3em;
-  padding: 1em;
+  min-height: 100%;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 html .blue-button:hover, body .blue-button:hover {
-  background-color: var(--light-sky-color);
-  color: var(--dark-gray-color);
-  border-color: var(--light-sky-color);
+  background-color: white;
+  color: var(--light-gray-color);
 }
 html .centering-parent, body .centering-parent {
   display: flex;
@@ -72,11 +93,11 @@ html header h1, body header h1 {
   display: inline;
   flex: 0 1 auto;
 }
-html nav, body nav {
+html #main-nav-bar, body #main-nav-bar {
   flex: 0 1 auto;
   background-color: var(--light-gray-color);
 }
-html nav .highlighted, body nav .highlighted {
+html #main-nav-bar .highlighted, body #main-nav-bar .highlighted {
   background-color: var(--dark-gray-color);
   border-top: var(--dark-sliver-color) 0.2em solid;
 }
@@ -89,6 +110,9 @@ html main, body main {
 }
 html main #main-excute-section, body main #main-excute-section {
   height: 100%;
+}
+html main #main-excute-section .menu button, body main #main-excute-section .menu button {
+  flex: 1 1 auto;
 }
 html main #main-excute-section .week-days-menu button, body main #main-excute-section .week-days-menu button {
   margin: 0.2em;
@@ -103,15 +127,13 @@ html main #main-excute-section .week-days-menu .highlighted, body main #main-exc
 }
 html main #main-excute-section .activity, body main #main-excute-section .activity {
   border: 0.2em white solid;
-  margin: 0.2em;
   border-radius: 0.5em;
   position: absolute;
-  left: 0%;
-  right: 0%;
+  left: 0.2em;
+  right: 0.2em;
   overflow: hidden;
-}
-html main #main-excute-section .activity *, body main #main-excute-section .activity * {
-  margin: 0.2em;
+  box-sizing: border-box;
+  padding: 0.5em;
 }
 html main #main-excute-section .activity button, body main #main-excute-section .activity button {
   flex: 0 1 auto;
@@ -131,6 +153,10 @@ html main #main-excute-section #day-tabs-container-parent, body main #main-excut
   overflow: auto;
   scrollbar-gutter: stable;
 }
+html main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator, body main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator {
+  font-size: 0.8em;
+  color: var(--dark-sliver-color);
+}
 html main #main-plan-section #planning-options-menu button, body main #main-plan-section #planning-options-menu button {
   margin: 0.2em;
   border-radius: 0.5em;
@@ -142,10 +168,6 @@ html main #main-plan-section #planning-options-menu button, body main #main-plan
 html main #main-plan-section #planning-options-menu .highlighted, body main #main-plan-section #planning-options-menu .highlighted {
   background-color: var(--dark-sliver-color);
 }
-html main #main-plan-section #routine-activities-tab, body main #main-plan-section #routine-activities-tab {
-  overflow: auto;
-  scrollbar-gutter: stable;
-}
 html main #main-plan-section #routine-activities-tab .routine-activity-editor, body main #main-plan-section #routine-activities-tab .routine-activity-editor {
   background-color: var(--light-gray-color);
   border-radius: 0.5em;
@@ -153,25 +175,25 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor, b
   padding: 1em;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild {
+  align-content: center;
   padding: 0.2em;
   min-height: 2em;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild button, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild button {
-  margin: 0.2em;
   border-radius: 0.5em;
-  background-color: var(--light-gray-color);
-  overflow: hidden;
-  text-overflow: clip;
-  white-space: nowrap;
+  border: solid var(--dark-sliver-color) 0.2em;
+  min-height: 100%;
+  padding-left: 1em;
+  padding-right: 1em;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number] {
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit] {
   margin: 0.2em;
   border-radius: 0.5em;
   padding: 0.5em;
   color: inherit;
   appearance: none;
-  border: var(--dark-sliver-color) 0.2em solid;
-  background-color: var(--light-gray-color);
+  border: black 0em none;
+  background-color: var(--dark-gray-color);
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
@@ -195,6 +217,10 @@ html footer, body footer {
   background-color: var(--light-gray-color);
   text-align: center;
   color: var(--dark-sliver-color);
+}
+html footer a, body footer a {
+  color: var(--dark-sliver-color);
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=style.css.map */

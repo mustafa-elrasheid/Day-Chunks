@@ -17,14 +17,15 @@
 	<body class="vertical-flex-container">
 		<header>
 			<div class="horizontal-flex-container">
-				<h1>Day Chunks</h1>
+				<a href="/"><h1>Day Chunks</h1></a>
 				<div class="filler"></div>
 				<button hidden="true" class="blue-button" id="sign-out-button">
 					<b>Sign Out</b>
 				</button>
 			</div>
 		</header>
-		<nav  id="main-nav-bar" hidden="true">
+		<menu></menu>
+		<nav id="main-nav-bar" hidden="true" class="horizontal-flex-container">
 			<script>
 				const Tabs = [
 					{button_id:'tab-button-excute',tab_id:'main-excute-section',button_styling_choice_class:'highlighted'},
@@ -32,17 +33,15 @@
 					{button_id:'tab-button-watch',tab_id:'main-watch-section',button_styling_choice_class:'highlighted'}
 				];
 			</script>
-			<div class="horizontal-flex-container">
-				<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);" class="highlighted">
-					Excute
-				</button>
-				<button id="tab-button-plan" onclick="TurnTabsOnOrOff(Tabs,1);" >
-					Plan
-				</button>
-				<button id="tab-button-watch" onclick="TurnTabsOnOrOff(Tabs,2);" >
-					Watch
-				</button>
-			</div>
+			<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);" class="highlighted">
+				Excute
+			</button>
+			<button id="tab-button-plan" onclick="TurnTabsOnOrOff(Tabs,1);" >
+				Plan
+			</button>
+			<button id="tab-button-watch" onclick="TurnTabsOnOrOff(Tabs,2);" >
+				Watch
+			</button>
 		</nav>
 		<main id="main-signed-in" hidden="true" >
 			<div id="main-excute-section">
@@ -58,7 +57,7 @@
 					];
 				</script>
 				<div class="vertical-flex-container">
-					<div class="horizontal-flex-container week-days-menu">
+					<nav class="horizontal-flex-container week-days-menu">
 						<button id="sun-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,0);" >sun</button>
 						<button id="mon-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,1);" >mon</button>
 						<button id="tue-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,2);" >tue</button>
@@ -66,7 +65,7 @@
 						<button id="thu-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,4);" >thu</button>
 						<button id="fri-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,5);" >fri</button>
 						<button id="sat-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,6);" >sat</button>
-					</div>
+					</nav>
 					<input 
 						style="width: 100%; "
 						type="range" 
@@ -83,6 +82,7 @@
 						max="100" 
 						value="100" 
 						step="4.166666666">
+					<!-- WARNING: Parent element is used for scrolling and has custom events for it-->
 					<div id="day-tabs-container-parent" class="horizontal-flex-container">
 						<div class="filler" id="day-tabs-container" style="height: 100%;">
 							<div id="sun-tab" class="day-tab"></div>
@@ -93,33 +93,31 @@
 							<div id="fri-tab" class="day-tab"></div>
 							<div id="sat-tab" class="day-tab"></div>
 						</div>
-						<div id="day-tabs-hours-indecator">
-							<div  class="vertical-flex-container" style=" font-size: 0.8em;">
-								<div class="filler">12:00AM</div>
-								<div class="filler">01:00AM</div>
-								<div class="filler">02:00AM</div>
-								<div class="filler">03:00AM</div>
-								<div class="filler">04:00AM</div>
-								<div class="filler">05:00AM</div>
-								<div class="filler">06:00AM</div>
-								<div class="filler">07:00AM</div>
-								<div class="filler">08:00AM</div>
-								<div class="filler">09:00AM</div>
-								<div class="filler">10:00AM</div>
-								<div class="filler">11:00AM</div>
-								<div class="filler">12:00PM</div>
-								<div class="filler">01:00PM</div>
-								<div class="filler">02:00PM</div>
-								<div class="filler">03:00PM</div>
-								<div class="filler">04:00PM</div>
-								<div class="filler">05:00PM</div>
-								<div class="filler">06:00PM</div>
-								<div class="filler">07:00PM</div>
-								<div class="filler">08:00PM</div>
-								<div class="filler">09:00PM</div>
-								<div class="filler">10:00PM</div>
-								<div class="filler">11:00PM</div>
-							</div>
+						<div id="day-tabs-hours-indecator" class="vertical-flex-container">
+							<div class="filler">12:00AM</div>
+							<div class="filler">01:00AM</div>
+							<div class="filler">02:00AM</div>
+							<div class="filler">03:00AM</div>
+							<div class="filler">04:00AM</div>
+							<div class="filler">05:00AM</div>
+							<div class="filler">06:00AM</div>
+							<div class="filler">07:00AM</div>
+							<div class="filler">08:00AM</div>
+							<div class="filler">09:00AM</div>
+							<div class="filler">10:00AM</div>
+							<div class="filler">11:00AM</div>
+							<div class="filler">12:00PM</div>
+							<div class="filler">01:00PM</div>
+							<div class="filler">02:00PM</div>
+							<div class="filler">03:00PM</div>
+							<div class="filler">04:00PM</div>
+							<div class="filler">05:00PM</div>
+							<div class="filler">06:00PM</div>
+							<div class="filler">07:00PM</div>
+							<div class="filler">08:00PM</div>
+							<div class="filler">09:00PM</div>
+							<div class="filler">10:00PM</div>
+							<div class="filler">11:00PM</div>
 						</div>
 					</div>
 				</div>
@@ -134,89 +132,93 @@
 						{button_id:'event-activities-tab-button',tab_id:'event-activities-tab',button_styling_choice_class:'highlighted'},
 					];
 				</script>
-				<div class="horizontal-flex-container" id="planning-options-menu">
+				<nav class="horizontal-flex-container" id="planning-options-menu">
 					<button id="routine-activities-tab-button" onclick="TurnTabsOnOrOff(PlanningOptionsTabs,0);" >
 						routine activities
 					</button>
 					<button id="event-activities-tab-button" onclick="TurnTabsOnOrOff(PlanningOptionsTabs,1);" >
 						events activities
 					</button>
-				</div>
-				<div>
-					<div id="routine-activities-tab">
-						<div id="routine-activities-editor"></div>
-						<div id="add-routine-activity" class="routine-activity-editor">
-							
-							<div class="feild">
+				</nav>
+				<div id="routine-activities-tab">
+					<div id="add-routine-activity" class="routine-activity-editor">
+						<div class="feild horizontal-flex-container">
+							<div>
 								<h2>Add Routine:</h2>
 								<span>here you can add new routine activites and they will be added to your tasks automaticly!</span>
-
 							</div>
+							<div class="filler"></div>
+							<button id="open-activity-creator">+</button>
+						</div>
+						<div id="routine-activities-creator-feilds-container" hidden="true">
 							<div class="feild">
-								<label for="sun">Sun</label>
-								<input type="checkbox" name="days[sun]" id="sun" checked>
-								<label for="mon">Mon</label>
-								<input type="checkbox" name="days[mon]" id="mon" checked>
-								<label for="tue">Tue</label>
-								<input type="checkbox" name="days[tue]" id="tue" checked>
-								<label for="wed">Wed</label>
-								<input type="checkbox" name="days[wed]" id="wed" checked>
-								<label for="thu">Thu</label>
-								<input type="checkbox" name="days[thu]" id="thu" checked>
-								<label for="fri">Fri</label>
-								<input type="checkbox" name="days[fri]" id="fri" checked>
-								<label for="sat">Sat</label>
-								<input type="checkbox" name="days[sat]" id="sat" checked>
+								<label >Sun</label>
+								<input type="checkbox" name="sun" id="sun" checked>
+								<label >Mon</label>
+								<input type="checkbox" name="mon" id="mon" checked>
+								<label >Tue</label>
+								<input type="checkbox" name="tue" id="tue" checked>
+								<label >Wed</label>
+								<input type="checkbox" name="wed" id="wed" checked>
+								<label >Thu</label>
+								<input type="checkbox" name="thu" id="thu" checked>
+								<label >Fri</label>
+								<input type="checkbox" name="fri" id="fri" checked>
+								<label >Sat</label>
+								<input type="checkbox" name="sat" id="sat" checked>
 							</div>
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-group">Group</label>
-								<input class="filler" type="text" name="activity[group]" id="add-routine-activity-group" value="Sleep">
+								<label class="centering-parent"  for="activity-group">Group</label>
+								<input class="filler" type="text" name="group" id="add-routine-activity-group" value="Sleep">
 							</div>
 							
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-done">Done</label>
-								<input type="checkbox" name="activity[done]" id="add-routine-activity-done" value="true">
+								<label class="centering-parent"  for="activity-done">Done</label>
+								<input type="checkbox" name="done" id="add-routine-activity-done" value="true">
 								<div class="filler" ></div>
 							</div>
 							
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-description">Description</label>
-								<input class="filler" type="text" name="activity[description]" id="add-routine-activity-description" value="Take Rest">
+								<label class="centering-parent"  for="activity-description">Description</label>
+								<input class="filler" type="text" name="description" id="add-routine-activity-description" value="Take Rest">
 							</div>
 							
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-name">Name</label>
-								<input class="filler" type="text" name="activity[name]" id="add-routine-activity-name" value="Sleep morning">
+								<label class="centering-parent"  for="activity-name">Name</label>
+								<input class="filler" type="text" name="name" id="add-routine-activity-name" value="Sleep morning">
 							</div>
 							
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-time">Time</label>
-								<input class="filler" type="text" name="activity[time]" id="add-routine-activity-time" value="00:00">
+								<label class="centering-parent"  for="activity-time">Time</label>
+								<input class="filler" type="text" name="time" id="add-routine-activity-time" value="00:00">
 							</div>
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-duration">Duration (minutes)</label>
-								<input class="filler" type="number" name="activity[duration_minutes]" id="add-routine-activity-duration" value="300">
+								<label class="centering-parent"  for="activity-duration">Duration (minutes)</label>
+								<input class="filler" type="number" name="duration_minutes" id="add-routine-activity-duration" value="300">
 							</div>
 							
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-background-color">Background Color</label>
-								<input class="filler" type="color" name="activity[background_color]" id="add-routine-activity-background-color" value="#ffcc00">
+								<label class="centering-parent"  for="activity-background-color">Background Color</label>
+								<input class="filler" type="color" name="background_color" id="add-routine-activity-background-color" value="#ffcc00">
 							</div>
 
 							<div class="feild horizontal-flex-container">
-								<label class="centering-parent" for="activity-priority">Priority</label>
-								<select name="activity[priority]" id="activity-priority">
+								<label class="centering-parent"  for="activity-priority">Priority</label>
+								<select name="priority" id="activity-priority">
 									<option value="low" selected>Low</option>
 									<option value="medium">Medium</option>
 									<option value="high">High</option>
 								</select>
 							</div>
-
+							<div class="feild">
+								<input type="submit" value="Add Activity"/>
+							</div>
 						</div>
 					</div>
-					<div id="event-activities-tab" >
+					<div id="routine-activities-editor"></div>
+				</div>
+				<div id="event-activities-tab" >
 
-					</div>
 				</div>
 				<script>TurnTabsOnOrOff(PlanningOptionsTabs,0);</script>
 			</div>
@@ -235,6 +237,8 @@
 					<button class="blue-button" id="sign-in-button">
 						<b>Sign In With Google</b>
 					</button>
+					<a href="/privacy-policy.html">privacy policy</a>
+					<a href="/term-of-use.html">term of use</a>
 				</div>
 			</div>
 		</main>
@@ -243,10 +247,12 @@
 		</main>
 		<footer>
 			<p>
-				<span>Day Chunks is a time management app that aims to section your day into managable chunks.</span><br/>
-				<span>Owner: Mustafa El-rashied</span><br/>
-				<span>Contact: karkarcomp@gmail.com</span><br/>
-				<span>made using firebase, html, css, and javascript</span><br/>
+				Day Chunks is a time management app that aims to section your day into managable chunks.<br/>
+				Owner: Mustafa El-rashied<br/>
+				Contact: karkarcomp@gmail.com<br/>
+				made using firebase, html, css, and javascript<br/>
+				<a href="/privacy-policy.html">privacy policy</a> - 
+				<a href="/term-of-use.html">term of use</a>
 			</p>
 		</footer>
 	</body>
