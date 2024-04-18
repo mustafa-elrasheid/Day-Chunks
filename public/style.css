@@ -12,6 +12,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+table, tbody {
+  width: 100%;
+}
+
 button {
   border: none;
   background: none;
@@ -134,6 +138,7 @@ html main #main-excute-section .activity, body main #main-excute-section .activi
   overflow: hidden;
   box-sizing: border-box;
   padding: 0.5em;
+  background-color: var(--light-gray-color);
 }
 html main #main-excute-section .activity button, body main #main-excute-section .activity button {
   flex: 0 1 auto;
@@ -142,6 +147,7 @@ html main #main-excute-section .activity button, body main #main-excute-section 
   padding-right: 1em;
   border-radius: 0.5em;
   background-color: var(--light-gray-color);
+  border: 0.2em solid var(--dark-sliver-color);
 }
 html main #main-excute-section .day-tab, body main #main-excute-section .day-tab {
   position: relative;
@@ -173,6 +179,7 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor, b
   border-radius: 0.5em;
   margin: 0.2em;
   padding: 1em;
+  margin: 1em 0.2em 1em 0.2em;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild {
   align-content: center;

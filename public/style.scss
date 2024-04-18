@@ -13,6 +13,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+table, tbody{
+	width:100%;
+}
+
 button {
     border: none;
     background: none;
@@ -164,6 +168,7 @@ html, body{
 				overflow: hidden;
 				box-sizing: border-box;
 				padding: 0.5em;
+				background-color: var(--light-gray-color);
 		
 				button{
 
@@ -173,6 +178,7 @@ html, body{
 					padding-right: 1em;
 					border-radius: 0.5em;
 					background-color: var(--light-gray-color);
+					border: 0.2em solid var(--dark-sliver-color);
 				}
 			}
 		
@@ -221,6 +227,7 @@ html, body{
 					border-radius: 0.5em;
 					margin: 0.2em;
 					padding: 1em;
+					margin: 1em 0.2em 1em 0.2em;
 
 					.feild{
 
