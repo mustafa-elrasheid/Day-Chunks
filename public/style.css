@@ -1,15 +1,23 @@
 :root {
-  --light-gray-color: #303030;
-  --dark-gray-color: #1d1d1d;
-  --dark-sliver-color: #7d7d7d;
-  --dark-sky-color:#0074e0;
-  --light-sky-color:#2595ff;
+  --light-gray-color: #46474d;
+  --dark-gray-color: #20222a;
+  --dark-sliver-color: #a7a6b1;
+  --dark-sky-color: #0074e0;
+  --light-sky-color: #2595ff;
 }
 
 * {
   padding: 0px;
   margin: 0px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.expanded {
+  height: auto; /* Set height to auto when expanded */
+}
+
+.collapsed {
+  height: 0; /* Set height to 0 when collapsed */
 }
 
 table, tbody {
@@ -68,7 +76,6 @@ html nav button, body nav button {
   padding: 0.5em;
 }
 html .filler, body .filler {
-  display: inline;
   flex: 1 1 auto;
 }
 html .blue-button, body .blue-button {
@@ -97,14 +104,6 @@ html header h1, body header h1 {
   display: inline;
   flex: 0 1 auto;
 }
-html #main-nav-bar, body #main-nav-bar {
-  flex: 0 1 auto;
-  background-color: var(--light-gray-color);
-}
-html #main-nav-bar .highlighted, body #main-nav-bar .highlighted {
-  background-color: var(--dark-gray-color);
-  border-top: var(--dark-sliver-color) 0.2em solid;
-}
 html main, body main {
   padding: 1em;
   flex: 1 1 auto;
@@ -112,13 +111,7 @@ html main, body main {
   overflow: auto;
   scrollbar-gutter: stable;
 }
-html main #main-excute-section, body main #main-excute-section {
-  height: 100%;
-}
-html main #main-excute-section .menu button, body main #main-excute-section .menu button {
-  flex: 1 1 auto;
-}
-html main #main-excute-section .week-days-menu button, body main #main-excute-section .week-days-menu button {
+html main nav button, body main nav button {
   margin: 0.2em;
   border-radius: 0.5em;
   background-color: var(--light-gray-color);
@@ -126,11 +119,14 @@ html main #main-excute-section .week-days-menu button, body main #main-excute-se
   text-overflow: clip;
   white-space: nowrap;
 }
-html main #main-excute-section .week-days-menu .highlighted, body main #main-excute-section .week-days-menu .highlighted {
+html main nav .highlighted, body main nav .highlighted {
   background-color: var(--dark-sliver-color);
 }
+html main #main-excute-section, body main #main-excute-section {
+  height: 100%;
+}
 html main #main-excute-section .activity, body main #main-excute-section .activity {
-  border: 0.2em white solid;
+  border-left: 1em white solid;
   border-radius: 0.5em;
   position: absolute;
   left: 0.2em;
@@ -158,21 +154,22 @@ html main #main-excute-section #day-tabs-container-parent, body main #main-excut
   height: 100%;
   overflow: auto;
   scrollbar-gutter: stable;
+  position: relative;
+}
+html main #main-excute-section #day-tabs-container-parent #current-time, body main #main-excute-section #day-tabs-container-parent #current-time {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  height: 0.3em;
+  background-color: rgba(0, 217, 255, 0.3647058824);
 }
 html main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator, body main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator {
   font-size: 0.8em;
   color: var(--dark-sliver-color);
+  position: relative;
 }
-html main #main-plan-section #planning-options-menu button, body main #main-plan-section #planning-options-menu button {
-  margin: 0.2em;
-  border-radius: 0.5em;
-  background-color: var(--light-gray-color);
-  overflow: hidden;
-  text-overflow: clip;
-  white-space: nowrap;
-}
-html main #main-plan-section #planning-options-menu .highlighted, body main #main-plan-section #planning-options-menu .highlighted {
-  background-color: var(--dark-sliver-color);
+html main #main-plan-section, body main #main-plan-section {
+  height: 100%;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor, body main #main-plan-section #routine-activities-tab .routine-activity-editor {
   background-color: var(--light-gray-color);
@@ -180,18 +177,24 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor, b
   margin: 0.2em;
   padding: 1em;
   margin: 1em 0.2em 1em 0.2em;
+  border-left: 1em solid white;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor *, body main #main-plan-section #routine-activities-tab .routine-activity-editor * {
+  overflow: hidden;
+  transition: grid-template-rows 200ms ease-in-out, transform 200ms ease-in-out;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor #routine-activities-creator-feilds-container, body main #main-plan-section #routine-activities-tab .routine-activity-editor #routine-activities-creator-feilds-container {
+  display: grid;
+  grid-template-rows: 0fr;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor img, body main #main-plan-section #routine-activities-tab .routine-activity-editor img {
+  width: 1.7em;
+  margin: 0.15em 0.5em;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild {
   align-content: center;
   padding: 0.2em;
   min-height: 2em;
-}
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild button, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild button {
-  border-radius: 0.5em;
-  border: solid var(--dark-sliver-color) 0.2em;
-  min-height: 100%;
-  padding-left: 1em;
-  padding-right: 1em;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit] {
   margin: 0.2em;
