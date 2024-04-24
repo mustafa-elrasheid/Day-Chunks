@@ -1,4 +1,11 @@
 
+/*
+ * WARNING: This is copyrighted content.
+ *
+ * Owner: Mustafa El-rasheid
+ * All rights reserved.
+ */
+
 :root {
     --light-gray-color: #46474d;
     --dark-gray-color: #20222a;
@@ -40,8 +47,9 @@ input[type="range"] {
     appearance: none;
     background-color: var(--light-gray-color);
     height: 0.4em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin: 0.6em 0.3em;
+	width: calc(100% - 0.6em);
+
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -119,6 +127,34 @@ html, body{
 			display: inline;
 			flex: 0 1 auto;
 		}
+
+		.dropdown{
+
+			position: relative;
+
+			.show-dropdown{
+
+			}
+
+			.dropdown-content{
+				background-color: var(--light-gray-color);
+				min-width: 10em;
+				padding: 1.5em;
+				border-radius: 0.5em;
+
+				position: absolute;
+				right: 0px;
+				top: calc(100%);
+				display: none;
+				box-shadow:  0.3em 0.3em 2em #00000055;
+			}
+		}
+
+		.dropdown:hover, .dropdown:focus-within{
+			.dropdown-content{
+				display: block;
+			}
+		}
     }
     
     main{
@@ -149,6 +185,7 @@ html, body{
 		#main-excute-section{
 
 			height: 100%;
+			
 
 			.activity{
 
@@ -184,8 +221,8 @@ html, body{
 			#day-tabs-container-parent{
 				height: 100%;
 				overflow: auto;
-				scrollbar-gutter: stable; 
 				position: relative;
+				margin-right: 0.2em;
 
 				#current-time{
 					position: absolute;
@@ -200,6 +237,11 @@ html, body{
 					font-size: 0.8em;
 					color: var(--dark-sliver-color);
 					position: relative;
+					overflow: hidden;
+
+					*{
+						overflow: hidden;
+					}
 
 
 
@@ -224,6 +266,7 @@ html, body{
 					padding: 1em;
 					margin: 1em 0.2em 1em 0.2em;
 					border-left: 1em solid white;
+					min-height: 4.2em;
 
 
 					*{
@@ -241,13 +284,17 @@ html, body{
 						margin: 0.15em 0.5em;
 					}
 
+					h1,h2,h3,h4,h5,h6{
+						flex: 1;
+					}
+
 					.feild{
 
 						align-content: center;
 						padding: 0.2em;
 						min-height: 2em;
 	
-						input[type="text"], select,input[type="number"], input[type="submit"]{
+						input[type="text"], select,input[type="number"], input[type="submit"],select{
 							margin: 0.2em;
 							border-radius: 0.5em;
 							padding: 0.5em;
@@ -264,7 +311,14 @@ html, body{
 							margin-right: 0.25em;
 						}
 						label{
-							text-align: center;
+							min-width: 5em;
+
+							display: flex;
+							align-items: center;
+						}
+
+						table label{
+							display: inline;
 						}
 					}
 
@@ -273,15 +327,49 @@ html, body{
 		}
 
 		#sing-in-popup{
+
 			background-color: var(--light-gray-color);
 			padding: 1em;
 			border-radius: 1em;
+
+			h2{
+				text-align: center;
+			}
+
+			#sign-in-button{
+				width: 100%;
+				padding: 1em;
+				background-color: white;
+				color: var(--light-gray-color);
+				border-radius: 1em;
+				margin: 1em 0em;
+			}
+
+			.feild{
+
+				align-content: center;
+				min-height: 2em;
+
+				input[type="text"], select,input[type="number"], input[type="submit"],input[type="email"],input[type="password"],select{
+					margin: 0.5em 0em;
+					border-radius: 0.5em;
+					padding: 0.5em;
+					color:inherit;
+					appearance: none;
+					border: black 0.0em none;
+					background-color: var(--dark-gray-color);
+					overflow: hidden;
+					text-overflow:clip;
+					white-space: nowrap;
+					height:2em;
+				}
+			}
+
 		}
     }
     
     footer{
-		padding:1em;
-        font-size: 0.8em;
+		padding:0.5em;
         flex: 0 1 auto;
         background-color:var(--light-gray-color);
         text-align: center;

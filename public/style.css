@@ -1,3 +1,9 @@
+/*
+ * WARNING: This is copyrighted content.
+ *
+ * Owner: Mustafa El-rasheid
+ * All rights reserved.
+ */
 :root {
   --light-gray-color: #46474d;
   --dark-gray-color: #20222a;
@@ -38,8 +44,8 @@ input[type=range] {
   appearance: none;
   background-color: var(--light-gray-color);
   height: 0.4em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin: 0.6em 0.3em;
+  width: calc(100% - 0.6em);
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -104,6 +110,23 @@ html header h1, body header h1 {
   display: inline;
   flex: 0 1 auto;
 }
+html header .dropdown, body header .dropdown {
+  position: relative;
+}
+html header .dropdown .dropdown-content, body header .dropdown .dropdown-content {
+  background-color: var(--light-gray-color);
+  min-width: 10em;
+  padding: 1.5em;
+  border-radius: 0.5em;
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  display: none;
+  box-shadow: 0.3em 0.3em 2em rgba(0, 0, 0, 0.3333333333);
+}
+html header .dropdown:hover .dropdown-content, html header .dropdown:focus-within .dropdown-content, body header .dropdown:hover .dropdown-content, body header .dropdown:focus-within .dropdown-content {
+  display: block;
+}
 html main, body main {
   padding: 1em;
   flex: 1 1 auto;
@@ -153,8 +176,8 @@ html main #main-excute-section .day-tab, body main #main-excute-section .day-tab
 html main #main-excute-section #day-tabs-container-parent, body main #main-excute-section #day-tabs-container-parent {
   height: 100%;
   overflow: auto;
-  scrollbar-gutter: stable;
   position: relative;
+  margin-right: 0.2em;
 }
 html main #main-excute-section #day-tabs-container-parent #current-time, body main #main-excute-section #day-tabs-container-parent #current-time {
   position: absolute;
@@ -167,6 +190,10 @@ html main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indeca
   font-size: 0.8em;
   color: var(--dark-sliver-color);
   position: relative;
+  overflow: hidden;
+}
+html main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator *, body main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator * {
+  overflow: hidden;
 }
 html main #main-plan-section, body main #main-plan-section {
   height: 100%;
@@ -178,6 +205,7 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor, b
   padding: 1em;
   margin: 1em 0.2em 1em 0.2em;
   border-left: 1em solid white;
+  min-height: 4.2em;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor *, body main #main-plan-section #routine-activities-tab .routine-activity-editor * {
   overflow: hidden;
@@ -191,12 +219,15 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor im
   width: 1.7em;
   margin: 0.15em 0.5em;
 }
+html main #main-plan-section #routine-activities-tab .routine-activity-editor h1, html main #main-plan-section #routine-activities-tab .routine-activity-editor h2, html main #main-plan-section #routine-activities-tab .routine-activity-editor h3, html main #main-plan-section #routine-activities-tab .routine-activity-editor h4, html main #main-plan-section #routine-activities-tab .routine-activity-editor h5, html main #main-plan-section #routine-activities-tab .routine-activity-editor h6, body main #main-plan-section #routine-activities-tab .routine-activity-editor h1, body main #main-plan-section #routine-activities-tab .routine-activity-editor h2, body main #main-plan-section #routine-activities-tab .routine-activity-editor h3, body main #main-plan-section #routine-activities-tab .routine-activity-editor h4, body main #main-plan-section #routine-activities-tab .routine-activity-editor h5, body main #main-plan-section #routine-activities-tab .routine-activity-editor h6 {
+  flex: 1;
+}
 html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild {
   align-content: center;
   padding: 0.2em;
   min-height: 2em;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit] {
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select {
   margin: 0.2em;
   border-radius: 0.5em;
   padding: 0.5em;
@@ -213,16 +244,48 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor .f
   margin-right: 0.25em;
 }
 html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild label, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild label {
-  text-align: center;
+  min-width: 5em;
+  display: flex;
+  align-items: center;
+}
+html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild table label, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild table label {
+  display: inline;
 }
 html main #sing-in-popup, body main #sing-in-popup {
   background-color: var(--light-gray-color);
   padding: 1em;
   border-radius: 1em;
 }
-html footer, body footer {
+html main #sing-in-popup h2, body main #sing-in-popup h2 {
+  text-align: center;
+}
+html main #sing-in-popup #sign-in-button, body main #sing-in-popup #sign-in-button {
+  width: 100%;
   padding: 1em;
-  font-size: 0.8em;
+  background-color: white;
+  color: var(--light-gray-color);
+  border-radius: 1em;
+  margin: 1em 0em;
+}
+html main #sing-in-popup .feild, body main #sing-in-popup .feild {
+  align-content: center;
+  min-height: 2em;
+}
+html main #sing-in-popup .feild input[type=text], html main #sing-in-popup .feild select, html main #sing-in-popup .feild input[type=number], html main #sing-in-popup .feild input[type=submit], html main #sing-in-popup .feild input[type=email], html main #sing-in-popup .feild input[type=password], html main #sing-in-popup .feild select, body main #sing-in-popup .feild input[type=text], body main #sing-in-popup .feild select, body main #sing-in-popup .feild input[type=number], body main #sing-in-popup .feild input[type=submit], body main #sing-in-popup .feild input[type=email], body main #sing-in-popup .feild input[type=password], body main #sing-in-popup .feild select {
+  margin: 0.5em 0em;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  color: inherit;
+  appearance: none;
+  border: black 0em none;
+  background-color: var(--dark-gray-color);
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  height: 2em;
+}
+html footer, body footer {
+  padding: 0.5em;
   flex: 0 1 auto;
   background-color: var(--light-gray-color);
   text-align: center;

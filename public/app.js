@@ -1,7 +1,15 @@
+/*
+ * WARNING: This is copyrighted content.
+ *
+ * Owner: Mustafa El-rasheid
+ * All rights reserved.
+ */
 
 let unsubscribe;
 
-function Initialize(){
+function InitializeApp(){
+
+	InitializeUI();
 
 	let App;
 	let Auth;
@@ -101,69 +109,76 @@ function Initialize(){
 								UserDocumentRefrence.update({week_end_day:NearestWeekEndDay(new Date(),WeekEndDay)});
 								UserDocumentRefrence.update({days:DefualtActivities});
 							}
+
+							let UpdateDataByProperty = (property,data) => {
+								let UpdatedData = {};
+								UpdatedData[property] = data;
+								UserDocumentRefrence.update(UpdatedData);
+							}
+
 							Object.keys(Data.days).forEach(
 								(day_key) => {
+
 									let DayData = Data.days[day_key];
-									document.getElementById(`${day_key}-tab`).innerHTML = "";
+									let DayTab = document.getElementById(`${day_key}-tab`);
+									DayTab.innerHTML = "";
+
 									Object.keys(DayData.activities).forEach(
 										(activity_key) => {
+
 											function FormatTimeToMinutes(hours_and_minutes) {
 												const [hours, minutes] = hours_and_minutes.split(':').map(Number);
 												return (hours * 60) + minutes;
 											}
-											let DayTab = document.getElementById(`${day_key}-tab`);
-											let activity = DayData.activities[activity_key];
-											{
-												let ActivityElement = document.createElement("div");
-												ActivityElement.setAttribute("class","activity");
-												ActivityElement.setAttribute("id",`days-${day_key}-activities-${activity_key}`);
-												ActivityElement.style.top = `calc(${(FormatTimeToMinutes(activity.time)/1440)*100}% + 0.1em)`;
-												ActivityElement.style.height = `calc(${(activity.duration_minutes/1440)*100}% - 0.2em)`;
-												
-												if(activity.done){
-													ActivityElement.style.color = "var(--dark-sliver-color)"
-													ActivityElement.style.borderColor = "var(--light-gray-color)";
-												} else {
-													ActivityElement.style.backgroundColor = activity.background_color;
-													if(activity.priority == "low") ActivityElement.style.borderColor = "white";
-													if(activity.priority == "medium" ) ActivityElement.style.borderColor = "yellow";
-													if(activity.priority == "high" ) ActivityElement.style.borderColor = "red";
-												}
 
-												ActivityElement.innerHTML = `
-													<div class="horizontal-flex-container">
-														<span>
-															<b>${activity.name}</b>
-															<span>from ${activity.group}</span>
-														</span>
-														<div class="filler"></div>
-														<button id="days-${day_key}-activities-${activity_key}-done"></button>
-													</div>
-													<div>
-														at ${activity.time}
-														for ${activity.duration_minutes} minutes
-													</div>
-													<div>
-														Description: ${activity.description}
-													</div>
-												`;
 											
+											let activity = DayData.activities[activity_key];
+										
+											let ActivityElement = document.createElement("div");
+											ActivityElement.setAttribute("class","activity");
+											ActivityElement.style.top = `calc(${(FormatTimeToMinutes(activity.time)/1440)*100}% + 0.1em)`;
+											ActivityElement.style.height = `calc(${(activity.duration_minutes/1440)*100}% - 0.2em)`;
 											
-												let FinishingButton = ActivityElement.querySelector(`#days-${day_key}-activities-${activity_key}-done`);
-												FinishingButton.addEventListener(
-													"click",
-													(Element)=>{
-														let IsDone = Element.target.innerHTML == "Finish" ? true : false;
-														let property = Element.target.getAttribute("id").replace(/-/g, '.');
-														let UpdatedData = {};
-														UpdatedData[property] = IsDone;
-														UserDocumentRefrence.update(UpdatedData);
-													}
-												);
-												FinishingButton.innerHTML = !activity.done ? "Finish" : "Undo";
-												
-												DayTab.appendChild(ActivityElement);
+											if(activity.done){
+												ActivityElement.style.color = "var(--dark-sliver-color)"
+												ActivityElement.style.borderColor = "var(--light-gray-color)";
+											} else {
+												ActivityElement.style.backgroundColor = activity.background_color;
+												if(activity.priority == "low") ActivityElement.style.borderColor = "white";
+												if(activity.priority == "medium" ) ActivityElement.style.borderColor = "yellow";
+												if(activity.priority == "high" ) ActivityElement.style.borderColor = "red";
 											}
+
+											ActivityElement.innerHTML = `
+												<div class="horizontal-flex-container">
+													<span>
+														<b>${activity.name}</b>
+														<span>from ${activity.group}</span>
+													</span>
+													<div class="filler"></div>
+													<button id="done"></button>
+												</div>
+												<div>
+													at ${activity.time}
+													for ${activity.duration_minutes} minutes
+												</div>
+												<div>
+													Description: ${activity.description}
+												</div>
+											`;
+										
+										
+											let FinishingButton = ActivityElement.querySelector(`#done`);
+											FinishingButton.addEventListener(
+												"click",
+												(Element)=>{
+													UpdateDataByProperty(`days.${day_key}.activities.${activity_key}.done`,!activity.done);
+												}
+											);
+											FinishingButton.innerHTML = !activity.done ? "Finish" : "Undo";
+											
+											DayTab.appendChild(ActivityElement);
+											
 										}
 									);
 								}
@@ -181,10 +196,7 @@ function Initialize(){
 											if(routine_activity.days[day_key]){
 
 												let EditRoutine = () => {
-													let property = `days.${day_key}.activities.${routine_activity_key}`;
-													let UpdatedData = {};
-													UpdatedData[property] = routine_activity.activity;
-													UserDocumentRefrence.update(UpdatedData);
+													UpdateDataByProperty(`days.${day_key}.activities.${routine_activity_key}`,routine_activity.activity);
 												};
 
 												if(!DayData.activities[routine_activity_key]){
@@ -192,10 +204,9 @@ function Initialize(){
 													return;
 												}
 
-
 												let checked_activity = DayData.activities[routine_activity_key];
 
-												if(checked_activity.done) return;
+												let temp_done = checked_activity.done;
 
 												if(
 													checked_activity.background_color != routine_activity.activity.background_color ||
@@ -206,13 +217,14 @@ function Initialize(){
 													checked_activity.priority         != routine_activity.activity.priority ||
 													checked_activity.time             != routine_activity.activity.time 
 												)EditRoutine();
+
+												if(temp_done)UpdateDataByProperty(`days.${day_key}.activities.${routine_activity_key}.done`,true);
 											}
 										}
 									);
 
 									let RoutineActivityEditor = document.createElement("div");
 									RoutineActivityEditor.setAttribute("class","routine-activity-editor");
-									RoutineActivityEditor.setAttribute("id",`routine_activities.${routine_activity_key}`);
 									RoutineActivityEditor.style.backgroundColor = routine_activity.activity.background_color;
 									if(routine_activity.activity.priority == "low") RoutineActivityEditor.style.borderColor = "white";
 									if(routine_activity.activity.priority == "medium" ) RoutineActivityEditor.style.borderColor = "yellow";
@@ -223,90 +235,84 @@ function Initialize(){
 											<button id="open-activity-creator" class="routine_activities.${routine_activity_key}">
 												<img src="icons/arrow.svg" />
 											</button>
-											<div>
-												<h2> ${routine_activity.activity.name} from ${routine_activity.activity.group}</h2>
-											</div>
-											<div class="filler"></div>
+											<h2 style="display:inline;"> ${routine_activity.activity.name} from ${routine_activity.activity.group}</h2>
 										</div>
 										<div id="routine-activities-creator-feilds-container" style="grid-template-rows: 0fr;">
 											<div>
 												<div class="feild">
-													<table>
-														<tbody>
-															<tr>
-																<td><label >Sun</label></td>
-																<td><label >Mon</label></td>
-																<td><label >Tue</label></td>
-																<td><label >Wed</label></td>
-																<td><label >Thu</label></td>
-																<td><label >Fri</label></td>
-																<td><label >Sat</label></td>		
-															</tr>
-															<tr>
-																<td><input type="checkbox" name="sun" ${routine_activity.days.sun ? "checked" : ""}></td>
-																<td><input type="checkbox" name="mon" ${routine_activity.days.mon ? "checked" : ""}></td>
-																<td><input type="checkbox" name="tue" ${routine_activity.days.tue ? "checked" : ""}></td>
-																<td><input type="checkbox" name="wed" ${routine_activity.days.wed ? "checked" : ""}></td>
-																<td><input type="checkbox" name="thu" ${routine_activity.days.thu ? "checked" : ""}></td>
-																<td><input type="checkbox" name="fri" ${routine_activity.days.fri ? "checked" : ""}></td>
-																<td><input type="checkbox" name="sat" ${routine_activity.days.sat ? "checked" : ""}></td>		
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent"> Group </label>
-													<input class="filler" type="text" name="group" value="${routine_activity.activity.group}">
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent"> Done </label>
-													<input type="checkbox" name="done"  value="${routine_activity.activity.done}">
-													<div class="filler" ></div>
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent" >Description</label>
-													<input class="filler" name="description"  type="text" value="${routine_activity.activity.description}">
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent" >Name</label>
-													<input class="filler" name="name" type="text" value="${routine_activity.activity.name}">
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent" >Time</label>
-													<input class="filler" name="time" type="text" value="${routine_activity.activity.time}">
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent" >Duration (minutes)</label>
-													<input class="filler" name="duration_minutes" type="number" value="${routine_activity.activity.duration_minutes}">
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent" >Background Color</label>
-													<select name="background_color">
-														<option value ="#4d2c2cff" style="background-color: #4d2c2cff;" ${routine_activity.activity.background_color == "#4d2c2cff" ? "selected" : ""}>Red</option>
-														<option value ="#4d392cff" style="background-color: #4d392cff;" ${routine_activity.activity.background_color == "#4d392cff" ? "selected" : ""}>Orange</option>
-														<option value ="#4d452cff" style="background-color: #4d452cff;" ${routine_activity.activity.background_color == "#4d452cff" ? "selected" : ""}>Yellow</option>
-														<option value ="#2d4d3eff" style="background-color: #2d4d3eff;" ${routine_activity.activity.background_color == "#2d4d3eff" ? "selected" : ""}>Green</option>
-														<option value ="#324146ff" style="background-color: #324146ff;" ${routine_activity.activity.background_color == "#324146ff" ? "selected" : ""}>Cyan</option>
-														<option value ="#36354dff" style="background-color: #36354dff;" ${routine_activity.activity.background_color == "#36354dff" ? "selected" : ""}>Blue</option>
-														<option value ="#42313dff" style="background-color: #42313dff;" ${routine_activity.activity.background_color == "#42313dff" ? "selected" : ""}>Purple</option>
-														<option value ="#46474Dff" style="background-color: #46474Dff;" ${routine_activity.activity.background_color == "#46474Dff" ? "selected" : ""}>Gray</option>
-													</select>
-												</div>
-												<div class="feild horizontal-flex-container">
-													<label class="centering-parent" for="activity-priority">Priority</label>
-													<select name="priority" >
-														<option value="low" ${routine_activity.activity.priority == "low" ? "selected" : ""}>Low</option>
-														<option value="medium" ${routine_activity.activity.priority == "medium" ? "selected" : ""}>Medium</option>
-														<option value="high" ${routine_activity.activity.priority == "high" ? "selected" : ""}>High</option>
-													</select>
-												</div>
-												<div class="feild horizontal-flex-container">
-													<input type="submit" class="filler" value="Edit Activity" />
-												</div>
+														<table>
+															<tbody>
+																<tr>
+																	<td><label ${routine_activity.days.sun ? "checked" : ""}  >Sun</label></td>
+																	<td><label ${routine_activity.days.mon ? "checked" : ""}  >Mon</label></td>
+																	<td><label ${routine_activity.days.tue ? "checked" : ""}  >Tue</label></td>
+																	<td><label ${routine_activity.days.wed ? "checked" : ""}  >Wed</label></td>
+																	<td><label ${routine_activity.days.thu ? "checked" : ""}  >Thu</label></td>
+																	<td><label ${routine_activity.days.fri ? "checked" : ""}  >Fri</label></td>
+																	<td><label ${routine_activity.days.sat ? "checked" : ""}  >Sat</label></td>
+																</tr>
+																<tr>
+																	<td><input type="checkbox" name="sun" id="sun"></td>
+																	<td><input type="checkbox" name="mon" id="mon"></td>
+																	<td><input type="checkbox" name="tue" id="tue"></td>
+																	<td><input type="checkbox" name="wed" id="wed"></td>
+																	<td><input type="checkbox" name="thu" id="thu"></td>
+																	<td><input type="checkbox" name="fri" id="fri"></td>
+																	<td><input type="checkbox" name="sat" id="sat"></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Name</label>
+														<input placeholder="Title" class="filler" type="text" name="name" value="${routine_activity.activity.name}">
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label  for="activity-time">Time</label>
+														<input placeholder="HH 24H format" class="filler" name="time_h" type="number" value="${routine_activity.activity.time.split(":")[0]}" >
+														<span>:</span>
+														<input placeholder="MM" class="filler" name="time_m" type="number" value="${routine_activity.activity.time.split(":")[1]}" >
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Duration</label>
+														<input placeholder="Duration in munites" class="filler" type="number" name="duration_minutes" value="${routine_activity.activity.duration_minutes}" >
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Group</label>
+														<input placeholder="Related for" class="filler" type="text" name="group" value="${routine_activity.activity.group}">
+													</div>
+													
+													<div class="feild horizontal-flex-container">
+														<label>Description</label>
+														<input placeholder="More details" class="filler" type="text" name="description"  value="${routine_activity.activity.description}">
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Color</label>
+														<select class="filler" name="background_color">
+															<option value ="#46474Dff" style="background-color: #46474Dff;" ${routine_activity.activity.background_color == "#46474Dff" ? "selected" : ""}>Gray</option>
+															<option value ="#4d2c2cff" style="background-color: #4d2c2cff;" ${routine_activity.activity.background_color == "#4d2c2cff" ? "selected" : ""}>Red</option>
+															<option value ="#4d392cff" style="background-color: #4d392cff;" ${routine_activity.activity.background_color == "#4d392cff" ? "selected" : ""}>Orange</option>
+															<option value ="#4d452cff" style="background-color: #4d452cff;" ${routine_activity.activity.background_color == "#4d452cff" ? "selected" : ""}>Yellow</option>
+															<option value ="#2d4d3eff" style="background-color: #2d4d3eff;" ${routine_activity.activity.background_color == "#2d4d3eff" ? "selected" : ""}>Green</option>
+															<option value ="#324146ff" style="background-color: #324146ff;" ${routine_activity.activity.background_color == "#324146ff" ? "selected" : ""}>Cyan</option>
+															<option value ="#36354dff" style="background-color: #36354dff;" ${routine_activity.activity.background_color == "#36354dff" ? "selected" : ""}>Blue</option>
+															<option value ="#42313dff" style="background-color: #42313dff;" ${routine_activity.activity.background_color == "#42313dff" ? "selected" : ""}>Purple</option>
+														</select>
+													</div>
+						
+													<div class="feild horizontal-flex-container">
+														<label>Priority</label>
+														<select class="filler" name="priority">
+															<option value="low"    ${routine_activity.activity.priority == "low"    ? "selected" : ""}>Low</option>
+															<option value="medium" ${routine_activity.activity.priority == "medium" ? "selected" : ""}>Medium</option>
+															<option value="high"   ${routine_activity.activity.priority == "high"   ? "selected" : ""}>High</option>
+														</select>
+													</div>
+													<div class="feild horizontal-flex-container">
+														<input type="submit" class="filler" value="Add Activity" class="filler"/>
+													</div>
 											</div>
-											
 										</div>
-										
 									`;
 
 									RoutineActivityEditor.querySelector("input[type='submit']").addEventListener(
@@ -324,19 +330,16 @@ function Initialize(){
 											activity.activity["duration_minutes"] = parseInt(RoutineActivityEditor.querySelector("input[name='duration_minutes']").value);
 											activity.activity["background_color"] =          RoutineActivityEditor.querySelector("select[name='background_color']").value;
 											activity.activity["description"]      =          RoutineActivityEditor.querySelector("input[name='description']").value;
-											activity.activity["done"]             =          RoutineActivityEditor.querySelector("input[name='done']").checked;
+											activity.activity["done"]             =          false;
 											activity.activity["group"]            =          RoutineActivityEditor.querySelector("input[name='group']").value;
 											activity.activity["name"]             =          RoutineActivityEditor.querySelector("input[name='name']").value;
 											activity.activity["priority"]         =          RoutineActivityEditor.querySelector("select[name='priority']").value;
-											activity.activity["time"]             =          RoutineActivityEditor.querySelector("input[name='time']").value;
+											activity.activity["time"]             =       `${RoutineActivityEditor.querySelector("input[name='time_h']").value}:${RoutineActivityEditor.querySelector("input[name='time_m']").value}`;
 		
-											let property = RoutineActivityEditor.getAttribute("id");
-											let UpdatedData = {};
-											UpdatedData[property] = activity;
-											UserDocumentRefrence.update(UpdatedData);
+											UpdateDataByProperty(`routine_activities.${routine_activity_key}`,activity)
 										}
 									);
-									RoutineActivityEditor.style.tran = "90deg";
+
 									RoutineActivityEditor.querySelector(`#open-activity-creator`).addEventListener(
 										"click",
 										() => {
@@ -350,9 +353,6 @@ function Initialize(){
 												RoutineActivitiesCreatorFeildsContainer.style.gridTemplateRows = "0fr";
 												open_button.style.transform = "rotate(0deg)";
 											}
-
-											
-											
 										}
 									);
 									RoutineActivitiesEditor.appendChild(RoutineActivityEditor);
@@ -372,23 +372,20 @@ function Initialize(){
 									activity.days["fri"] = AddActivityForm.querySelector("input[name='fri']").checked;
 									activity.days["sat"] = AddActivityForm.querySelector("input[name='sat']").checked;
 					
-									activity.activity["background_color"] = AddActivityForm.querySelector("input[name='background_color']").value;
+									activity.activity["background_color"] = AddActivityForm.querySelector("select[name='background_color']").value;
 									activity.activity["description"]      = AddActivityForm.querySelector("input[name='description']").value;
-									activity.activity["done"]             = AddActivityForm.querySelector("input[name='done']").checked;
+									activity.activity["done"]             = false;
 									activity.activity["duration_minutes"] = parseInt(AddActivityForm.querySelector("input[name='duration_minutes']").value);
 									activity.activity["group"]            = AddActivityForm.querySelector("input[name='group']").value;
 									activity.activity["name"]             = AddActivityForm.querySelector("input[name='name']").value;
 									activity.activity["priority"]         = AddActivityForm.querySelector("select[name='priority']").value;
-									activity.activity["time"]             = AddActivityForm.querySelector("input[name='time']").value;
+									activity.activity["time"]             = `${AddActivityForm.querySelector("input[name='time_h']").value}:${AddActivityForm.querySelector("input[name='time_m']").value}`;
 
 									function getRndInteger(min, max) {
 										return Math.floor(Math.random() * (max - min)) + min;
 									}
 
-									let property = `routine_activities.id_R${getRndInteger(0,100000000000)}`;
-									let UpdatedData = {};
-									UpdatedData[property] = activity;
-									UserDocumentRefrence.update(UpdatedData);
+									UpdateDataByProperty(`routine_activities.id_R${getRndInteger(0,100000000000)}`,activity);
 								}
 							);
 						}
@@ -397,7 +394,10 @@ function Initialize(){
 			);
 		}
 	);
-	
+}
+
+function InitializeUI(){
+		
 	let MinRangeElement       = document.getElementById("min-range");
 	let MaxRangeElement       = document.getElementById("max-range");
 	let DayTabsHoursIndecator = document.getElementById("day-tabs-hours-indecator");
@@ -435,10 +435,12 @@ function Initialize(){
 		}
 	);
 
+	let RoutineActivitiesCreatorFeildsContainer = document.getElementById("routine-activities-creator-feilds-container");
+
+
 	document.getElementById("open-activity-creator-a").addEventListener(
 		"click",
 		(Element) => {
-			let RoutineActivitiesCreatorFeildsContainer = document.getElementById("routine-activities-creator-feilds-container");
 			if(RoutineActivitiesCreatorFeildsContainer.style.gridTemplateRows == "0fr"){
 				RoutineActivitiesCreatorFeildsContainer.style.gridTemplateRows = "1fr";
 				Element.target.style.transform = "rotate(45deg)";
@@ -449,15 +451,6 @@ function Initialize(){
 		}
 	);
 
-	document.getElementById("hide-footer").addEventListener(
-		"click",
-		() => {
-			document.getElementById("hide-footer").innerHTML = !document.querySelector("footer").hidden ? "show info" : "hide";
-			document.querySelector("footer").hidden = !document.querySelector("footer").hidden;
-			
-		}
-	);
-
 	let CurrentTimeLine = document.getElementById("current-time");
 
 	setInterval(function () {
@@ -465,10 +458,8 @@ function Initialize(){
 	}, 1000*60);
 
 	CurrentTimeLine.style.top = `${(new Date()).getHours()/24*100}%`;
-
-
-
+	
 }
 
-document.addEventListener('DOMContentLoaded',Initialize);
+document.addEventListener('DOMContentLoaded',InitializeApp);
 
