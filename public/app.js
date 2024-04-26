@@ -20,7 +20,7 @@ function InitializeApp(){
 		App = firebase.app();
 		Auth = firebase.auth();
 		DataBase = firebase.firestore();
-		Provider = new firebase.auth.GoogleAuthProvider();
+		GoogleProvider = new firebase.auth.GoogleAuthProvider();
 	} catch (error) {
 		console.error(error);
 	}
@@ -29,13 +29,21 @@ function InitializeApp(){
 	let WeekEndDay = 6;
 
 	// grabing elements to add functality to theme
-	let SignInButton          = document.getElementById("sign-in-button");
-		SignInButton.onclick  = () => Auth.signInWithPopup(Provider);
-	let SignOutButton         = document.getElementById("sign-out-button");
-		SignOutButton.onclick = () => Auth.signOut();
-	let MainSectionSignIn     = document.getElementById("main-signed-in");
-	let MainSectionSignOut    = document.getElementById("main-signed-out");
-	let MainLoading           = document.getElementById("main-loading");
+	let MainSectionSignIn           = document.getElementById("main-signed-in");
+	let MainSectionSignOut          = document.getElementById("main-signed-out");
+	let MainLoading                 = document.getElementById("main-loading");
+
+	let SignInGoogleButton          = document.getElementById("sign-in-google-button");
+		SignInGoogleButton.onclick  = () => Auth.signInWithPopup(GoogleProvider);
+	let SignOutButton               = document.getElementById("sign-out-button");
+		SignOutButton.onclick       = () => Auth.signOut();
+	let SignInEmailButton           = document.getElementById("sing-in-email").querySelector("input[type='submit']");
+		SignInEmailButton.onclick   = () => {
+			let email = "example@gmail.com";
+			let password = "8w4#$njfs98";
+			Auth.signInWithEmailAndPassword(email,password);
+			
+		}
 
 	let sign_in_releated_elements = [SignOutButton,MainSectionSignIn];
 	let sign_out_releated_elements = [MainSectionSignOut];
@@ -243,22 +251,22 @@ function InitializeApp(){
 														<table>
 															<tbody>
 																<tr>
-																	<td><label ${routine_activity.days.sun ? "checked" : ""}  >Sun</label></td>
-																	<td><label ${routine_activity.days.mon ? "checked" : ""}  >Mon</label></td>
-																	<td><label ${routine_activity.days.tue ? "checked" : ""}  >Tue</label></td>
-																	<td><label ${routine_activity.days.wed ? "checked" : ""}  >Wed</label></td>
-																	<td><label ${routine_activity.days.thu ? "checked" : ""}  >Thu</label></td>
-																	<td><label ${routine_activity.days.fri ? "checked" : ""}  >Fri</label></td>
-																	<td><label ${routine_activity.days.sat ? "checked" : ""}  >Sat</label></td>
+																	<td><label >Sun</label></td>
+																	<td><label >Mon</label></td>
+																	<td><label >Tue</label></td>
+																	<td><label >Wed</label></td>
+																	<td><label >Thu</label></td>
+																	<td><label >Fri</label></td>
+																	<td><label >Sat</label></td>
 																</tr>
 																<tr>
-																	<td><input type="checkbox" name="sun" id="sun"></td>
-																	<td><input type="checkbox" name="mon" id="mon"></td>
-																	<td><input type="checkbox" name="tue" id="tue"></td>
-																	<td><input type="checkbox" name="wed" id="wed"></td>
-																	<td><input type="checkbox" name="thu" id="thu"></td>
-																	<td><input type="checkbox" name="fri" id="fri"></td>
-																	<td><input type="checkbox" name="sat" id="sat"></td>
+																	<td><input ${routine_activity.days.sun ? "checked" : ""} type="checkbox" name="sun" id="sun"></td>
+																	<td><input ${routine_activity.days.mon ? "checked" : ""} type="checkbox" name="mon" id="mon"></td>
+																	<td><input ${routine_activity.days.tue ? "checked" : ""} type="checkbox" name="tue" id="tue"></td>
+																	<td><input ${routine_activity.days.wed ? "checked" : ""} type="checkbox" name="wed" id="wed"></td>
+																	<td><input ${routine_activity.days.thu ? "checked" : ""} type="checkbox" name="thu" id="thu"></td>
+																	<td><input ${routine_activity.days.fri ? "checked" : ""} type="checkbox" name="fri" id="fri"></td>
+																	<td><input ${routine_activity.days.sat ? "checked" : ""} type="checkbox" name="sat" id="sat"></td>
 																</tr>
 															</tbody>
 														</table>
@@ -309,7 +317,7 @@ function InitializeApp(){
 														</select>
 													</div>
 													<div class="feild horizontal-flex-container">
-														<input type="submit" class="filler" value="Add Activity" class="filler"/>
+														<input type="submit" class="filler" value="Edit Routine" class="filler"/>
 													</div>
 											</div>
 										</div>

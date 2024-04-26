@@ -60,9 +60,18 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 25%;
 }
 
+::-webkit-scrollbar {
+    background-color: var(--dark-gray-color);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--light-gray-color);
+	border-radius: 5em;
+	border: 0.2em solid var(--dark-gray-color);
+}
+
 a{
 	color:white;
-	text-decoration: none;
 }
 
 html, body{
@@ -128,6 +137,10 @@ html, body{
 			flex: 0 1 auto;
 		}
 
+		a{
+			text-decoration: none;
+		}
+
 		.dropdown{
 
 			position: relative;
@@ -159,11 +172,12 @@ html, body{
     
     main{
 
+
+
 		padding:1em;
         flex: 1 1 auto;
         background-color: var(--dark-gray-color);
         overflow: auto;
-		scrollbar-gutter: stable;
 
 		nav{
 			button{
@@ -220,7 +234,7 @@ html, body{
 
 			#day-tabs-container-parent{
 				height: 100%;
-				overflow: auto;
+				overflow-y: scroll;
 				position: relative;
 				margin-right: 0.2em;
 
@@ -336,7 +350,7 @@ html, body{
 				text-align: center;
 			}
 
-			#sign-in-button{
+			.sign-in-button-provider{
 				width: 100%;
 				padding: 1em;
 				background-color: white;
@@ -377,7 +391,6 @@ html, body{
 
 		a{
 			color: var(--dark-sliver-color);
-			text-decoration: underline;
 		}
     }
 

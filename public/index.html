@@ -7,7 +7,6 @@
 			* Owner: Mustafa El-rasheid
 			* All rights reserved.
 		-->
-
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Day Chunks - home page </title>
@@ -17,7 +16,6 @@
 		<script defer src="/__/firebase/10.10.0/firebase-database-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-firestore-compat.js"></script>
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
 		<script src="app.js" defer></script>
 		<script src="tabs.js"></script>
 	</head>
@@ -30,17 +28,14 @@
 					<button class="show-dropdown">
 						<img src="/icons/three-dots.svg" style="width: 1.5em;">
 					</button>
-					
 					<div class="dropdown-content" >
 						<button hidden="true" id="sign-out-button">
 							<b>Sign Out</b>
 						</button>
 					</div>
 				</div>
-				
 			</div>
 		</header>
-		
 		<main id="main-signed-in" hidden="true" >
 			<div class="vertical-flex-container" >
 				<nav hidden="true" class="horizontal-flex-container">
@@ -51,7 +46,7 @@
 							{button_id:'tab-button-watch',tab_id:'main-watch-section',button_styling_choice_class:'highlighted'}
 						];
 					</script>
-					<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);" class="highlighted">
+					<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);">
 						Excute
 					</button>
 					<button id="tab-button-plan" onclick="TurnTabsOnOrOff(Tabs,1);" >
@@ -84,24 +79,10 @@
 								<button id="fri-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,5);" >fri</button>
 								<button id="sat-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,6);" >sat</button>
 							</nav>
-							<input 
-								type="range" 
-								id="min-range" 
-								min="0" 
-								max="100" 
-								value="00" 
-								step="4.166666666"> 
-							<input 
-								type="range" 
-								id="max-range" 
-								min="0" 
-								max="100" 
-								value="100" 
-								step="4.166666666">
+							<input type="range" id="min-range" min="0" max="100" value="00" step="4.166666666"> 
+							<input type="range" id="max-range" min="0" max="100" value="100" step="4.166666666">
 							<div id="day-tabs-container-parent" class="horizontal-flex-container">
-								
 								<div class="filler" id="day-tabs-container" style="height: 100%;">
-									
 									<div id="sun-tab" class="day-tab"></div>
 									<div id="mon-tab" class="day-tab"></div>
 									<div id="tue-tab" class="day-tab"></div>
@@ -156,7 +137,7 @@
 									routine activities
 								</button>
 								<button id="event-activities-tab-button" onclick="TurnTabsOnOrOff(PlanningOptionsTabs,1);" >
-									events activities
+									one-time events
 								</button>
 							</nav>
 							<div id="routine-activities-tab" style="height: 100%; overflow: auto;"> 
@@ -241,7 +222,7 @@
 														</select>
 													</div>
 													<div class="feild horizontal-flex-container">
-														<input type="submit" class="filler" value="Add Activity" class="filler"/>
+														<input type="submit" class="filler" value="Add Routine" class="filler"/>
 													</div>
 												</div>
 											</div>
@@ -261,30 +242,32 @@
 				</div>
 				<script>TurnTabsOnOrOff(Tabs,0);</script>
 			</div>
-			
 		</main>
 		<main id="main-signed-out" hidden="true" >
 			<div class="centering-parent">
 				<div id="sing-in-popup">
-					<div>
-						<h2>Sign In</h2>
-						<span>singing in to start your use of this useful service!</span>
-						<div>
-							<div class="feild horizontal-flex-container">
-								<input placeholder="Email" class="filler" type="email" name="sign-in-email"/>
-							</div>
-							<div class="feild horizontal-flex-container">
-								<input placeholder="Password" class="filler" type="password" name="sign-in-password"/>
-							</div>
-							<div class="feild horizontal-flex-container">
-								<input class="filler" type="submit" value="Sing in"/>
+					<h2>Sign In</h2>
+					<span>singing in to start your use of this useful service!</span>
+					<div hidden>
+						<div id="sing-in-email">
+							<div>
+								<div class="feild horizontal-flex-container">
+									<input placeholder="Email" class="filler" type="email" name="sign-in-email"/>
+								</div>
+								<div class="feild horizontal-flex-container">
+									<input placeholder="Password" class="filler" type="password" name="sign-in-password"/>
+								</div>
+								<div class="feild horizontal-flex-container">
+									<input class="filler" type="submit" value="Sing in"/>
+								</div>
 							</div>
 						</div>
+						<div class="centering-parent">
+							or
+						</div>
 					</div>
-					<div class="centering-parent">
-						or
-					</div>
-					<button id="sign-in-button">
+					<button id="sign-in-google-button" class="sign-in-button-provider centering-parent">
+						<img src="/icons/google-logo.svg" style="height: 100%; margin-inline: 1em;">
 						<b>Sign In With Google</b>
 					</button>
 				</div>
@@ -297,7 +280,7 @@
 			<a href="/p/how-to-use.html">How to Use</a> -
 			<a href="/p/about-us.html">About Us</a> - 
 			<a href="/p/privacy-policy.html">Privacy policy</a> - 
-			<a href="/p/term-of-use.html">Term of Use</a> -
+			<a href="/p/terms-of-use.html">Terms of Use</a> -
 			<a href="/p/contact-us.html">Contact Us</a> - 
 			<a href="/p/donations.html">Donations</a>
 		</footer>

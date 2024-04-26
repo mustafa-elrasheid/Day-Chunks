@@ -1,15 +1,19 @@
-.title-content-pair{
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
+h1, h2 {
+  margin-top: 1.2em;
+  margin-bottom: 0.3em;
 }
+
 li {
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-    margin-left: 2em;
+  margin-left: 2em;
+  padding: 0.3em;
 }
-.title-content-pair h1,.title-content-pair h2{
-    margin-bottom: 0.3em;
+
+p {
+  margin-block: 0.7em;
 }
-.title-content-pair ul{
-    margin:0.15em;
+
+p, li {
+  line-height: 1.5em;
 }
+
+/*# sourceMappingURL=posts-styling.css.map */

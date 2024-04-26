@@ -56,9 +56,18 @@ input[type=range]::-webkit-slider-thumb {
   border-radius: 25%;
 }
 
+::-webkit-scrollbar {
+  background-color: var(--dark-gray-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--light-gray-color);
+  border-radius: 5em;
+  border: 0.2em solid var(--dark-gray-color);
+}
+
 a {
   color: white;
-  text-decoration: none;
 }
 
 html, body {
@@ -110,6 +119,9 @@ html header h1, body header h1 {
   display: inline;
   flex: 0 1 auto;
 }
+html header a, body header a {
+  text-decoration: none;
+}
 html header .dropdown, body header .dropdown {
   position: relative;
 }
@@ -132,7 +144,6 @@ html main, body main {
   flex: 1 1 auto;
   background-color: var(--dark-gray-color);
   overflow: auto;
-  scrollbar-gutter: stable;
 }
 html main nav button, body main nav button {
   margin: 0.2em;
@@ -175,7 +186,7 @@ html main #main-excute-section .day-tab, body main #main-excute-section .day-tab
 }
 html main #main-excute-section #day-tabs-container-parent, body main #main-excute-section #day-tabs-container-parent {
   height: 100%;
-  overflow: auto;
+  overflow-y: scroll;
   position: relative;
   margin-right: 0.2em;
 }
@@ -259,7 +270,7 @@ html main #sing-in-popup, body main #sing-in-popup {
 html main #sing-in-popup h2, body main #sing-in-popup h2 {
   text-align: center;
 }
-html main #sing-in-popup #sign-in-button, body main #sing-in-popup #sign-in-button {
+html main #sing-in-popup .sign-in-button-provider, body main #sing-in-popup .sign-in-button-provider {
   width: 100%;
   padding: 1em;
   background-color: white;
@@ -293,7 +304,6 @@ html footer, body footer {
 }
 html footer a, body footer a {
   color: var(--dark-sliver-color);
-  text-decoration: underline;
 }
 
 /*# sourceMappingURL=style.css.map */
