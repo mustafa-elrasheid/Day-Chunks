@@ -10,34 +10,34 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Day Chunks - home page </title>
+		<meta name="description" content="Day Chunks is a time management app that sections your day into manageable chunks.">
+		<meta name="keywords" content="Time Manageable, Todo app, lists, app">
 		<link rel="stylesheet" href="style.css">
 		<script defer src="/__/firebase/10.10.0/firebase-app-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-auth-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-database-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-firestore-compat.js"></script>
-		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+		<script defer src="/__/firebase/init.js"></script>
 		<script src="app.js" defer></script>
 		<script src="tabs.js"></script>
 	</head>
 	<body class="vertical-flex-container">
-		<header>
-			<div class="horizontal-flex-container">
-				<a href="/" style="font-size: x-large;"><b>Day Chunks</b></a>
-				<div class="filler"></div>
-				<div class="dropdown">
-					<button class="show-dropdown">
-						<img src="/icons/three-dots.svg" style="width: 1.5em;">
+		<header class="horizontal-flex-container">
+			<a href="/" style="font-size: x-large;"><b>Day Chunks</b></a>
+			<div class="filler"></div>
+			<div class="dropdown">
+				<button class="show-dropdown">
+					<img src="/icons/three-dots.svg" style="width: 1.5em;">
+				</button>
+				<div class="dropdown-content" >
+					<button hidden="true" id="sign-out-button">
+						<b>Sign Out</b>
 					</button>
-					<div class="dropdown-content" >
-						<button hidden="true" id="sign-out-button">
-							<b>Sign Out</b>
-						</button>
-					</div>
 				</div>
 			</div>
 		</header>
-		<main id="main-signed-in" hidden="true" >
-			<div class="vertical-flex-container" >
+		<main id="main-signed-in" hidden="true">
+			<div class="vertical-flex-container">
 				<nav hidden="true" class="horizontal-flex-container">
 					<script>
 						const Tabs = [
@@ -141,7 +141,7 @@
 								</button>
 							</nav>
 							<div id="routine-activities-tab" style="height: 100%; overflow: auto;"> 
-								<div  class="vertical-flex-container" style="height: 100%; overflow: auto;">
+								<div class="vertical-flex-container" style="height: 100%; overflow: auto;">
 									<div style="height:100%;">
 										<div id="add-routine-activity" class="routine-activity-editor">
 											<div class="feild horizontal-flex-container">
@@ -231,7 +231,96 @@
 									</div>
 								</div>
 							</div>
-							<div id="event-activities-tab">
+							<div id="event-activities-tab" style="height: 100%; overflow: auto;"> 
+								<div class="vertical-flex-container" style="height: 100%; overflow: auto;">
+									<div style="height:100%;">
+										<div id="add-one-time-activity" class="one-time-activity-editor">
+											<div class="feild horizontal-flex-container">
+												<button id="add-one-time-activity">
+													<img src="icons/plus.svg" />
+												</button>
+												<h2 style="display: inline;">Add Routine</h2>
+											</div>
+											<div id="one-time-activities-creator-feilds-container" style="grid-template-rows: 0fr;">
+												<div>
+													<div class="feild">
+														<table>
+															<tbody>
+																<tr>
+																	<td><label >Sun</label></td>
+																	<td><label >Mon</label></td>
+																	<td><label >Tue</label></td>
+																	<td><label >Wed</label></td>
+																	<td><label >Thu</label></td>
+																	<td><label >Fri</label></td>
+																	<td><label >Sat</label></td>
+																</tr>
+																<tr>
+																	<td><input type="checkbox" name="sun" id="sun"></td>
+																	<td><input type="checkbox" name="mon" id="mon"></td>
+																	<td><input type="checkbox" name="tue" id="tue"></td>
+																	<td><input type="checkbox" name="wed" id="wed"></td>
+																	<td><input type="checkbox" name="thu" id="thu"></td>
+																	<td><input type="checkbox" name="fri" id="fri"></td>
+																	<td><input type="checkbox" name="sat" id="sat"></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Name</label>
+														<input placeholder="Title" class="filler" type="text" name="name">
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label  for="activity-time">Time</label>
+														<input placeholder="HH 24H format" class="filler" name="time_h" type="number">
+														<span>:</span>
+														<input placeholder="MM" class="filler" name="time_m" type="number">
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Duration</label>
+														<input placeholder="Duration in munites" class="filler" type="number" name="duration_minutes">
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Group</label>
+														<input placeholder="Related for" class="filler" type="text" name="group">
+													</div>
+													
+													<div class="feild horizontal-flex-container">
+														<label>Description</label>
+														<input placeholder="More details" class="filler" type="text" name="description">
+													</div>
+													<div class="feild horizontal-flex-container">
+														<label>Color</label>
+														<select class="filler" name="background_color">
+															<option value ="#46474Dff" style="background-color: #46474Dff;">Gray</option>
+															<option value ="#4d2c2cff" style="background-color: #4d2c2cff;">Red</option>
+															<option value ="#4d392cff" style="background-color: #4d392cff;">Orange</option>
+															<option value ="#4d452cff" style="background-color: #4d452cff;">Yellow</option>
+															<option value ="#2d4d3eff" style="background-color: #2d4d3eff;">Green</option>
+															<option value ="#324146ff" style="background-color: #324146ff;">Cyan</option>
+															<option value ="#36354dff" style="background-color: #36354dff;">Blue</option>
+															<option value ="#42313dff" style="background-color: #42313dff;">Purple</option>
+														</select>
+													</div>
+						
+													<div class="feild horizontal-flex-container">
+														<label>Priority</label>
+														<select class="filler" name="priority">
+															<option value="low">Low</option>
+															<option value="medium">Medium</option>
+															<option value="high">High</option>
+														</select>
+													</div>
+													<div class="feild horizontal-flex-container">
+														<input type="submit" class="filler" value="Add Routine" class="filler"/>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div id="routine-activities-editor"></div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<script>TurnTabsOnOrOff(PlanningOptionsTabs,0);</script>

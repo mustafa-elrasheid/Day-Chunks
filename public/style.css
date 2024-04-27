@@ -18,14 +18,6 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.expanded {
-  height: auto; /* Set height to auto when expanded */
-}
-
-.collapsed {
-  height: 0; /* Set height to 0 when collapsed */
-}
-
 table, tbody {
   width: 100%;
 }
@@ -67,7 +59,19 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 a {
-  color: white;
+  color: inherit;
+}
+
+.vertical-flex-container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.horizontal-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
 }
 
 html, body {
@@ -75,25 +79,18 @@ html, body {
   background-color: var(--light-gray-color);
   color: white;
 }
-html .vertical-flex-container, body .vertical-flex-container {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
-}
-html .horizontal-flex-container, body .horizontal-flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  flex-flow: row;
-}
-html nav button, body nav button {
+
+nav button {
   flex: 1 1 auto;
   text-align: center;
   padding: 0.5em;
 }
-html .filler, body .filler {
+
+.filler {
   flex: 1 1 auto;
 }
-html .blue-button, body .blue-button {
+
+.blue-button {
   background-color: #303030;
   border: white solid 0.2em;
   border-radius: 3em;
@@ -101,31 +98,30 @@ html .blue-button, body .blue-button {
   padding-left: 1em;
   padding-right: 1em;
 }
-html .blue-button:hover, body .blue-button:hover {
+
+.blue-button:hover {
   background-color: white;
   color: var(--light-gray-color);
 }
-html .centering-parent, body .centering-parent {
+
+.centering-parent {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-html header, body header {
+
+header {
   padding: 1em;
   flex: 0 1 auto;
   background-color: var(--light-gray-color);
 }
-html header h1, body header h1 {
-  display: inline;
-  flex: 0 1 auto;
-}
-html header a, body header a {
+header a {
   text-decoration: none;
 }
-html header .dropdown, body header .dropdown {
+header .dropdown {
   position: relative;
 }
-html header .dropdown .dropdown-content, body header .dropdown .dropdown-content {
+header .dropdown .dropdown-content {
   background-color: var(--light-gray-color);
   min-width: 10em;
   padding: 1.5em;
@@ -136,16 +132,17 @@ html header .dropdown .dropdown-content, body header .dropdown .dropdown-content
   display: none;
   box-shadow: 0.3em 0.3em 2em rgba(0, 0, 0, 0.3333333333);
 }
-html header .dropdown:hover .dropdown-content, html header .dropdown:focus-within .dropdown-content, body header .dropdown:hover .dropdown-content, body header .dropdown:focus-within .dropdown-content {
+header .dropdown:hover .dropdown-content, header .dropdown:focus-within .dropdown-content {
   display: block;
 }
-html main, body main {
+
+main {
   padding: 1em;
   flex: 1 1 auto;
   background-color: var(--dark-gray-color);
   overflow: auto;
 }
-html main nav button, body main nav button {
+main nav button {
   margin: 0.2em;
   border-radius: 0.5em;
   background-color: var(--light-gray-color);
@@ -153,13 +150,13 @@ html main nav button, body main nav button {
   text-overflow: clip;
   white-space: nowrap;
 }
-html main nav .highlighted, body main nav .highlighted {
+main nav .highlighted {
   background-color: var(--dark-sliver-color);
 }
-html main #main-excute-section, body main #main-excute-section {
+main #main-excute-section {
   height: 100%;
 }
-html main #main-excute-section .activity, body main #main-excute-section .activity {
+main #main-excute-section .activity {
   border-left: 1em white solid;
   border-radius: 0.5em;
   position: absolute;
@@ -170,7 +167,7 @@ html main #main-excute-section .activity, body main #main-excute-section .activi
   padding: 0.5em;
   background-color: var(--light-gray-color);
 }
-html main #main-excute-section .activity button, body main #main-excute-section .activity button {
+main #main-excute-section .activity button {
   flex: 0 1 auto;
   padding: 0em;
   padding-left: 1em;
@@ -179,37 +176,37 @@ html main #main-excute-section .activity button, body main #main-excute-section 
   background-color: var(--light-gray-color);
   border: 0.2em solid var(--dark-sliver-color);
 }
-html main #main-excute-section .day-tab, body main #main-excute-section .day-tab {
+main #main-excute-section .day-tab {
   position: relative;
   width: 100%;
   height: 100%;
 }
-html main #main-excute-section #day-tabs-container-parent, body main #main-excute-section #day-tabs-container-parent {
+main #main-excute-section #day-tabs-container-parent {
   height: 100%;
   overflow-y: scroll;
   position: relative;
   margin-right: 0.2em;
 }
-html main #main-excute-section #day-tabs-container-parent #current-time, body main #main-excute-section #day-tabs-container-parent #current-time {
+main #main-excute-section #day-tabs-container-parent #current-time {
   position: absolute;
   left: 0px;
   right: 0px;
   height: 0.3em;
   background-color: rgba(0, 217, 255, 0.3647058824);
 }
-html main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator, body main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator {
+main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator {
   font-size: 0.8em;
   color: var(--dark-sliver-color);
   position: relative;
   overflow: hidden;
 }
-html main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator *, body main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator * {
+main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator * {
   overflow: hidden;
 }
-html main #main-plan-section, body main #main-plan-section {
+main #main-plan-section {
   height: 100%;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor, body main #main-plan-section #routine-activities-tab .routine-activity-editor {
+main #main-plan-section .routine-activity-editor, main #main-plan-section .one-time-activity-editor {
   background-color: var(--light-gray-color);
   border-radius: 0.5em;
   margin: 0.2em;
@@ -218,27 +215,27 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor, b
   border-left: 1em solid white;
   min-height: 4.2em;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor *, body main #main-plan-section #routine-activities-tab .routine-activity-editor * {
+main #main-plan-section .routine-activity-editor *, main #main-plan-section .one-time-activity-editor * {
   overflow: hidden;
   transition: grid-template-rows 200ms ease-in-out, transform 200ms ease-in-out;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor #routine-activities-creator-feilds-container, body main #main-plan-section #routine-activities-tab .routine-activity-editor #routine-activities-creator-feilds-container {
+main #main-plan-section .routine-activity-editor #routine-activities-creator-feilds-container, main #main-plan-section .routine-activity-editor #one-time-activities-creator-feilds-container, main #main-plan-section .one-time-activity-editor #routine-activities-creator-feilds-container, main #main-plan-section .one-time-activity-editor #one-time-activities-creator-feilds-container {
   display: grid;
   grid-template-rows: 0fr;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor img, body main #main-plan-section #routine-activities-tab .routine-activity-editor img {
+main #main-plan-section .routine-activity-editor img, main #main-plan-section .one-time-activity-editor img {
   width: 1.7em;
   margin: 0.15em 0.5em;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor h1, html main #main-plan-section #routine-activities-tab .routine-activity-editor h2, html main #main-plan-section #routine-activities-tab .routine-activity-editor h3, html main #main-plan-section #routine-activities-tab .routine-activity-editor h4, html main #main-plan-section #routine-activities-tab .routine-activity-editor h5, html main #main-plan-section #routine-activities-tab .routine-activity-editor h6, body main #main-plan-section #routine-activities-tab .routine-activity-editor h1, body main #main-plan-section #routine-activities-tab .routine-activity-editor h2, body main #main-plan-section #routine-activities-tab .routine-activity-editor h3, body main #main-plan-section #routine-activities-tab .routine-activity-editor h4, body main #main-plan-section #routine-activities-tab .routine-activity-editor h5, body main #main-plan-section #routine-activities-tab .routine-activity-editor h6 {
+main #main-plan-section .routine-activity-editor h1, main #main-plan-section .routine-activity-editor h2, main #main-plan-section .routine-activity-editor h3, main #main-plan-section .routine-activity-editor h4, main #main-plan-section .routine-activity-editor h5, main #main-plan-section .routine-activity-editor h6, main #main-plan-section .one-time-activity-editor h1, main #main-plan-section .one-time-activity-editor h2, main #main-plan-section .one-time-activity-editor h3, main #main-plan-section .one-time-activity-editor h4, main #main-plan-section .one-time-activity-editor h5, main #main-plan-section .one-time-activity-editor h6 {
   flex: 1;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild {
+main #main-plan-section .routine-activity-editor .feild, main #main-plan-section .one-time-activity-editor .feild {
   align-content: center;
   padding: 0.2em;
   min-height: 2em;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit], html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=text], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=number], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=submit], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild select {
+main #main-plan-section .routine-activity-editor .feild input[type=text], main #main-plan-section .routine-activity-editor .feild select, main #main-plan-section .routine-activity-editor .feild input[type=number], main #main-plan-section .routine-activity-editor .feild input[type=submit], main #main-plan-section .routine-activity-editor .feild select, main #main-plan-section .one-time-activity-editor .feild input[type=text], main #main-plan-section .one-time-activity-editor .feild select, main #main-plan-section .one-time-activity-editor .feild input[type=number], main #main-plan-section .one-time-activity-editor .feild input[type=submit], main #main-plan-section .one-time-activity-editor .feild select {
   margin: 0.2em;
   border-radius: 0.5em;
   padding: 0.5em;
@@ -250,27 +247,27 @@ html main #main-plan-section #routine-activities-tab .routine-activity-editor .f
   text-overflow: clip;
   white-space: nowrap;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=checkbox], body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild input[type=checkbox] {
+main #main-plan-section .routine-activity-editor .feild input[type=checkbox], main #main-plan-section .one-time-activity-editor .feild input[type=checkbox] {
   margin-left: 0.25em;
   margin-right: 0.25em;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild label, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild label {
+main #main-plan-section .routine-activity-editor .feild label, main #main-plan-section .one-time-activity-editor .feild label {
   min-width: 5em;
   display: flex;
   align-items: center;
 }
-html main #main-plan-section #routine-activities-tab .routine-activity-editor .feild table label, body main #main-plan-section #routine-activities-tab .routine-activity-editor .feild table label {
+main #main-plan-section .routine-activity-editor .feild table label, main #main-plan-section .one-time-activity-editor .feild table label {
   display: inline;
 }
-html main #sing-in-popup, body main #sing-in-popup {
+main #sing-in-popup {
   background-color: var(--light-gray-color);
   padding: 1em;
   border-radius: 1em;
 }
-html main #sing-in-popup h2, body main #sing-in-popup h2 {
+main #sing-in-popup h2 {
   text-align: center;
 }
-html main #sing-in-popup .sign-in-button-provider, body main #sing-in-popup .sign-in-button-provider {
+main #sing-in-popup .sign-in-button-provider {
   width: 100%;
   padding: 1em;
   background-color: white;
@@ -278,11 +275,11 @@ html main #sing-in-popup .sign-in-button-provider, body main #sing-in-popup .sig
   border-radius: 1em;
   margin: 1em 0em;
 }
-html main #sing-in-popup .feild, body main #sing-in-popup .feild {
+main #sing-in-popup .feild {
   align-content: center;
   min-height: 2em;
 }
-html main #sing-in-popup .feild input[type=text], html main #sing-in-popup .feild select, html main #sing-in-popup .feild input[type=number], html main #sing-in-popup .feild input[type=submit], html main #sing-in-popup .feild input[type=email], html main #sing-in-popup .feild input[type=password], html main #sing-in-popup .feild select, body main #sing-in-popup .feild input[type=text], body main #sing-in-popup .feild select, body main #sing-in-popup .feild input[type=number], body main #sing-in-popup .feild input[type=submit], body main #sing-in-popup .feild input[type=email], body main #sing-in-popup .feild input[type=password], body main #sing-in-popup .feild select {
+main #sing-in-popup .feild input[type=text], main #sing-in-popup .feild select, main #sing-in-popup .feild input[type=number], main #sing-in-popup .feild input[type=submit], main #sing-in-popup .feild input[type=email], main #sing-in-popup .feild input[type=password], main #sing-in-popup .feild select {
   margin: 0.5em 0em;
   border-radius: 0.5em;
   padding: 0.5em;
@@ -295,14 +292,15 @@ html main #sing-in-popup .feild input[type=text], html main #sing-in-popup .feil
   white-space: nowrap;
   height: 2em;
 }
-html footer, body footer {
+
+footer {
   padding: 0.5em;
   flex: 0 1 auto;
   background-color: var(--light-gray-color);
   text-align: center;
   color: var(--dark-sliver-color);
 }
-html footer a, body footer a {
+footer a {
   color: var(--dark-sliver-color);
 }
 
