@@ -41,9 +41,9 @@
 				<nav hidden="true" class="horizontal-flex-container">
 					<script>
 						const Tabs = [
-							{button_id:'tab-button-excute',tab_id:'main-excute-section',button_styling_choice_class:'highlighted'},
-							{button_id:'tab-button-plan',tab_id:'main-plan-section',button_styling_choice_class:'highlighted'},
-							{button_id:'tab-button-watch',tab_id:'main-watch-section',button_styling_choice_class:'highlighted'}
+							{button_id:'tab-button-excute',tab_id:'excute-section',button_styling_choice_class:'highlighted'},
+							{button_id:'tab-button-plan',tab_id:'plan-section',button_styling_choice_class:'highlighted'},
+							{button_id:'tab-button-watch',tab_id:'watch-section',button_styling_choice_class:'highlighted'}
 						];
 					</script>
 					<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);">
@@ -57,7 +57,7 @@
 					</button>
 				</nav>
 				<div class="filler" style=" overflow: auto;">
-					<div id="main-excute-section">
+					<div id="excute-section">
 						<script>
 							let DaysTabs = [
 								{button_id:'sun-tab-button',tab_id:'sun-tab',button_styling_choice_class:'highlighted'},
@@ -91,7 +91,7 @@
 									<div id="fri-tab" class="day-tab"></div>
 									<div id="sat-tab" class="day-tab"></div>
 								</div>
-								<div id="day-tabs-hours-indecator" class="vertical-flex-container">
+								<div id="hours-indecator" class="vertical-flex-container">
 									<div id="current-time"></div>
 									<div class="filler">00 am</div>
 									<div class="filler">01 am</div>
@@ -124,7 +124,7 @@
 							TurnTabsOnOrOff(DaysTabs,(new Date()).getDay());
 						</script>
 					</div>
-					<div id="main-plan-section">
+					<div id="plan-section">
 						<script>
 							let PlanningOptionsTabs = [
 								{button_id:'routine-activities-tab-button',tab_id:'routine-activities-tab',button_styling_choice_class:'highlighted'},
@@ -325,7 +325,7 @@
 						</div>
 						<script>TurnTabsOnOrOff(PlanningOptionsTabs,0);</script>
 					</div>
-					<div id="main-watch-section">
+					<div id="watch-section">
 						watch
 					</div>
 				</div>
@@ -338,7 +338,7 @@
 					<h2>Sign In</h2>
 					<span>singing in to start your use of this useful service!</span>
 					<div hidden>
-						<div id="sing-in-email">
+						<div id="sing-in-email-button">
 							<div>
 								<div class="feild horizontal-flex-container">
 									<input placeholder="Email" class="filler" type="email" name="sign-in-email"/>

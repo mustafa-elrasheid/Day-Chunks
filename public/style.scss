@@ -133,7 +133,6 @@ header{
 			min-width: 10em;
 			padding: 1.5em;
 			border-radius: 0.5em;
-
 			position: absolute;
 			right: 0px;
 			top: calc(100%);
@@ -155,6 +154,19 @@ main{
 	background-color: var(--dark-gray-color);
 	overflow: auto;
 
+	input[type="text"], select,input[type="number"], input[type="submit"],input[type="email"],input[type="password"],select{
+		margin: 0.5em 0em;
+		border-radius: 0.5em;
+		padding: 0.5em;
+		color:inherit;
+		appearance: none;
+		border: black 0.0em none;
+		background-color: var(--dark-gray-color);
+		overflow: hidden;
+		text-overflow:clip;
+		white-space: nowrap;
+	}
+
 	nav{
 		button{
 			margin: 0.2em;
@@ -170,15 +182,10 @@ main{
 		}
 	}
 
-
-
-	#main-excute-section{
-
+	#excute-section{
 		height: 100%;
-		
 
 		.activity{
-
 			border-left: 1em white solid;
 			border-radius: 0.5em;
 			position: absolute;
@@ -190,7 +197,6 @@ main{
 			background-color: var(--light-gray-color);
 	
 			button{
-
 				flex: 0 1 auto;
 				padding: 0em;
 				padding-left: 1em;
@@ -202,7 +208,6 @@ main{
 		}
 	
 		.day-tab{
-
 			position: relative;
 			width:100%;
 			height: 100%;
@@ -222,7 +227,7 @@ main{
 				background-color: #00d9ff5d;
 			}
 
-			#day-tabs-hours-indecator{
+			#hours-indecator{
 
 				font-size: 0.8em;
 				color: var(--dark-sliver-color);
@@ -232,15 +237,12 @@ main{
 				*{
 					overflow: hidden;
 				}
-
-
-
 			}
 			
 		}
 	}
 
-	#main-plan-section{
+	#plan-section{
 		height: 100%;
 
 		.routine-activity-editor,.one-time-activity-editor{
@@ -273,27 +275,15 @@ main{
 			}
 
 			.feild{
-
 				align-content: center;
 				padding: 0.2em;
 				min-height: 2em;
 
-				input[type="text"], select,input[type="number"], input[type="submit"],select{
-					margin: 0.2em;
-					border-radius: 0.5em;
-					padding: 0.5em;
-					color:inherit;
-					appearance: none;
-					border: black 0.0em none;
-					background-color: var(--dark-gray-color);
-					overflow: hidden;
-					text-overflow:clip;
-					white-space: nowrap;
-				}
 				input[type="checkbox"]{
 					margin-left: 0.25em;
 					margin-right: 0.25em;
 				}
+
 				label{
 					min-width: 5em;
 
@@ -309,7 +299,6 @@ main{
 	}
 
 	#sing-in-popup{
-
 		background-color: var(--light-gray-color);
 		padding: 1em;
 		border-radius: 1em;
@@ -328,25 +317,13 @@ main{
 		}
 
 		.feild{
-
 			align-content: center;
 			min-height: 2em;
-
-			input[type="text"], select,input[type="number"], input[type="submit"],input[type="email"],input[type="password"],select{
-				margin: 0.5em 0em;
-				border-radius: 0.5em;
-				padding: 0.5em;
-				color:inherit;
-				appearance: none;
-				border: black 0.0em none;
-				background-color: var(--dark-gray-color);
-				overflow: hidden;
-				text-overflow:clip;
-				white-space: nowrap;
-				height:2em;
-			}
 		}
+	}
 
+	#watch-section{
+		height: 100%;
 	}
 }
 

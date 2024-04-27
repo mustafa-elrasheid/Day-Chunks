@@ -142,6 +142,18 @@ main {
   background-color: var(--dark-gray-color);
   overflow: auto;
 }
+main input[type=text], main select, main input[type=number], main input[type=submit], main input[type=email], main input[type=password], main select {
+  margin: 0.5em 0em;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  color: inherit;
+  appearance: none;
+  border: black 0em none;
+  background-color: var(--dark-gray-color);
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
 main nav button {
   margin: 0.2em;
   border-radius: 0.5em;
@@ -153,10 +165,10 @@ main nav button {
 main nav .highlighted {
   background-color: var(--dark-sliver-color);
 }
-main #main-excute-section {
+main #excute-section {
   height: 100%;
 }
-main #main-excute-section .activity {
+main #excute-section .activity {
   border-left: 1em white solid;
   border-radius: 0.5em;
   position: absolute;
@@ -167,7 +179,7 @@ main #main-excute-section .activity {
   padding: 0.5em;
   background-color: var(--light-gray-color);
 }
-main #main-excute-section .activity button {
+main #excute-section .activity button {
   flex: 0 1 auto;
   padding: 0em;
   padding-left: 1em;
@@ -176,37 +188,37 @@ main #main-excute-section .activity button {
   background-color: var(--light-gray-color);
   border: 0.2em solid var(--dark-sliver-color);
 }
-main #main-excute-section .day-tab {
+main #excute-section .day-tab {
   position: relative;
   width: 100%;
   height: 100%;
 }
-main #main-excute-section #day-tabs-container-parent {
+main #excute-section #day-tabs-container-parent {
   height: 100%;
   overflow-y: scroll;
   position: relative;
   margin-right: 0.2em;
 }
-main #main-excute-section #day-tabs-container-parent #current-time {
+main #excute-section #day-tabs-container-parent #current-time {
   position: absolute;
   left: 0px;
   right: 0px;
   height: 0.3em;
   background-color: rgba(0, 217, 255, 0.3647058824);
 }
-main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator {
+main #excute-section #day-tabs-container-parent #hours-indecator {
   font-size: 0.8em;
   color: var(--dark-sliver-color);
   position: relative;
   overflow: hidden;
 }
-main #main-excute-section #day-tabs-container-parent #day-tabs-hours-indecator * {
+main #excute-section #day-tabs-container-parent #hours-indecator * {
   overflow: hidden;
 }
-main #main-plan-section {
+main #plan-section {
   height: 100%;
 }
-main #main-plan-section .routine-activity-editor, main #main-plan-section .one-time-activity-editor {
+main #plan-section .routine-activity-editor, main #plan-section .one-time-activity-editor {
   background-color: var(--light-gray-color);
   border-radius: 0.5em;
   margin: 0.2em;
@@ -215,48 +227,36 @@ main #main-plan-section .routine-activity-editor, main #main-plan-section .one-t
   border-left: 1em solid white;
   min-height: 4.2em;
 }
-main #main-plan-section .routine-activity-editor *, main #main-plan-section .one-time-activity-editor * {
+main #plan-section .routine-activity-editor *, main #plan-section .one-time-activity-editor * {
   overflow: hidden;
   transition: grid-template-rows 200ms ease-in-out, transform 200ms ease-in-out;
 }
-main #main-plan-section .routine-activity-editor #routine-activities-creator-feilds-container, main #main-plan-section .routine-activity-editor #one-time-activities-creator-feilds-container, main #main-plan-section .one-time-activity-editor #routine-activities-creator-feilds-container, main #main-plan-section .one-time-activity-editor #one-time-activities-creator-feilds-container {
+main #plan-section .routine-activity-editor #routine-activities-creator-feilds-container, main #plan-section .routine-activity-editor #one-time-activities-creator-feilds-container, main #plan-section .one-time-activity-editor #routine-activities-creator-feilds-container, main #plan-section .one-time-activity-editor #one-time-activities-creator-feilds-container {
   display: grid;
   grid-template-rows: 0fr;
 }
-main #main-plan-section .routine-activity-editor img, main #main-plan-section .one-time-activity-editor img {
+main #plan-section .routine-activity-editor img, main #plan-section .one-time-activity-editor img {
   width: 1.7em;
   margin: 0.15em 0.5em;
 }
-main #main-plan-section .routine-activity-editor h1, main #main-plan-section .routine-activity-editor h2, main #main-plan-section .routine-activity-editor h3, main #main-plan-section .routine-activity-editor h4, main #main-plan-section .routine-activity-editor h5, main #main-plan-section .routine-activity-editor h6, main #main-plan-section .one-time-activity-editor h1, main #main-plan-section .one-time-activity-editor h2, main #main-plan-section .one-time-activity-editor h3, main #main-plan-section .one-time-activity-editor h4, main #main-plan-section .one-time-activity-editor h5, main #main-plan-section .one-time-activity-editor h6 {
+main #plan-section .routine-activity-editor h1, main #plan-section .routine-activity-editor h2, main #plan-section .routine-activity-editor h3, main #plan-section .routine-activity-editor h4, main #plan-section .routine-activity-editor h5, main #plan-section .routine-activity-editor h6, main #plan-section .one-time-activity-editor h1, main #plan-section .one-time-activity-editor h2, main #plan-section .one-time-activity-editor h3, main #plan-section .one-time-activity-editor h4, main #plan-section .one-time-activity-editor h5, main #plan-section .one-time-activity-editor h6 {
   flex: 1;
 }
-main #main-plan-section .routine-activity-editor .feild, main #main-plan-section .one-time-activity-editor .feild {
+main #plan-section .routine-activity-editor .feild, main #plan-section .one-time-activity-editor .feild {
   align-content: center;
   padding: 0.2em;
   min-height: 2em;
 }
-main #main-plan-section .routine-activity-editor .feild input[type=text], main #main-plan-section .routine-activity-editor .feild select, main #main-plan-section .routine-activity-editor .feild input[type=number], main #main-plan-section .routine-activity-editor .feild input[type=submit], main #main-plan-section .routine-activity-editor .feild select, main #main-plan-section .one-time-activity-editor .feild input[type=text], main #main-plan-section .one-time-activity-editor .feild select, main #main-plan-section .one-time-activity-editor .feild input[type=number], main #main-plan-section .one-time-activity-editor .feild input[type=submit], main #main-plan-section .one-time-activity-editor .feild select {
-  margin: 0.2em;
-  border-radius: 0.5em;
-  padding: 0.5em;
-  color: inherit;
-  appearance: none;
-  border: black 0em none;
-  background-color: var(--dark-gray-color);
-  overflow: hidden;
-  text-overflow: clip;
-  white-space: nowrap;
-}
-main #main-plan-section .routine-activity-editor .feild input[type=checkbox], main #main-plan-section .one-time-activity-editor .feild input[type=checkbox] {
+main #plan-section .routine-activity-editor .feild input[type=checkbox], main #plan-section .one-time-activity-editor .feild input[type=checkbox] {
   margin-left: 0.25em;
   margin-right: 0.25em;
 }
-main #main-plan-section .routine-activity-editor .feild label, main #main-plan-section .one-time-activity-editor .feild label {
+main #plan-section .routine-activity-editor .feild label, main #plan-section .one-time-activity-editor .feild label {
   min-width: 5em;
   display: flex;
   align-items: center;
 }
-main #main-plan-section .routine-activity-editor .feild table label, main #main-plan-section .one-time-activity-editor .feild table label {
+main #plan-section .routine-activity-editor .feild table label, main #plan-section .one-time-activity-editor .feild table label {
   display: inline;
 }
 main #sing-in-popup {
@@ -279,18 +279,8 @@ main #sing-in-popup .feild {
   align-content: center;
   min-height: 2em;
 }
-main #sing-in-popup .feild input[type=text], main #sing-in-popup .feild select, main #sing-in-popup .feild input[type=number], main #sing-in-popup .feild input[type=submit], main #sing-in-popup .feild input[type=email], main #sing-in-popup .feild input[type=password], main #sing-in-popup .feild select {
-  margin: 0.5em 0em;
-  border-radius: 0.5em;
-  padding: 0.5em;
-  color: inherit;
-  appearance: none;
-  border: black 0em none;
-  background-color: var(--dark-gray-color);
-  overflow: hidden;
-  text-overflow: clip;
-  white-space: nowrap;
-  height: 2em;
+main #watch-section {
+  height: 100%;
 }
 
 footer {
