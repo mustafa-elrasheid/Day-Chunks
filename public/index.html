@@ -22,42 +22,46 @@
 		<script src="tabs.js"></script>
 	</head>
 	<body class="vertical-flex-container">
-		<header class="horizontal-flex-container">
+		<header class="centering-parent">
+			<img src="/icons/logo.svg" style="height: 1.5em;margin-inline: 1em;"/> 
 			<a href="/" style="font-size: x-large;"><b>Day Chunks</b></a>
 			<div class="filler"></div>
-			<div class="dropdown">
+			<div class="dropdown" id="settings">
 				<button class="show-dropdown">
 					<img src="/icons/three-dots.svg" style="width: 1.5em;">
 				</button>
 				<div class="dropdown-content" >
-					<button hidden="true" id="sign-out-button">
+					<button style="padding-block: 1em;" id="sign-out-button">
 						<b>Sign Out</b>
+					</button>
+					<button style="padding-block: 1em;" id="delete-account-button">
+						<b>Delete Account</b>
 					</button>
 				</div>
 			</div>
 		</header>
 		<main id="main-signed-in" hidden="true">
 			<div class="vertical-flex-container">
-				<nav hidden="true" class="horizontal-flex-container">
+				<nav hidden="true" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
 					<script>
 						const Tabs = [
-							{button_id:'tab-button-excute',tab_id:'excute-section',button_styling_choice_class:'highlighted'},
-							{button_id:'tab-button-plan',tab_id:'plan-section',button_styling_choice_class:'highlighted'},
-							{button_id:'tab-button-watch',tab_id:'watch-section',button_styling_choice_class:'highlighted'}
+							{button_id:'schedule-tab-button',tab_id:'schedule-section',button_styling_choice_class:'highlighted'},
+							{button_id:'plans-tab-button',tab_id:'plans-section',button_styling_choice_class:'highlighted'},
+							{button_id:'statistics-tab-button',tab_id:'statistics-section',button_styling_choice_class:'highlighted'}
 						];
 					</script>
-					<button id="tab-button-excute" onclick="TurnTabsOnOrOff(Tabs,0);">
-						Excute
+					<button id="schedule-tab-button" onclick="TurnTabsOnOrOff(Tabs,0);">
+						Schedule
 					</button>
-					<button id="tab-button-plan" onclick="TurnTabsOnOrOff(Tabs,1);" >
-						Plan
+					<button id="plans-tab-button" onclick="TurnTabsOnOrOff(Tabs,1);" >
+						Plans
 					</button>
-					<button id="tab-button-watch" onclick="TurnTabsOnOrOff(Tabs,2);" >
-						Watch
+					<button id="statistics-tab-button" onclick="TurnTabsOnOrOff(Tabs,2);" >
+						Statistics
 					</button>
 				</nav>
-				<div class="filler" style=" overflow: auto;">
-					<div id="excute-section">
+				<div class="filler" style="overflow: auto;">
+					<div id="schedule-section">
 						<script>
 							let DaysTabs = [
 								{button_id:'sun-tab-button',tab_id:'sun-tab',button_styling_choice_class:'highlighted'},
@@ -70,53 +74,60 @@
 							];
 						</script>
 						<div class="vertical-flex-container">
-							<nav class="horizontal-flex-container">
-								<button id="sun-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,0);" >sun</button>
-								<button id="mon-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,1);" >mon</button>
-								<button id="tue-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,2);" >tue</button>
-								<button id="wed-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,3);" >wed</button>
-								<button id="thu-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,4);" >thu</button>
-								<button id="fri-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,5);" >fri</button>
-								<button id="sat-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,6);" >sat</button>
+							<nav style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;">
+								<button id="sun-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,0);" >Sun</button>
+								<button id="mon-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,1);" >Mon</button>
+								<button id="tue-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,2);" >Tue</button>
+								<button id="wed-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,3);" >Wed</button>
+								<button id="thu-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,4);" >Thu</button>
+								<button id="fri-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,5);" >Fri</button>
+								<button id="sat-tab-button" onclick="TurnTabsOnOrOff(DaysTabs,6);" >Sat</button>
 							</nav>
-							<input type="range" id="min-range" min="0" max="100" value="00" step="4.166666666"> 
-							<input type="range" id="max-range" min="0" max="100" value="100" step="4.166666666">
+								
+							<div class="filler centering-parent" id="schedule-zoon">
+								<button onclick="document.getElementById('zoom').value -= 10;document.getElementById('zoom').oninput();"><img src="/icons/zoom-out.svg" alt=""></button>
+								<input class="filler" type="range" id="zoom" min="100" max="300" value="100" step="1">
+								<button onclick="document.getElementById('zoom').value = document.getElementById('zoom').value -1 +1 + 10;document.getElementById('zoom').oninput();"><img src="/icons/zoom-in.svg" alt=""></button>
+							</div>
+							
 							<div id="day-tabs-container-parent" class="horizontal-flex-container">
-								<div class="filler" id="day-tabs-container" style="height: 100%;">
-									<div id="sun-tab" class="day-tab"></div>
-									<div id="mon-tab" class="day-tab"></div>
-									<div id="tue-tab" class="day-tab"></div>
-									<div id="wed-tab" class="day-tab"></div>
-									<div id="thu-tab" class="day-tab"></div>
-									<div id="fri-tab" class="day-tab"></div>
-									<div id="sat-tab" class="day-tab"></div>
-								</div>
-								<div id="hours-indecator" class="vertical-flex-container">
-									<div id="current-time"></div>
-									<div class="filler">00 am</div>
-									<div class="filler">01 am</div>
-									<div class="filler">02 am</div>
-									<div class="filler">03 am</div>
-									<div class="filler">04 am</div>
-									<div class="filler">05 am</div>
-									<div class="filler">06 am</div>
-									<div class="filler">07 am</div>
-									<div class="filler">08 am</div>
-									<div class="filler">09 am</div>
-									<div class="filler">10 am</div>
-									<div class="filler">11 am</div>
-									<div class="filler">12 pm</div>
-									<div class="filler">01 pm</div>
-									<div class="filler">02 pm</div>
-									<div class="filler">03 pm</div>
-									<div class="filler">04 pm</div>
-									<div class="filler">05 pm</div>
-									<div class="filler">06 pm</div>
-									<div class="filler">07 pm</div>
-									<div class="filler">08 pm</div>
-									<div class="filler">09 pm</div>
-									<div class="filler">10 pm</div>
-									<div class="filler">11 pm</div>
+								<div id="day-tabs-container-overflowing" class="horizontal-flex-container" style="    width: 100%;">
+									<div class="filler" id="day-tabs-container" style="height: 100%;">
+										<div id="sun-tab" class="day-tab"></div>
+										<div id="mon-tab" class="day-tab"></div>
+										<div id="tue-tab" class="day-tab"></div>
+										<div id="wed-tab" class="day-tab"></div>
+										<div id="thu-tab" class="day-tab"></div>
+										<div id="fri-tab" class="day-tab"></div>
+										<div id="sat-tab" class="day-tab"></div>
+									</div>
+									<div id="hours-indecator" class="vertical-flex-container">
+										<div id="current-time"></div>
+										<div class="filler">12 am</div>
+										<div class="filler">01 am</div>
+										<div class="filler">02 am</div>
+										<div class="filler">03 am</div>
+										<div class="filler">04 am</div>
+										<div class="filler">05 am</div>
+										<div class="filler">06 am</div>
+										<div class="filler">07 am</div>
+										<div class="filler">08 am</div>
+										<div class="filler">09 am</div>
+										<div class="filler">10 am</div>
+										<div class="filler">11 am</div>
+										<div class="filler">12 pm</div>
+										<div class="filler">01 pm</div>
+										<div class="filler">02 pm</div>
+										<div class="filler">03 pm</div>
+										<div class="filler">04 pm</div>
+										<div class="filler">05 pm</div>
+										<div class="filler">06 pm</div>
+										<div class="filler">07 pm</div>
+										<div class="filler">08 pm</div>
+										<div class="filler">09 pm</div>
+										<div class="filler">10 pm</div>
+										<div class="filler">11 pm</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -124,7 +135,7 @@
 							TurnTabsOnOrOff(DaysTabs,(new Date()).getDay());
 						</script>
 					</div>
-					<div id="plan-section">
+					<div id="plans-section">
 						<script>
 							let PlanningOptionsTabs = [
 								{button_id:'routine-activities-tab-button',tab_id:'routine-activities-tab',button_styling_choice_class:'highlighted'},
@@ -132,7 +143,7 @@
 							];
 						</script>
 						<div class="vertical-flex-container">
-							<nav class="horizontal-flex-container">
+							<nav style="display: grid; grid-template-columns: 1fr 1fr;">
 								<button id="routine-activities-tab-button" onclick="TurnTabsOnOrOff(PlanningOptionsTabs,0);" >
 									routine activities
 								</button>
@@ -143,90 +154,6 @@
 							<div id="routine-activities-tab" style="height: 100%; overflow: auto;"> 
 								<div class="vertical-flex-container" style="height: 100%; overflow: auto;">
 									<div style="height:100%;">
-										<div id="add-routine-activity" class="routine-activity-editor">
-											<div class="feild horizontal-flex-container">
-												<button id="open-activity-creator-a">
-													<img src="icons/plus.svg" />
-												</button>
-												<h2 style="display: inline;">Add Routine</h2>
-											</div>
-											<div id="routine-activities-creator-feilds-container" style="grid-template-rows: 0fr;">
-												<div>
-													<div class="feild">
-														<table>
-															<tbody>
-																<tr>
-																	<td><label >Sun</label></td>
-																	<td><label >Mon</label></td>
-																	<td><label >Tue</label></td>
-																	<td><label >Wed</label></td>
-																	<td><label >Thu</label></td>
-																	<td><label >Fri</label></td>
-																	<td><label >Sat</label></td>
-																</tr>
-																<tr>
-																	<td><input type="checkbox" name="sun" id="sun"></td>
-																	<td><input type="checkbox" name="mon" id="mon"></td>
-																	<td><input type="checkbox" name="tue" id="tue"></td>
-																	<td><input type="checkbox" name="wed" id="wed"></td>
-																	<td><input type="checkbox" name="thu" id="thu"></td>
-																	<td><input type="checkbox" name="fri" id="fri"></td>
-																	<td><input type="checkbox" name="sat" id="sat"></td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Name</label>
-														<input placeholder="Title" class="filler" type="text" name="name">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label  for="activity-time">Time</label>
-														<input placeholder="HH 24H format" class="filler" name="time_h" type="number">
-														<span>:</span>
-														<input placeholder="MM" class="filler" name="time_m" type="number">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Duration</label>
-														<input placeholder="Duration in munites" class="filler" type="number" name="duration_minutes">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Group</label>
-														<input placeholder="Related for" class="filler" type="text" name="group">
-													</div>
-													
-													<div class="feild horizontal-flex-container">
-														<label>Description</label>
-														<input placeholder="More details" class="filler" type="text" name="description">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Color</label>
-														<select class="filler" name="background_color">
-															<option value ="#46474Dff" style="background-color: #46474Dff;">Gray</option>
-															<option value ="#4d2c2cff" style="background-color: #4d2c2cff;">Red</option>
-															<option value ="#4d392cff" style="background-color: #4d392cff;">Orange</option>
-															<option value ="#4d452cff" style="background-color: #4d452cff;">Yellow</option>
-															<option value ="#2d4d3eff" style="background-color: #2d4d3eff;">Green</option>
-															<option value ="#324146ff" style="background-color: #324146ff;">Cyan</option>
-															<option value ="#36354dff" style="background-color: #36354dff;">Blue</option>
-															<option value ="#42313dff" style="background-color: #42313dff;">Purple</option>
-														</select>
-													</div>
-						
-													<div class="feild horizontal-flex-container">
-														<label>Priority</label>
-														<select class="filler" name="priority">
-															<option value="low">Low</option>
-															<option value="medium">Medium</option>
-															<option value="high">High</option>
-														</select>
-													</div>
-													<div class="feild horizontal-flex-container">
-														<input type="submit" class="filler" value="Add Routine" class="filler"/>
-													</div>
-												</div>
-											</div>
-										</div>
 										<div id="routine-activities-editor"></div>
 									</div>
 								</div>
@@ -234,139 +161,173 @@
 							<div id="event-activities-tab" style="height: 100%; overflow: auto;"> 
 								<div class="vertical-flex-container" style="height: 100%; overflow: auto;">
 									<div style="height:100%;">
-										<div id="add-one-time-activity" class="one-time-activity-editor">
-											<div class="feild horizontal-flex-container">
-												<button id="add-one-time-activity">
-													<img src="icons/plus.svg" />
-												</button>
-												<h2 style="display: inline;">Add Routine</h2>
-											</div>
-											<div id="one-time-activities-creator-feilds-container" style="grid-template-rows: 0fr;">
-												<div>
-													<div class="feild">
-														<table>
-															<tbody>
-																<tr>
-																	<td><label >Sun</label></td>
-																	<td><label >Mon</label></td>
-																	<td><label >Tue</label></td>
-																	<td><label >Wed</label></td>
-																	<td><label >Thu</label></td>
-																	<td><label >Fri</label></td>
-																	<td><label >Sat</label></td>
-																</tr>
-																<tr>
-																	<td><input type="checkbox" name="sun" id="sun"></td>
-																	<td><input type="checkbox" name="mon" id="mon"></td>
-																	<td><input type="checkbox" name="tue" id="tue"></td>
-																	<td><input type="checkbox" name="wed" id="wed"></td>
-																	<td><input type="checkbox" name="thu" id="thu"></td>
-																	<td><input type="checkbox" name="fri" id="fri"></td>
-																	<td><input type="checkbox" name="sat" id="sat"></td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Name</label>
-														<input placeholder="Title" class="filler" type="text" name="name">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label  for="activity-time">Time</label>
-														<input placeholder="HH 24H format" class="filler" name="time_h" type="number">
-														<span>:</span>
-														<input placeholder="MM" class="filler" name="time_m" type="number">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Duration</label>
-														<input placeholder="Duration in munites" class="filler" type="number" name="duration_minutes">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Group</label>
-														<input placeholder="Related for" class="filler" type="text" name="group">
-													</div>
-													
-													<div class="feild horizontal-flex-container">
-														<label>Description</label>
-														<input placeholder="More details" class="filler" type="text" name="description">
-													</div>
-													<div class="feild horizontal-flex-container">
-														<label>Color</label>
-														<select class="filler" name="background_color">
-															<option value ="#46474Dff" style="background-color: #46474Dff;">Gray</option>
-															<option value ="#4d2c2cff" style="background-color: #4d2c2cff;">Red</option>
-															<option value ="#4d392cff" style="background-color: #4d392cff;">Orange</option>
-															<option value ="#4d452cff" style="background-color: #4d452cff;">Yellow</option>
-															<option value ="#2d4d3eff" style="background-color: #2d4d3eff;">Green</option>
-															<option value ="#324146ff" style="background-color: #324146ff;">Cyan</option>
-															<option value ="#36354dff" style="background-color: #36354dff;">Blue</option>
-															<option value ="#42313dff" style="background-color: #42313dff;">Purple</option>
-														</select>
-													</div>
-						
-													<div class="feild horizontal-flex-container">
-														<label>Priority</label>
-														<select class="filler" name="priority">
-															<option value="low">Low</option>
-															<option value="medium">Medium</option>
-															<option value="high">High</option>
-														</select>
-													</div>
-													<div class="feild horizontal-flex-container">
-														<input type="submit" class="filler" value="Add Routine" class="filler"/>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div id="routine-activities-editor"></div>
+										<div id="one-time-activities-editor"></div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<script>TurnTabsOnOrOff(PlanningOptionsTabs,0);</script>
 					</div>
-					<div id="watch-section">
-						watch
+					<div id="statistics-section">
+						<div class="week" id="this-week-status">
+							
+						</div>
 					</div>
 				</div>
 				<script>TurnTabsOnOrOff(Tabs,0);</script>
 			</div>
 		</main>
-		<main id="main-signed-out" hidden="true" >
-			<div class="centering-parent">
-				<div id="sing-in-popup">
-					<h2>Sign In</h2>
-					<span>singing in to start your use of this useful service!</span>
-					<div hidden>
-						<div id="sing-in-email-button">
-							<div>
-								<div class="feild horizontal-flex-container">
-									<input placeholder="Email" class="filler" type="email" name="sign-in-email"/>
+		<main id="main-signed-out" hidden="true">
+			<div id="landing-page-and-sign-in-popup-container">
+				<div class="filler" style="overflow: auto;    margin-inline: 1em; padding-inline: 1em;">
+					<article style="margin-inline: auto;">
+						<div style="text-align: center;">
+							<h2>Welcome to Day Chunks</h2>
+							<span>your all-in-one solution for managing time and building habits!</span>
+						</div>
+						<p>
+							With Day Chunks,
+							you can seamlessly blend scheduling and routine/habit tracking into one powerful platform,
+							making it easier than ever to prioritize your tasks and stay organized. 
+							Whether you're a busy professional, a student with a packed schedule, or anyone in between.
+						</p>
+
+						<h3>Here's what you can expect from Day Chunks:</h3>
+						<ul>
+							<li>
+								<div class="img-and-content-container">
+									<div>
+										<h4>Easy Visualization:</h4>
+										<p>
+											Visualize your daily tasks and confidently schedule your plans.
+											Everything you need or want to accomplish is conveniently consolidated in one place
+										</p>
+									</div>
+									<img src="/imgs/schedule-section-screenshot.png"> 
 								</div>
-								<div class="feild horizontal-flex-container">
-									<input placeholder="Password" class="filler" type="password" name="sign-in-password"/>
+							</li> 
+							<li>
+								<div class="img-and-content-container">
+									<div>
+										<h4>Intuitive Scheduling:</h4>
+										<p>
+											Effortlessly plan your day, or week with our intuitive scheduling feature.
+											create custom schedules and routines that fit your unique lifestyle and priorities.
+										</p>
+									</div>
+									<img src="/imgs/plans-section-screenshot.png">
 								</div>
-								<div class="feild horizontal-flex-container">
-									<input class="filler" type="submit" value="Sing in"/>
+							</li>
+							<li>
+								<div class="img-and-content-container">
+									<div>
+										<h4>Routine and Habit Tracking:</h4>
+										<p>
+											Build better habits and break free from procrastination with our powerful routine and habit tracking tools.
+											Set daily or weekly goals, track your progress over time, and celebrate your successes along the way.
+										</p>
+									</div>
+	
+									<img src="/imgs/statistics-section-screenshot.png">
+								</div>
+							</li>
+							<li>
+								<h4>Seamless Integration:</h4>
+								<p>
+									no more juggling multiple apps and tools. you can seamlessly integrates scheduling and routine tracking into one cohesive platform, giving you everything you need to stay on top of your day in one convenient tool.
+									and on top of that, you can sinc in multiple devices with one account, making it easier to stay organized everywhere
+								</p>
+							</li>
+						</ul>
+
+					</article>
+				</div>
+				<hr/>
+				<div class="centering-parent-column" style="    padding-top: 1em;">
+						<nav style="display: grid; grid-template-columns: 1fr 1fr;">
+							<script>
+								const create_account_or_login = [
+									{button_id:'create-account-tab-button',tab_id:'create-account-top-popup',button_styling_choice_class:'highlighted'},
+									{button_id:'sign-in-tab-button',tab_id:'sign-in-top-popup',button_styling_choice_class:'highlighted'},
+								];
+							</script>
+							<button id="create-account-tab-button" onclick="TurnTabsOnOrOff(create_account_or_login,0);">
+								Create Account
+							</button>
+							<button id="sign-in-tab-button" onclick="TurnTabsOnOrOff(create_account_or_login,1);" >
+								Sign In
+							</button>
+						</nav>
+	
+						<div id="sign-in-popup">
+							<div id="create-account-top-popup">
+								<div>
+									<div id="create-account-email">
+										<div>
+											<div class="feild horizontal-flex-container">
+												<input placeholder="Email" class="filler" type="email" name="sign-in-email"/>
+											</div>
+											<div class="feild horizontal-flex-container">
+												<input placeholder="Password" class="filler" type="password" name="sign-in-password"/>
+											</div>
+											<div class="feild horizontal-flex-container">
+												<input placeholder="Confirm Password" class="filler" id="confirm-password" type="password" name="sign-in-password"/>
+											</div>
+											<div class="feild horizontal-flex-container">
+												<input class="filler" type="submit" value="Create Account"/>
+											</div>
+											<span id="error-dialog" style="color: red; font-size: 0.8em; background: var(--dark-sliver-color);"></span>
+										</div>
+									</div>
+									<div class="centering-parent">
+										or
+									</div>
 								</div>
 							</div>
+							<div id="sign-in-top-popup">
+								<div>
+									<div id="sign-in-email">
+										<div>
+											<div class="feild horizontal-flex-container">
+												<input placeholder="Email" class="filler" type="email" name="sign-in-email"/>
+											</div>
+											<div class="feild horizontal-flex-container">
+												<input placeholder="Password" class="filler" type="password" name="sign-in-password"/>
+											</div>
+											<div class="feild horizontal-flex-container">
+												<input class="filler" type="submit" value="sign in"/>
+											</div>
+											<span id="error-dialog" style="color: red; font-size: 0.8em; background: var(--dark-sliver-color);"></span>
+										</div>
+									</div>
+									<div class="centering-parent">
+										or
+									</div>
+								</div>
+							</div>
+							
+							<button id="sign-in-google-button" class="sign-in-button-provider centering-parent">
+								<img src="/icons/google-logo.svg" style="height: 100%; margin-inline: 1em;">
+								<b>Continue With Google</b>
+							</button>
+							<button id="sign-in-anonymously-button" class="sign-in-button-provider centering-parent">
+								<b>Continue Anonymously</b>
+							</button>
+							<span class="caution">by creating an account or signing in, you agree to the
+								<a href="/p/privacy-policy.html">Privacy policy</a> and
+								<a href="/p/terms-of-use.html">Terms of Use</a>
+							</span>
 						</div>
-						<div class="centering-parent">
-							or
-						</div>
+	
+						<script>TurnTabsOnOrOff(create_account_or_login,0);</script>
 					</div>
-					<button id="sign-in-google-button" class="sign-in-button-provider centering-parent">
-						<img src="/icons/google-logo.svg" style="height: 100%; margin-inline: 1em;">
-						<b>Sign In With Google</b>
-					</button>
-				</div>
 			</div>
+			
 		</main>
 		<main id="main-loading">
 			please wait for your app to load.
 		</main>
 		<footer>
-			<a href="/p/how-to-use.html">How to Use</a> -
 			<a href="/p/about-us.html">About Us</a> - 
 			<a href="/p/privacy-policy.html">Privacy policy</a> - 
 			<a href="/p/terms-of-use.html">Terms of Use</a> -

@@ -39,8 +39,7 @@ input[type="range"] {
     appearance: none;
     background-color: var(--light-gray-color);
     height: 0.4em;
-    margin: 0.6em 0.3em;
-	width: calc(100% - 0.6em);
+    margin-block: 0.6em;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -83,41 +82,24 @@ html, body{
 	color:white;
 }
 
-
-nav{
-	button{
-		flex: 1 1 auto;
-		text-align: center;
-		padding: 0.5em;
-	}
-}
-
 .filler{
 	flex: 1 1 auto;
 }
-
-.blue-button{
-	background-color: #303030;
-	border: white solid 0.2em;
-	border-radius: 3em;
-	min-height: 100%;
-	padding-left: 1em;
-	padding-right: 1em;
-}
-
-.blue-button:hover{
-	background-color: white;
-	color: var(--light-gray-color);
-} 
 
 .centering-parent{
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+.centering-parent-column{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
 
 header{
-	padding:1em;
+	padding: 0.7em;
 	flex: 0 1 auto;
 	background-color: var(--light-gray-color);
 
@@ -138,6 +120,7 @@ header{
 			top: calc(100%);
 			display: none;
 			box-shadow:  0.3em 0.3em 2em #00000055;
+			z-index: 1;
 		}
 	}
 
@@ -149,32 +132,64 @@ header{
 }
 
 main{
-	padding:1em;
+	padding: 0.7em;
 	flex: 1 1 auto;
 	background-color: var(--dark-gray-color);
 	overflow: auto;
 
-	input[type="text"], select,input[type="number"], input[type="submit"],input[type="email"],input[type="password"],select{
-		margin: 0.5em 0em;
+	input[type="text"],select,input[type="number"], input[type="submit"],input[type="email"],input[type="password"],input[type="button"],input[type="time"]{
+		margin: 0.5em 0.1em;
 		border-radius: 0.5em;
 		padding: 0.5em;
 		color:inherit;
-		appearance: none;
 		border: black 0.0em none;
 		background-color: var(--dark-gray-color);
 		overflow: hidden;
 		text-overflow:clip;
 		white-space: nowrap;
+		position: relative;
+	}
+	input[type="time"]::-webkit-calendar-picker-indicator {
+		background: transparent;
+		bottom: 0;
+		color: transparent;
+		cursor: pointer;
+		height: auto;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width:auto
+	}
+
+	input[type="checkbox"]:checked {
+		background-color: var(--dark-sky-color);
+		background-image: url(/icons/check-mark.svg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	
+	input[type="checkbox"] {
+		appearance: none;
+		width: 1.5em;
+		height: 1.5em;
+		background: var(--dark-gray-color);
+		border-radius: 0.2em;
 	}
 
 	nav{
+		margin-block: 0.2em;
+		gap: 0.4em;
 		button{
-			margin: 0.2em;
 			border-radius: 0.5em;
 			background-color: var(--light-gray-color);
 			overflow: hidden;
 			text-overflow:clip;
 			white-space: nowrap;
+			flex: 1 1 auto;
+			text-align: center;
+			padding: 0.5em;
 		}
 
 		.highlighted{
@@ -182,30 +197,111 @@ main{
 		}
 	}
 
-	#excute-section{
+	#schedule-section{
 		height: 100%;
 
 		.activity{
-			border-left: 1em white solid;
+			border-left: 0.5em white solid;
 			border-radius: 0.5em;
 			position: absolute;
-			left: 0.2em;
+			left: 0em;
 			right: 0.2em;
 			overflow: hidden;
 			box-sizing: border-box;
 			padding: 0.5em;
 			background-color: var(--light-gray-color);
-	
-			button{
-				flex: 0 1 auto;
-				padding: 0em;
-				padding-left: 1em;
-				padding-right: 1em;
-				border-radius: 0.5em;
-				background-color: var(--light-gray-color);
-				border: 0.2em solid var(--dark-sliver-color);
+			container-type: size;
+
+			.buttons{
+				display: flex;
+				flex-flow: column;
+				height: 100%;
+				gap: 0.2em;
+
+				button{
+					flex: 0 1 auto;
+					padding: 0em;
+					padding-inline: 0.2em;
+					white-space: nowrap;
+					border-radius: 0.5em;
+					background-color: var(--light-gray-color);
+					border: 0.2em solid var(--dark-sliver-color);
+					margin-block: 0.1em;
+				}
 			}
 		}
+
+		#schedule-zoon{
+			button{
+				width: 1.3em;
+				background-color: var(--light-gray-color);
+				margin: 0.2em;
+				border-radius: 0.2em;
+			}
+		}
+
+
+		@container (max-height: 3em){
+
+			.description{
+				display: none;
+			}
+
+			.time{
+				display: none;
+			}
+
+			button{
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 1em 1em;
+				width: 2em;
+				height: 2em;
+
+				span{
+					display: none;
+				}
+			}
+
+
+			.done{
+				background-image: url(/icons/check-mark.svg);
+			}
+
+			.cancel{
+				background-image: url(/icons/cancel.svg);
+			}
+			
+			.undo{
+				background-image: url(/icons/undo.svg);
+			}
+
+			.buttons{
+				flex-wrap: wrap;
+				flex-flow: row !important;
+			}
+
+			.title,.buttons{
+				font-size: 0.85em;
+			}
+
+		}
+
+		@container (max-height: 1.5em){
+			.title,.buttons{
+				margin-top: -0.5em;
+			}
+
+		}
+
+		@container (max-height: 0.3em){
+			*{
+				display: none;
+			}
+
+		}
+
+
 	
 		.day-tab{
 			position: relative;
@@ -215,9 +311,8 @@ main{
 
 		#day-tabs-container-parent{
 			height: 100%;
-			overflow-y: scroll;
+			overflow-y: auto;
 			position: relative;
-			margin-right: 0.2em;
 
 			#current-time{
 				position: absolute;
@@ -229,7 +324,7 @@ main{
 
 			#hours-indecator{
 
-				font-size: 0.8em;
+				font-size: 0.5em;
 				color: var(--dark-sliver-color);
 				position: relative;
 				overflow: hidden;
@@ -242,25 +337,22 @@ main{
 		}
 	}
 
-	#plan-section{
+	#plans-section{
 		height: 100%;
 
-		.routine-activity-editor,.one-time-activity-editor{
+		.activity-editor{
 			background-color: var(--light-gray-color);
 			border-radius: 0.5em;
-			margin: 0.2em;
 			padding: 1em;
-			margin: 1em 0.2em 1em 0.2em;
-			border-left: 1em solid white;
-			min-height: 4.2em;
-
+			margin-block: 1em;
+			border-left: 0.6em solid white;
 
 			*{
 				overflow: hidden;
 				transition: grid-template-rows 200ms ease-in-out, transform 200ms ease-in-out;
 			}
 
-			#routine-activities-creator-feilds-container,#one-time-activities-creator-feilds-container{
+			#routine-activities-creator-feilds-container{
 				display: grid;
 				grid-template-rows: 0fr;
 			}
@@ -275,64 +367,148 @@ main{
 			}
 
 			.feild{
-				align-content: center;
-				padding: 0.2em;
-				min-height: 2em;
-
-				input[type="checkbox"]{
-					margin-left: 0.25em;
-					margin-right: 0.25em;
-				}
-
+				
 				label{
-					min-width: 5em;
-
-					display: flex;
+					min-width: 5.5em;
+					display: inline-flex;
 					align-items: center;
-				}
-
-				table label{
-					display: inline;
 				}
 			}
 		}
 	}
 
-	#sing-in-popup{
-		background-color: var(--light-gray-color);
-		padding: 1em;
-		border-radius: 1em;
-
-		h2{
-			text-align: center;
-		}
-
-		.sign-in-button-provider{
-			width: 100%;
+	#statistics-section{
+		
+		.week{
+			background-color: var(--light-gray-color);
+			border-radius: 0.5em;
 			padding: 1em;
-			background-color: white;
-			color: var(--light-gray-color);
-			border-radius: 1em;
-			margin: 1em 0em;
+			margin-block: 1em;
+
+			.routine-checkup{
+				padding: 0.5em;
+				margin-block: 0.5em;
+				border-radius: 0.5em;
+				box-shadow: 0px 0px 0.7em #ffffff12;
+
+				.checks-container{
+					padding-block: 0.5em;
+					gap:0.2em;
+
+					.check{
+						height: 2em;
+						border-radius: 0.5em;
+					}
+				}
+			}
+		}
+	}
+	#landing-page-and-sign-in-popup-container{
+		display: flex;
+		flex-wrap: wrap;
+		flex-flow: row;
+		height: 100%;
+
+		.img-and-content-container{
+			display: flex;
+			flex-wrap: wrap;
+			flex-flow: row;
+
+			padding-block: 1em;
+			
+			img{
+				width: 20ch;
+			}
 		}
 
-		.feild{
-			align-content: center;
-			min-height: 2em;
+		#sign-in-popup{
+			background-color: var(--light-gray-color);
+			padding: 1em;
+			border-radius: 1em;
+			width: 30ch;
+			margin: 1em;
+
+			h2{
+				text-align: center;
+			}
+	
+			.sign-in-button-provider{
+				width: 100%;
+				padding: 0.4em;
+				background-color: white;
+				color: var(--light-gray-color);
+				border-radius: 0.5em;
+				margin: 1em 0em;
+				height: 2em;
+			}
+	
+			.feild{
+				align-content: center;
+				min-height: 2em;
+			}
+	
+			.caution{
+				font-size: 0.7em;
+				line-height: 0.7em;
+				color: var(--dark-sliver-color);
+			}
+		}
+
+
+	}
+
+	article{
+		max-width: 60ch;
+		margin-left: auto;
+		margin-right: auto;
+		container-type: inline-size;
+	
+		h1,h2{
+			margin-top: 1.2em;
+			margin-bottom: 0.3em;
+		}
+		
+		li{
+			margin-left: 2em;
+			padding: 0.3em;
+		}
+		
+		p {
+			margin-block: 0.7em;
+		}
+		
+		p,li{
+			line-height: 1.3em;
 		}
 	}
 
-	#watch-section{
-		height: 100%;
+	@container (width < 45ch){
+		.img-and-content-container{
+			display: block !important;
+		}
+	}
+}
+
+@media (max-width:700px) {
+	main{
+		#landing-page-and-sign-in-popup-container{
+
+
+
+			display: flex;
+			flex-flow: column;
+			height: 100%;
+		}
 	}
 }
 
 footer{
-	padding:0.5em;
+	padding: 0.7em;
 	flex: 0 1 auto;
 	background-color:var(--light-gray-color);
 	text-align: center;
 	color: var(--dark-sliver-color);
+	font-size: 0.8em;
 
 	a{
 		color: var(--dark-sliver-color);

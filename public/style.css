@@ -36,8 +36,7 @@ input[type=range] {
   appearance: none;
   background-color: var(--light-gray-color);
   height: 0.4em;
-  margin: 0.6em 0.3em;
-  width: calc(100% - 0.6em);
+  margin-block: 0.6em;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -80,28 +79,8 @@ html, body {
   color: white;
 }
 
-nav button {
-  flex: 1 1 auto;
-  text-align: center;
-  padding: 0.5em;
-}
-
 .filler {
   flex: 1 1 auto;
-}
-
-.blue-button {
-  background-color: #303030;
-  border: white solid 0.2em;
-  border-radius: 3em;
-  min-height: 100%;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-.blue-button:hover {
-  background-color: white;
-  color: var(--light-gray-color);
 }
 
 .centering-parent {
@@ -110,8 +89,15 @@ nav button {
   align-items: center;
 }
 
+.centering-parent-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 header {
-  padding: 1em;
+  padding: 0.7em;
   flex: 0 1 auto;
   background-color: var(--light-gray-color);
 }
@@ -131,164 +117,313 @@ header .dropdown .dropdown-content {
   top: 100%;
   display: none;
   box-shadow: 0.3em 0.3em 2em rgba(0, 0, 0, 0.3333333333);
+  z-index: 1;
 }
 header .dropdown:hover .dropdown-content, header .dropdown:focus-within .dropdown-content {
   display: block;
 }
 
 main {
-  padding: 1em;
+  padding: 0.7em;
   flex: 1 1 auto;
   background-color: var(--dark-gray-color);
   overflow: auto;
 }
-main input[type=text], main select, main input[type=number], main input[type=submit], main input[type=email], main input[type=password], main select {
-  margin: 0.5em 0em;
+main input[type=text], main select, main input[type=number], main input[type=submit], main input[type=email], main input[type=password], main input[type=button], main input[type=time] {
+  margin: 0.5em 0.1em;
   border-radius: 0.5em;
   padding: 0.5em;
   color: inherit;
-  appearance: none;
   border: black 0em none;
   background-color: var(--dark-gray-color);
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
+  position: relative;
+}
+main input[type=time]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+main input[type=checkbox]:checked {
+  background-color: var(--dark-sky-color);
+  background-image: url(/icons/check-mark.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+main input[type=checkbox] {
+  appearance: none;
+  width: 1.5em;
+  height: 1.5em;
+  background: var(--dark-gray-color);
+  border-radius: 0.2em;
+}
+main nav {
+  margin-block: 0.2em;
+  gap: 0.4em;
 }
 main nav button {
-  margin: 0.2em;
   border-radius: 0.5em;
   background-color: var(--light-gray-color);
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
+  flex: 1 1 auto;
+  text-align: center;
+  padding: 0.5em;
 }
 main nav .highlighted {
   background-color: var(--dark-sliver-color);
 }
-main #excute-section {
+main #schedule-section {
   height: 100%;
 }
-main #excute-section .activity {
-  border-left: 1em white solid;
+main #schedule-section .activity {
+  border-left: 0.5em white solid;
   border-radius: 0.5em;
   position: absolute;
-  left: 0.2em;
+  left: 0em;
   right: 0.2em;
   overflow: hidden;
   box-sizing: border-box;
   padding: 0.5em;
   background-color: var(--light-gray-color);
+  container-type: size;
 }
-main #excute-section .activity button {
+main #schedule-section .activity .buttons {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  gap: 0.2em;
+}
+main #schedule-section .activity .buttons button {
   flex: 0 1 auto;
   padding: 0em;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-inline: 0.2em;
+  white-space: nowrap;
   border-radius: 0.5em;
   background-color: var(--light-gray-color);
   border: 0.2em solid var(--dark-sliver-color);
+  margin-block: 0.1em;
 }
-main #excute-section .day-tab {
+main #schedule-section #schedule-zoon button {
+  width: 1.3em;
+  background-color: var(--light-gray-color);
+  margin: 0.2em;
+  border-radius: 0.2em;
+}
+@container (max-height: 3em) {
+  main #schedule-section .description {
+    display: none;
+  }
+  main #schedule-section .time {
+    display: none;
+  }
+  main #schedule-section button {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1em 1em;
+    width: 2em;
+    height: 2em;
+  }
+  main #schedule-section button span {
+    display: none;
+  }
+  main #schedule-section .done {
+    background-image: url(/icons/check-mark.svg);
+  }
+  main #schedule-section .cancel {
+    background-image: url(/icons/cancel.svg);
+  }
+  main #schedule-section .undo {
+    background-image: url(/icons/undo.svg);
+  }
+  main #schedule-section .buttons {
+    flex-wrap: wrap;
+    flex-flow: row !important;
+  }
+  main #schedule-section .title, main #schedule-section .buttons {
+    font-size: 0.85em;
+  }
+}
+@container (max-height: 1.5em) {
+  main #schedule-section .title, main #schedule-section .buttons {
+    margin-top: -0.5em;
+  }
+}
+@container (max-height: 0.3em) {
+  main #schedule-section * {
+    display: none;
+  }
+}
+main #schedule-section .day-tab {
   position: relative;
   width: 100%;
   height: 100%;
 }
-main #excute-section #day-tabs-container-parent {
+main #schedule-section #day-tabs-container-parent {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
-  margin-right: 0.2em;
 }
-main #excute-section #day-tabs-container-parent #current-time {
+main #schedule-section #day-tabs-container-parent #current-time {
   position: absolute;
   left: 0px;
   right: 0px;
   height: 0.3em;
   background-color: rgba(0, 217, 255, 0.3647058824);
 }
-main #excute-section #day-tabs-container-parent #hours-indecator {
-  font-size: 0.8em;
+main #schedule-section #day-tabs-container-parent #hours-indecator {
+  font-size: 0.5em;
   color: var(--dark-sliver-color);
   position: relative;
   overflow: hidden;
 }
-main #excute-section #day-tabs-container-parent #hours-indecator * {
+main #schedule-section #day-tabs-container-parent #hours-indecator * {
   overflow: hidden;
 }
-main #plan-section {
+main #plans-section {
   height: 100%;
 }
-main #plan-section .routine-activity-editor, main #plan-section .one-time-activity-editor {
+main #plans-section .activity-editor {
   background-color: var(--light-gray-color);
   border-radius: 0.5em;
-  margin: 0.2em;
   padding: 1em;
-  margin: 1em 0.2em 1em 0.2em;
-  border-left: 1em solid white;
-  min-height: 4.2em;
+  margin-block: 1em;
+  border-left: 0.6em solid white;
 }
-main #plan-section .routine-activity-editor *, main #plan-section .one-time-activity-editor * {
+main #plans-section .activity-editor * {
   overflow: hidden;
   transition: grid-template-rows 200ms ease-in-out, transform 200ms ease-in-out;
 }
-main #plan-section .routine-activity-editor #routine-activities-creator-feilds-container, main #plan-section .routine-activity-editor #one-time-activities-creator-feilds-container, main #plan-section .one-time-activity-editor #routine-activities-creator-feilds-container, main #plan-section .one-time-activity-editor #one-time-activities-creator-feilds-container {
+main #plans-section .activity-editor #routine-activities-creator-feilds-container {
   display: grid;
   grid-template-rows: 0fr;
 }
-main #plan-section .routine-activity-editor img, main #plan-section .one-time-activity-editor img {
+main #plans-section .activity-editor img {
   width: 1.7em;
   margin: 0.15em 0.5em;
 }
-main #plan-section .routine-activity-editor h1, main #plan-section .routine-activity-editor h2, main #plan-section .routine-activity-editor h3, main #plan-section .routine-activity-editor h4, main #plan-section .routine-activity-editor h5, main #plan-section .routine-activity-editor h6, main #plan-section .one-time-activity-editor h1, main #plan-section .one-time-activity-editor h2, main #plan-section .one-time-activity-editor h3, main #plan-section .one-time-activity-editor h4, main #plan-section .one-time-activity-editor h5, main #plan-section .one-time-activity-editor h6 {
+main #plans-section .activity-editor h1, main #plans-section .activity-editor h2, main #plans-section .activity-editor h3, main #plans-section .activity-editor h4, main #plans-section .activity-editor h5, main #plans-section .activity-editor h6 {
   flex: 1;
 }
-main #plan-section .routine-activity-editor .feild, main #plan-section .one-time-activity-editor .feild {
-  align-content: center;
-  padding: 0.2em;
-  min-height: 2em;
-}
-main #plan-section .routine-activity-editor .feild input[type=checkbox], main #plan-section .one-time-activity-editor .feild input[type=checkbox] {
-  margin-left: 0.25em;
-  margin-right: 0.25em;
-}
-main #plan-section .routine-activity-editor .feild label, main #plan-section .one-time-activity-editor .feild label {
-  min-width: 5em;
-  display: flex;
+main #plans-section .activity-editor .feild label {
+  min-width: 5.5em;
+  display: inline-flex;
   align-items: center;
 }
-main #plan-section .routine-activity-editor .feild table label, main #plan-section .one-time-activity-editor .feild table label {
-  display: inline;
+main #statistics-section .week {
+  background-color: var(--light-gray-color);
+  border-radius: 0.5em;
+  padding: 1em;
+  margin-block: 1em;
 }
-main #sing-in-popup {
+main #statistics-section .week .routine-checkup {
+  padding: 0.5em;
+  margin-block: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 0.7em rgba(255, 255, 255, 0.0705882353);
+}
+main #statistics-section .week .routine-checkup .checks-container {
+  padding-block: 0.5em;
+  gap: 0.2em;
+}
+main #statistics-section .week .routine-checkup .checks-container .check {
+  height: 2em;
+  border-radius: 0.5em;
+}
+main #landing-page-and-sign-in-popup-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  height: 100%;
+}
+main #landing-page-and-sign-in-popup-container .img-and-content-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  padding-block: 1em;
+}
+main #landing-page-and-sign-in-popup-container .img-and-content-container img {
+  width: 20ch;
+}
+main #landing-page-and-sign-in-popup-container #sign-in-popup {
   background-color: var(--light-gray-color);
   padding: 1em;
   border-radius: 1em;
+  width: 30ch;
+  margin: 1em;
 }
-main #sing-in-popup h2 {
+main #landing-page-and-sign-in-popup-container #sign-in-popup h2 {
   text-align: center;
 }
-main #sing-in-popup .sign-in-button-provider {
+main #landing-page-and-sign-in-popup-container #sign-in-popup .sign-in-button-provider {
   width: 100%;
-  padding: 1em;
+  padding: 0.4em;
   background-color: white;
   color: var(--light-gray-color);
-  border-radius: 1em;
+  border-radius: 0.5em;
   margin: 1em 0em;
+  height: 2em;
 }
-main #sing-in-popup .feild {
+main #landing-page-and-sign-in-popup-container #sign-in-popup .feild {
   align-content: center;
   min-height: 2em;
 }
-main #watch-section {
-  height: 100%;
+main #landing-page-and-sign-in-popup-container #sign-in-popup .caution {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  color: var(--dark-sliver-color);
+}
+main article {
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+  container-type: inline-size;
+}
+main article h1, main article h2 {
+  margin-top: 1.2em;
+  margin-bottom: 0.3em;
+}
+main article li {
+  margin-left: 2em;
+  padding: 0.3em;
+}
+main article p {
+  margin-block: 0.7em;
+}
+main article p, main article li {
+  line-height: 1.3em;
+}
+@container (width < 45ch) {
+  main .img-and-content-container {
+    display: block !important;
+  }
 }
 
+@media (max-width: 700px) {
+  main #landing-page-and-sign-in-popup-container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+}
 footer {
-  padding: 0.5em;
+  padding: 0.7em;
   flex: 0 1 auto;
   background-color: var(--light-gray-color);
   text-align: center;
   color: var(--dark-sliver-color);
+  font-size: 0.8em;
 }
 footer a {
   color: var(--dark-sliver-color);
