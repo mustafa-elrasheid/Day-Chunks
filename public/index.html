@@ -9,9 +9,10 @@
 		-->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title> Day Chunks - home page </title>
+		<title>Day Chunks</title>
 		<meta name="description" content="Day Chunks is a time management app that sections your day into manageable chunks.">
 		<meta name="keywords" content="Time Manageable, Todo app, lists, app">
+		<link rel="icon" href="/icons/logo.svg" type="image/svg+xml">
 		<link rel="stylesheet" href="style.css">
 		<script defer src="/__/firebase/10.10.0/firebase-app-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-auth-compat.js"></script>
@@ -239,27 +240,27 @@
 								</p>
 							</li>
 						</ul>
-
 					</article>
 				</div>
 				<hr/>
-				<div class="centering-parent-column" style="    padding-top: 1em;">
-						<nav style="display: grid; grid-template-columns: 1fr 1fr;">
-							<script>
-								const create_account_or_login = [
-									{button_id:'create-account-tab-button',tab_id:'create-account-top-popup',button_styling_choice_class:'highlighted'},
-									{button_id:'sign-in-tab-button',tab_id:'sign-in-top-popup',button_styling_choice_class:'highlighted'},
-								];
-							</script>
-							<button id="create-account-tab-button" onclick="TurnTabsOnOrOff(create_account_or_login,0);">
-								Create Account
-							</button>
-							<button id="sign-in-tab-button" onclick="TurnTabsOnOrOff(create_account_or_login,1);" >
-								Sign In
-							</button>
-						</nav>
-	
+				<div class="centering-parent-column">
 						<div id="sign-in-popup">
+							<nav style="display: grid; grid-template-columns: 1fr 1fr;">
+								<script>
+									let create_account_or_login = [
+										{button_id:'create-account-tab-button',tab_id:'create-account-top-popup',button_styling_choice_class:'highlighted'},
+										{button_id:'sign-in-tab-button',tab_id:'sign-in-top-popup',button_styling_choice_class:'highlighted'},
+									];
+								</script>
+								<span id="create-account-tab-button" onclick="TurnTabsOnOrOff(create_account_or_login,0);">
+									Create Account
+								</span>
+								<span id="sign-in-tab-button" onclick="TurnTabsOnOrOff(create_account_or_login,1);" >
+									Sign In
+								</span>
+								
+							</nav>
+							
 							<div id="create-account-top-popup">
 								<div>
 									<div id="create-account-email">
@@ -279,9 +280,6 @@
 											<span id="error-dialog" style="color: red; font-size: 0.8em; background: var(--dark-sliver-color);"></span>
 										</div>
 									</div>
-									<div class="centering-parent">
-										or
-									</div>
 								</div>
 							</div>
 							<div id="sign-in-top-popup">
@@ -300,9 +298,6 @@
 											<span id="error-dialog" style="color: red; font-size: 0.8em; background: var(--dark-sliver-color);"></span>
 										</div>
 									</div>
-									<div class="centering-parent">
-										or
-									</div>
 								</div>
 							</div>
 							
@@ -313,13 +308,14 @@
 							<button id="sign-in-anonymously-button" class="sign-in-button-provider centering-parent">
 								<b>Continue Anonymously</b>
 							</button>
-							<span class="caution">by creating an account or signing in, you agree to the
-								<a href="/p/privacy-policy.html">Privacy policy</a> and
+							<span class="caution">you agree to our
+								<a href="/p/privacy-policy.html">Privacy Policy</a> and
 								<a href="/p/terms-of-use.html">Terms of Use</a>
+								by signing in or creatinf an account
 							</span>
 						</div>
 	
-						<script>TurnTabsOnOrOff(create_account_or_login,0);</script>
+						<script>TurnTabsOnOrOff(create_account_or_login,1);</script>
 					</div>
 			</div>
 			
@@ -329,7 +325,7 @@
 		</main>
 		<footer>
 			<a href="/p/about-us.html">About Us</a> - 
-			<a href="/p/privacy-policy.html">Privacy policy</a> - 
+			<a href="/p/privacy-policy.html">Privacy Policy</a> - 
 			<a href="/p/terms-of-use.html">Terms of Use</a> -
 			<a href="/p/contact-us.html">Contact Us</a> - 
 			<a href="/p/donations.html">Donations</a>

@@ -149,6 +149,7 @@ main{
 		white-space: nowrap;
 		position: relative;
 	}
+	
 	input[type="time"]::-webkit-calendar-picker-indicator {
 		background: transparent;
 		bottom: 0;
@@ -181,6 +182,7 @@ main{
 	nav{
 		margin-block: 0.2em;
 		gap: 0.4em;
+
 		button{
 			border-radius: 0.5em;
 			background-color: var(--light-gray-color);
@@ -192,8 +194,18 @@ main{
 			padding: 0.5em;
 		}
 
-		.highlighted{
+		span{
+			text-align:  center;
+			color: var(--dark-sliver-color);
+		}
+
+		button.highlighted{
 			background-color: var(--dark-sliver-color);
+		}
+
+		span.highlighted{
+			text-decoration: underline;
+			color: white;
 		}
 	}
 
@@ -232,10 +244,12 @@ main{
 		}
 
 		#schedule-zoon{
+			gap: 0.4em;
+			margin-block: 0.2em;
+			
 			button{
 				width: 1.3em;
 				background-color: var(--light-gray-color);
-				margin: 0.2em;
 				border-radius: 0.2em;
 			}
 		}
@@ -438,7 +452,7 @@ main{
 				background-color: white;
 				color: var(--light-gray-color);
 				border-radius: 0.5em;
-				margin: 1em 0em;
+				margin: 0.8em 0em;
 				height: 2em;
 			}
 	
@@ -451,6 +465,10 @@ main{
 				font-size: 0.7em;
 				line-height: 0.7em;
 				color: var(--dark-sliver-color);
+
+				a{
+					font-size: 0.7em;
+				}
 			}
 		}
 
@@ -493,7 +511,9 @@ main{
 	main{
 		#landing-page-and-sign-in-popup-container{
 
-
+			#sign-in-popup{
+				margin: 0px;
+			}
 
 			display: flex;
 			flex-flow: column;

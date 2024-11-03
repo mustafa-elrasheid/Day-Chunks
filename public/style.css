@@ -181,8 +181,16 @@ main nav button {
   text-align: center;
   padding: 0.5em;
 }
-main nav .highlighted {
+main nav span {
+  text-align: center;
+  color: var(--dark-sliver-color);
+}
+main nav button.highlighted {
   background-color: var(--dark-sliver-color);
+}
+main nav span.highlighted {
+  text-decoration: underline;
+  color: white;
 }
 main #schedule-section {
   height: 100%;
@@ -215,10 +223,13 @@ main #schedule-section .activity .buttons button {
   border: 0.2em solid var(--dark-sliver-color);
   margin-block: 0.1em;
 }
+main #schedule-section #schedule-zoon {
+  gap: 0.4em;
+  margin-block: 0.2em;
+}
 main #schedule-section #schedule-zoon button {
   width: 1.3em;
   background-color: var(--light-gray-color);
-  margin: 0.2em;
   border-radius: 0.2em;
 }
 @container (max-height: 3em) {
@@ -372,7 +383,7 @@ main #landing-page-and-sign-in-popup-container #sign-in-popup .sign-in-button-pr
   background-color: white;
   color: var(--light-gray-color);
   border-radius: 0.5em;
-  margin: 1em 0em;
+  margin: 0.8em 0em;
   height: 2em;
 }
 main #landing-page-and-sign-in-popup-container #sign-in-popup .feild {
@@ -383,6 +394,9 @@ main #landing-page-and-sign-in-popup-container #sign-in-popup .caution {
   font-size: 0.7em;
   line-height: 0.7em;
   color: var(--dark-sliver-color);
+}
+main #landing-page-and-sign-in-popup-container #sign-in-popup .caution a {
+  font-size: 0.7em;
 }
 main article {
   max-width: 60ch;
@@ -415,6 +429,9 @@ main article p, main article li {
     display: flex;
     flex-flow: column;
     height: 100%;
+  }
+  main #landing-page-and-sign-in-popup-container #sign-in-popup {
+    margin: 0px;
   }
 }
 footer {

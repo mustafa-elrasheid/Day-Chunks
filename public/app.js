@@ -14,7 +14,7 @@ function FormatHours(hours,minutes){
 }
 
 function FormatDuration(minutes){
-	return `${minutes / 60 != 0 ? `${minutes / 60}h` : ``} ${minutes % 60 != 0 && minutes / 60 != 0 ? ` and ` : ``} ${minutes % 60 != 0 ? `${ minutes % 60}m` : ``}`;
+	return `${ minutes / 60 != 0 && minutes / 60 % 0 ? `${minutes / 60}h` : ``} ${minutes % 60 != 0 && minutes / 60 != 0 ? ` and ` : ``} ${minutes % 60 != 0 ? `${ minutes % 60}m` : ``}`;
 }
 
 let unsubscribe;
