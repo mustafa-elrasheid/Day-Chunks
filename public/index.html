@@ -19,8 +19,11 @@
 		<script defer src="/__/firebase/10.10.0/firebase-database-compat.js"></script>
 		<script defer src="/__/firebase/10.10.0/firebase-firestore-compat.js"></script>
 		<script defer src="/__/firebase/init.js"></script>
-		<script src="app.js" defer></script>
-		<script src="tabs.js"></script>
+		<script src="scripts/schedule.js" defer></script>
+		<script src="scripts/plans.js" defer></script>
+		<script src="scripts/statistics.js" defer></script>
+		<script src="scripts/app.js" defer></script>
+		<script src="scripts/tabs.js"></script>
 	</head>
 	<body class="vertical-flex-container">
 		<header class="centering-parent">
@@ -87,7 +90,7 @@
 								
 							<div class="filler centering-parent" id="schedule-zoon">
 								<button onclick="document.getElementById('zoom').value -= 10;document.getElementById('zoom').oninput();"><img src="/icons/zoom-out.svg" alt=""></button>
-								<input class="filler" type="range" id="zoom" min="100" max="300" value="100" step="1">
+								<input class="filler" type="range" id="zoom" min="100" max="1500" value="100" step="1">
 								<button onclick="document.getElementById('zoom').value = document.getElementById('zoom').value -1 +1 + 10;document.getElementById('zoom').oninput();"><img src="/icons/zoom-in.svg" alt=""></button>
 							</div>
 							
