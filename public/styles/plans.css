@@ -1,0 +1,32 @@
+#plans-section {
+  height: 100%;
+}
+#plans-section .activity-editor {
+  background-color: var(--light-gray-color);
+  border-radius: 0.5em;
+  padding: 1em;
+  margin-block: 1em;
+  border-left: 0.6em solid white;
+}
+#plans-section .activity-editor * {
+  overflow: hidden;
+  transition: grid-template-rows 200ms ease-in-out, transform 200ms ease-in-out;
+}
+#plans-section .activity-editor #routine-activities-creator-feilds-container {
+  display: grid;
+  grid-template-rows: 0fr;
+}
+#plans-section .activity-editor img {
+  width: 1.7em;
+  margin: 0.15em 0.5em;
+}
+#plans-section .activity-editor h1, #plans-section .activity-editor h2, #plans-section .activity-editor h3, #plans-section .activity-editor h4, #plans-section .activity-editor h5, #plans-section .activity-editor h6 {
+  flex: 1;
+}
+#plans-section .activity-editor .feild label {
+  min-width: 5.5em;
+  display: inline-flex;
+  align-items: center;
+}
+
+/*# sourceMappingURL=plans.css.map */

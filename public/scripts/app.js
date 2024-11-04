@@ -7,7 +7,7 @@
 
 let unsubscribe;
 
-function InitializeLoginUI (Auth) {
+function InitializeLoginUI (Auth,{GoogleProvider}) {
 	document.getElementById("sign-in-google-button").onclick                               = () => Auth.signInWithPopup(GoogleProvider);
 	document.getElementById("sign-in-anonymously-button").onclick                          = () => Auth.signInAnonymously();
 	document.getElementById("sign-out-button").onclick                                     = () => Auth.signOut();
@@ -42,13 +42,12 @@ function InitializeLoginUI (Auth) {
 }
 
 function InitializeApp(){
-
-	InitializeUI();
-
+	
 	let App;
 	let Auth;
 	let DataBase;
 	let GoogleProvider;
+
 	// firebase SDK
 	try {
 		App = firebase.app();
@@ -59,7 +58,9 @@ function InitializeApp(){
 		console.error(error);
 	}
 
-	InitializeLoginUI(Auth);
+	InitializeLoginUI(Auth,{GoogleProvider:GoogleProvider});
+	InitializeScheduleZoom();
+	InitializeTimeMarker();
 
 	let WeekEndDay = 6;
 
@@ -182,17 +183,19 @@ function InitializeApp(){
 	);
 }
 
-function InitializeUI(){
-	let letmedosomething = document.getElementById("day-tabs-container-overflowing");
+function InitializeScheduleZoom(){
+	let DayTabsContainerOverflowing = document.getElementById("day-tabs-container-overflowing");
 	let ZoomRange = document.getElementById("zoom");
-	let CurrentTimeMarker = document.getElementById("current-time");
 
 	ZoomRange.oninput = () => {
-		letmedosomething.style.height =  `${ZoomRange.value}%`;
+		DayTabsContainerOverflowing.style.height =  `${ZoomRange.value}%`;
 	};
+}
 
+function InitializeTimeMarker(){
+	let TimeMarker = document.getElementById("time-marker");
 	let UpdateCurrentTimeMarker = () => {
-		CurrentTimeMarker.style.top = `${(( (new Date()).getHours() * 60) + (new Date().getMinutes())) / (60*24) * 100}%`;
+		TimeMarker.style.top = `${(( (new Date()).getHours() * 60) + (new Date().getMinutes())) / (60*24) * 100}%`;
 	}
 	setInterval(UpdateCurrentTimeMarker, 1000*60);
 	UpdateCurrentTimeMarker();

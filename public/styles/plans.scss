@@ -1,0 +1,39 @@
+#plans-section{
+    height: 100%;
+
+    .activity-editor{
+        background-color: var(--light-gray-color);
+        border-radius: 0.5em;
+        padding: 1em;
+        margin-block: 1em;
+        border-left: 0.6em solid white;
+
+        *{
+            overflow: hidden;
+            transition: grid-template-rows 200ms ease-in-out, transform 200ms ease-in-out;
+        }
+
+        #routine-activities-creator-feilds-container{
+            display: grid;
+            grid-template-rows: 0fr;
+        }
+        
+        img{
+            width: 1.7em;
+            margin: 0.15em 0.5em;
+        }
+
+        h1,h2,h3,h4,h5,h6{
+            flex: 1;
+        }
+
+        .feild{
+            
+            label{
+                min-width: 5.5em;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+    }
+}

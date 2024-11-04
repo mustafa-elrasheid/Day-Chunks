@@ -1,0 +1,22 @@
+#statistics-section .week {
+  background-color: var(--light-gray-color);
+  border-radius: 0.5em;
+  padding: 1em;
+  margin-block: 1em;
+}
+#statistics-section .week .routine-checkup {
+  padding: 0.5em;
+  margin-block: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 0.7em rgba(255, 255, 255, 0.0705882353);
+}
+#statistics-section .week .routine-checkup .checks-container {
+  padding-block: 0.5em;
+  gap: 0.2em;
+}
+#statistics-section .week .routine-checkup .checks-container .check {
+  height: 2em;
+  border-radius: 0.5em;
+}
+
+/*# sourceMappingURL=statistics.css.map */

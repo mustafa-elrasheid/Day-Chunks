@@ -1,0 +1,26 @@
+#statistics-section{
+		
+    .week{
+        background-color: var(--light-gray-color);
+        border-radius: 0.5em;
+        padding: 1em;
+        margin-block: 1em;
+
+        .routine-checkup{
+            padding: 0.5em;
+            margin-block: 0.5em;
+            border-radius: 0.5em;
+            box-shadow: 0px 0px 0.7em #ffffff12;
+
+            .checks-container{
+                padding-block: 0.5em;
+                gap:0.2em;
+
+                .check{
+                    height: 2em;
+                    border-radius: 0.5em;
+                }
+            }
+        }
+    }
+}
